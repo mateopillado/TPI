@@ -1,0 +1,56 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+option{
+    color: black;
+}
+
+.fondo{
+    border-top-left-radius: 30rem;
+    /* border-bottom-left-radius: 30px; */
+    background-color: rebeccapurple;
+    width: 100%;
+    background-image: url("/images/edgar-chaparro-sHfo3WOgGTU-unsplash.jpg");
+    background-size: cover;
+    margin: 30px;
+    background-repeat: no-repeat;
+}
+
+.padre{
+    height: 100vh;
+    width: 100vw;
+    background: rgb(0,0,0);
+background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(50,50,50,1) 83%);
+    display: flex;
+}
+
+a{
+    color: orange;
+}
+
+a:hover{
+    color: rgb(255, 184, 52);
+}
+
+#submitLogin:hover,#submitRegister:hover{
+    background-color: orange;
+    transform: scale(1.02);
+    transition: 1s;
+}
+
+@media (max-width: 767px) {
+    .fondo{
+        display: none;
+    }
+
+    .padre{
+        background: none;
+        background-image: url("/images/edgar-chaparro-sHfo3WOgGTU-unsplash.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}

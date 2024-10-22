@@ -1,0 +1,96 @@
+body{
+    background-color: black;
+}
+
+.hero {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.card {
+    border: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.navitem{
+    padding: 5px;
+    margin-left: 1rem;
+}
+
+.navlink{
+    list-style: none;
+    text-decoration: none;
+    color: white;
+    padding-bottom: 8px;
+}
+
+.navlink:hover{
+    border-bottom: 1px solid orange;
+}
+
+.navjoin{
+    padding: 7px;
+    border-radius: 3px;
+    color: white;
+    list-style: none;
+    text-decoration: none;
+}
+
+.navjoin:hover{
+    background-color: rgb(255, 190, 70);
+}
+
+.logoInicial{
+    color: white;
+}
+
+
+.PRUEBITA{
+    background-position-y: -3rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem;
+}
+
+
+p{
+    margin: 0px;
+}
+
+.centrarFeatures{
+ width: 75vw;
+ display: flex;
+ justify-content: center;
+ color: rgb(218, 218, 218);
+}
+
+.featuresText{
+    color: white;
+    padding: 2rem;
+}
+
+.lineBottom{
+    border-bottom: 0.2rem solid orange;
+}
+
+.lineLeft{
+    border-left:  0.2rem solid orange;;
+}
+
+.padd{
+    padding: 3rem;
+}
+
+@media (max-width: 767px) {
+    .lineBottom{
+        border: none;
+    }.lineLeft{
+        border: none;
+    }
+}
