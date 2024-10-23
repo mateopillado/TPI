@@ -29,82 +29,89 @@
       width: 60px;
     }
   </style>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Ejercicio Dinámico</title>
 </head>
 <body>
 
-  <button id="add-ejercicio-btn"> Nuevo Ejercicio</button>
-  <button class="btn-add" id="add-row-btn">Añadir Serie</button>
+  <button id="add-ejercicio-btn">Nuevo Ejercicio</button>
 
-  <div class="container" id="ejercicios">
-    <table class="table table-dark">
-     
-      <tbody id="series-table">
-        
-      </tbody>
-    </table>
-  </div> 
+  <div id="ejercicios">
+    <!-- Aquí se insertarán los ejercicios dinámicamente -->
+  </div>
 
+  <script>
+    let ejercicioCounter = 0;  // Contador para ejercicios
 
+    document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
+        ejercicioCounter++;  // Incrementa el contador de ejercicios
 
-<script>
+        // Crea el nuevo ejercicio con un ID único
+        const newEjercicio = `
+        <div class="container" id="ejercicio-${ejercicioCounter}">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th>Serie</th>
+                <th>Kg</th>
+                <th>Repeticiones</th>
+                <th>RPE</th>
+              </tr>
+            </thead>
+            <tbody id="series-table-${ejercicioCounter}">
+              <tr>
+                <td>1</td>
+                <td><input type="number" class="form-control" value="20"></td>
+                <td><input type="number" class="form-control" value="12"></td>
+                <td><input type="number" class="form-control" value="8.5"></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><input type="number" class="form-control" value="22.5"></td>
+                <td><input type="number" class="form-control" value="10"></td>
+                <td><input type="number" class="form-control" value="9.0"></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><input type="number" class="form-control" value="25"></td>
+                <td><input type="number" class="form-control" value="8"></td>
+                <td><input type="number" class="form-control" value="10.0"></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn-add" data-ejercicio-id="${ejercicioCounter}">Añadir Serie</button>
+        </div>
+        `;
 
-  document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
-      const table1 = document.getElementById('ejercicios');
-
-  const newEjercicio = `       
-    <div class="container">
-        <table class="table table-dark">
-          <thead>
-            <tr>
-              <th>Serie</th>
-              <th>Kg</th>
-              <th>Repeticiones</th>
-              <th>RPE</th>
-            </tr>
-          </thead>
-          <tbody id="series-table">
-            <tr>
-              <td>1</td>
-              <td><input type="number" class="form-control reps-input" value="20"></td>
-              <td><input type="number" class="form-control reps-input" value="12"></td>
-              <td><input type="number" class="form-control reps-input" value="8.5"></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><input type="number" class="form-control reps-input" value="22.5"></td>
-              <td><input type="number" class="form-control reps-input" value="10"></td>
-              <td><input type="number" class="form-control reps-input" value="9.0"></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><input type="number" class="form-control reps-input" value="25"></td>
-              <td><input type="number" class="form-control reps-input" value="8"></td>
-              <td><input type="number" class="form-control reps-input" value="10.0"></td>
-            </tr>
-          </tbody>
-        </table>
-        <button class="btn-add" id="add-row-btn">Añadir Serie</button>
-      </div>
-    `
-
-  table1.insertAdjacentHTML('beforeend', newEjercicio);
+        // Añade el nuevo ejercicio al contenedor
+        document.getElementById('ejercicios').insertAdjacentHTML('beforeend', newEjercicio);
     });
 
+    // Usa Event Delegation para detectar clicks en botones dinámicos
+    document.getElementById('ejercicios').addEventListener('click', function (e) {
+      if (e.target && e.target.classList.contains('btn-add')) {
+        // Obtén el ID del ejercicio desde el atributo `data-ejercicio-id`
+        const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+        const table = document.getElementById(`series-table-${ejercicioId}`);
+        const rowCount = table.rows.length + 1;
 
-    document.getElementById('add-row-btn').addEventListener('click', function () {
-      const table = document.getElementById('series-table');
-      const rowCount = table.rows.length + 1;
+        // Nueva fila para la tabla
+        const newRow = `
+          <tr>
+            <td>${rowCount}</td>
+            <td><input type="number" class="form-control" value="0"></td>
+            <td><input type="number" class="form-control" value="0"></td>
+            <td><input type="number" class="form-control" value="0"></td>
+          </tr>
+        `;
 
-      const newRow = `
-        <tr>
-          <td>${rowCount}</td>
-          <td><input type="number" class="form-control reps-input" value="0"></td>
-          <td><input type="number" class="form-control reps-input" value="0"></td>
-          <td><input type="number" class="form-control reps-input" value="0"></td>
-        </tr>
-      `;
-
-      table.insertAdjacentHTML('beforeend', newRow);
+        // Añade la nueva fila a la tabla correspondiente
+        table.insertAdjacentHTML('beforeend', newRow);
+      }
     });
   </script>
 
