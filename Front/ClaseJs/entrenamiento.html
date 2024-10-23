@@ -32,45 +32,65 @@
 </head>
 <body>
 
-  <div class="container">
+  <button id="add-ejercicio-btn"> Nuevo Ejercicio</button>
+  <button class="btn-add" id="add-row-btn">Añadir Serie</button>
+
+  <div class="container" id="ejercicios">
     <table class="table table-dark">
-      <thead>
-        <tr>
-          <th>Serie</th>
-          <th>Anterior</th>
-          <th>Kg</th>
-          <th>Repeticiones</th>
-          <th>RPE</th>
-        </tr>
-      </thead>
+     
       <tbody id="series-table">
-        <tr>
-          <td>1</td>
-          <td>20 kg × 12 @ 8.5</td>
-          <td><input type="number" class="form-control reps-input" value="20"></td>
-          <td><input type="number" class="form-control reps-input" value="12"></td>
-          <td><input type="number" class="form-control reps-input" value="8.5"></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>22.5 kg × 10 @ 9.0</td>
-          <td><input type="number" class="form-control reps-input" value="22.5"></td>
-          <td><input type="number" class="form-control reps-input" value="10"></td>
-          <td><input type="number" class="form-control reps-input" value="9.0"></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>25 kg × 8 @ 10.0</td>
-          <td><input type="number" class="form-control reps-input" value="25"></td>
-          <td><input type="number" class="form-control reps-input" value="8"></td>
-          <td><input type="number" class="form-control reps-input" value="10.0"></td>
-        </tr>
+        
       </tbody>
     </table>
-    <button class="btn-add" id="add-row-btn">Añadir Serie</button>
-  </div>
+  </div> 
 
-  <script>
+
+
+<script>
+
+  document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
+      const table1 = document.getElementById('ejercicios');
+
+  const newEjercicio = `       
+    <div class="container">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>Serie</th>
+              <th>Kg</th>
+              <th>Repeticiones</th>
+              <th>RPE</th>
+            </tr>
+          </thead>
+          <tbody id="series-table">
+            <tr>
+              <td>1</td>
+              <td><input type="number" class="form-control reps-input" value="20"></td>
+              <td><input type="number" class="form-control reps-input" value="12"></td>
+              <td><input type="number" class="form-control reps-input" value="8.5"></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><input type="number" class="form-control reps-input" value="22.5"></td>
+              <td><input type="number" class="form-control reps-input" value="10"></td>
+              <td><input type="number" class="form-control reps-input" value="9.0"></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><input type="number" class="form-control reps-input" value="25"></td>
+              <td><input type="number" class="form-control reps-input" value="8"></td>
+              <td><input type="number" class="form-control reps-input" value="10.0"></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn-add" id="add-row-btn">Añadir Serie</button>
+      </div>
+    `
+
+  table1.insertAdjacentHTML('beforeend', newEjercicio);
+    });
+
+
     document.getElementById('add-row-btn').addEventListener('click', function () {
       const table = document.getElementById('series-table');
       const rowCount = table.rows.length + 1;
@@ -78,7 +98,6 @@
       const newRow = `
         <tr>
           <td>${rowCount}</td>
-          <td>Nuevo</td>
           <td><input type="number" class="form-control reps-input" value="0"></td>
           <td><input type="number" class="form-control reps-input" value="0"></td>
           <td><input type="number" class="form-control reps-input" value="0"></td>
