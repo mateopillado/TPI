@@ -1,0 +1,48 @@
+/* General styles for dashboard */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(13deg, rgba(0,0,0,1) 0%, rgba(19,19,19,1) 20%, rgba(19,19,19,1) 62%, rgba(0,0,0,1) 100%);
+    color: #d8d8d8;
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100vh;
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+ background-blend-mode: multiply;
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    padding: 15px 10px;
+}
+
+.nav-link.active {
+    background-color: #ff9900;
+    border-radius: 4px;
+}
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 8px;
+}
+
+.card-body h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-body p {
+    font-size: 1rem;
+}
+
+/* Main content */
+main h1 {
+    font-size: 2rem;
+    color: #f1f1f1;
+}

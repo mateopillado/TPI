@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incline Bench Press</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1c2a39;
+      color: white;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .btn-add {
+      color: #0d6efd;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .table-dark th, .table-dark td {
+      border: 1px solid #333;
+    }
+    .table-dark th {
+      background-color: #333;
+    }
+    .reps-input {
+      width: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th>Serie</th>
+          <th>Anterior</th>
+          <th>Kg</th>
+          <th>Repeticiones</th>
+          <th>RPE</th>
+        </tr>
+      </thead>
+      <tbody id="series-table">
+        <tr>
+          <td>1</td>
+          <td>20 kg × 12 @ 8.5</td>
+          <td><input type="number" class="form-control reps-input" value="20"></td>
+          <td><input type="number" class="form-control reps-input" value="12"></td>
+          <td><input type="number" class="form-control reps-input" value="8.5"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>22.5 kg × 10 @ 9.0</td>
+          <td><input type="number" class="form-control reps-input" value="22.5"></td>
+          <td><input type="number" class="form-control reps-input" value="10"></td>
+          <td><input type="number" class="form-control reps-input" value="9.0"></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>25 kg × 8 @ 10.0</td>
+          <td><input type="number" class="form-control reps-input" value="25"></td>
+          <td><input type="number" class="form-control reps-input" value="8"></td>
+          <td><input type="number" class="form-control reps-input" value="10.0"></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn-add" id="add-row-btn">Añadir Serie</button>
+  </div>
+
+  <script>
+    document.getElementById('add-row-btn').addEventListener('click', function () {
+      const table = document.getElementById('series-table');
+      const rowCount = table.rows.length + 1;
+
+      const newRow = `
+        <tr>
+          <td>${rowCount}</td>
+          <td>Nuevo</td>
+          <td><input type="number" class="form-control reps-input" value="0"></td>
+          <td><input type="number" class="form-control reps-input" value="0"></td>
+          <td><input type="number" class="form-control reps-input" value="0"></td>
+        </tr>
+      `;
+
+      table.insertAdjacentHTML('beforeend', newRow);
+    });
+  </script>
+
+</body>
+</html>
