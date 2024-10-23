@@ -46,3 +46,74 @@ main h1 {
     font-size: 2rem;
     color: #f1f1f1;
 }
+
+/* General Body Map Styles */
+.body-map {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+/* Individual SVG containers */
+.front-view, .back-view {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    background-color: #e0e0e0fb;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    height: auto;
+}
+
+/* Making sure SVGs take up full space */
+.front-view svg, .back-view svg {
+    width: 100%;
+    height: auto;
+}
+
+/* Sidebar mobile adjustments */
+@media (max-width: 767px) {
+    #sidebarMenu {
+        display: none; /* Hide the sidebar on mobile */
+    }
+
+    .sidebar-toggle {
+        display: block; /* Add a toggle button for the sidebar */
+    }
+
+    .front-view, .back-view {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+
+.muscle {
+    fill: #ebebeb;
+    stroke: #000;
+    stroke-width: 2;
+    transition: 0.3s;
+}
+
+.muscle:hover {
+    fill: rgba(255, 0, 0, 0.5);
+}
+
+
+.highlight {
+    fill: rgba(255, 0, 0, 0.5);
+}
+
+.no-muscle {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+}
+
+.ellipse {
+    display: none;
+}
