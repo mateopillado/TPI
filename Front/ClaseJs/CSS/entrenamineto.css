@@ -1,0 +1,26 @@
+body {
+    background-color: #1c2a39;
+}
+
+.table-dark {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
