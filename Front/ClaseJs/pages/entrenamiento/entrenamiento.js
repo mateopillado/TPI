@@ -1,109 +1,108 @@
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('nuevoEjercicioBtn').addEventListener('click', function() {
-        const ejercicioDiv = document.createElement('div');
-        ejercicioDiv.classList.add('mb-4');
+let ejercicioCounter = 0;  // Contador para ejercicios
+    let serieCounter = 0;      // Contador para series
 
-        const tituloInput = document.createElement('input');
-        tituloInput.type = 'text';
-        tituloInput.classList.add('form-control', 'mb-2');
-        tituloInput.placeholder = 'Título del Ejercicio';
+    // Añadir nuevo ejercicio con selección de la lista
+    document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
+        const ejercicioSeleccionado = document.getElementById('lista-ejercicios').value;      
+        ejercicioCounter++;  // Incrementa el contador de ejercicios
 
-        // Crear el contenedor del título editable
-        const tituloContainer = document.createElement('div');
-        tituloContainer.classList.add('d-flex', 'align-items-center');
-
-        const tabla = document.createElement('table');
-        tabla.classList.add('table', 'table-dark', 'table-bordered');
-
-        const thead = document.createElement('thead');
-        thead.innerHTML = `
-            <tr>
+        // Crea el nuevo ejercicio con un ID único y el nombre del ejercicio seleccionado
+        const newEjercicio = `
+        <div class="container" id="ejercicio-${ejercicioCounter}">
+          <h4>${ejercicioSeleccionado}</h4>
+          <table class="table table-dark">
+            <thead>
+              <tr>
                 <th>Serie</th>
                 <th>Kg</th>
                 <th>Repeticiones</th>
                 <th>RPE</th>
-                <th></th>
-            </tr>
-        `;
-
-        const tbody = document.createElement('tbody');
-        tbody.innerHTML = `
-            <tr>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="series-table-${ejercicioCounter}">
+              <tr id="fila-serie-${ejercicioCounter}-1">
                 <td>1</td>
-                <td><input type="number" class="form-control" value="0"></td>
-                <td><input type="number" class="form-control" value="0"></td>
-                <td><input type="number" class="form-control" value="0"></td>
-                <td><button class="btn btn-danger eliminar-serie">Eliminar</button></td>
-            </tr>
+                <td><input type="number" id="kg-${ejercicioCounter}-1" class="form-control" value="20"></td>
+                <td><input type="number" id="reps-${ejercicioCounter}-1" class="form-control" value="12"></td>
+                <td><input type="number" id="rpe-${ejercicioCounter}-1" class="form-control" value="8.5"></td>
+                <td><button class="btn-delete" data-ejercicio-id="${ejercicioCounter}" data-serie-id="1">Eliminar</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn-add" data-ejercicio-id="${ejercicioCounter}">Añadir Serie</button>
+        </div>
         `;
 
-        tabla.appendChild(thead);
-        tabla.appendChild(tbody);
-
-        const addSerieBtn = document.createElement('button');
-        addSerieBtn.classList.add('btn', 'btn-custom', 'mt-2');
-        addSerieBtn.textContent = 'Añadir Serie';
-        addSerieBtn.addEventListener('click', function() {
-            const rowCount = tbody.rows.length + 1;
-            const newRow = tbody.insertRow();
-            newRow.innerHTML = `
-                <td>${rowCount}</td>
-                <td><input type="number" class="form-control" value=0></td>
-                <td><input type="number" class="form-control" value=0></td>
-                <td><input type="number" class="form-control" value=0></td>
-                <td><button class="btn btn-danger eliminar-serie">Eliminar</button></td>
-            `;
-            // Agregar evento de eliminación a la nueva fila
-            newRow.querySelector('.eliminar-serie').addEventListener('click', function() {
-                newRow.remove();
-                actualizarSeries(tbody);
-            });
-        });
-
-        // Agregar evento de eliminación a la fila inicial
-        tbody.querySelector('.eliminar-serie').addEventListener('click', function() {
-            this.closest('tr').remove();
-            actualizarSeries(tbody);
-        });
-
-        // Función para cambiar el input en h3 con ícono de lápiz
-        tituloInput.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                const tituloH3 = document.createElement('h3');
-                tituloH3.textContent = tituloInput.value;
-                tituloH3.classList.add('mb-2', 'mr-2', 'text-white');
-                
-                const editIcon = document.createElement('i');
-                editIcon.classList.add('fas', 'fa-pencil-alt', 'm-3', 'cursor-pointer', 'text-white');
-                editIcon.style.cursor = 'pointer';
-
-                // Función para volver a editar el título al hacer clic en el ícono
-                editIcon.addEventListener('click', function() {
-                    tituloContainer.innerHTML = ''; // Limpia el contenedor
-                    tituloContainer.appendChild(tituloInput); // Muestra el input nuevamente
-                    tituloInput.value = tituloH3.textContent; // Coloca el texto anterior en el input
-                    tituloInput.focus(); // Enfoca el input
-                });
-
-                // Limpiar el contenedor y añadir h3 y el icono
-                tituloContainer.innerHTML = '';
-                tituloContainer.appendChild(tituloH3);
-                tituloContainer.appendChild(editIcon);
-            }
-        });
-
-        ejercicioDiv.appendChild(tituloContainer);
-        tituloContainer.appendChild(tituloInput);
-        ejercicioDiv.appendChild(tabla);
-        ejercicioDiv.appendChild(addSerieBtn);
-        document.getElementById('ejerciciosContainer').appendChild(ejercicioDiv);
+        // Añade el nuevo ejercicio al contenedor
+        document.getElementById('ejercicios').insertAdjacentHTML('beforeend', newEjercicio);
     });
 
-    // Función para actualizar el número de serie después de eliminar una fila
-    function actualizarSeries(tbody) {
-        const filas = tbody.querySelectorAll('tr');
-        filas.forEach((fila, index) => {
-            fila.cells[0].textContent = index + 1; // Actualizar el número de serie
+    // Usa Event Delegation para detectar clicks en botones dinámicos
+    document.getElementById('ejercicios').addEventListener('click', function (e) {
+      // Añadir Serie
+      if (e.target && e.target.classList.contains('btn-add')) {
+        const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+        const table = document.getElementById(`series-table-${ejercicioId}`);
+        const rowCount = table.rows.length + 1;
+        serieCounter++;  // Incrementa el contador de series global
+
+        // Nueva fila para la tabla con IDs únicos para los inputs y botón de eliminar
+        const newRow = `
+          <tr id="fila-serie-${ejercicioId}-${rowCount}">
+            <td>${rowCount}</td>
+            <td><input type="number" id="kg-${ejercicioId}-${rowCount}" class="form-control" value="0"></td>
+            <td><input type="number" id="reps-${ejercicioId}-${rowCount}" class="form-control" value="0"></td>
+            <td><input type="number" id="rpe-${ejercicioId}-${rowCount}" class="form-control" value="0"></td>
+            <td><button class="btn-delete" data-ejercicio-id="${ejercicioId}" data-serie-id="${rowCount}">Eliminar</button></td>
+          </tr>
+        `;
+
+        // Añade la nueva fila a la tabla correspondiente
+        table.insertAdjacentHTML('beforeend', newRow);
+      }
+
+      // Eliminar Serie
+      if (e.target && e.target.classList.contains('btn-delete')) {
+        const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+        const serieId = e.target.getAttribute('data-serie-id');
+        const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
+
+        if (fila) {
+          fila.remove();  // Elimina la fila correspondiente
+        }
+      }
+    });
+
+    // Función para obtener todos los datos de todos los ejercicios
+    function obtenerDatos() {
+      const ejercicios = document.getElementById('ejercicios').children;
+      const datos = [];
+
+      // Itera sobre cada ejercicio
+      Array.from(ejercicios).forEach(ejercicio => {
+        const ejercicioId = ejercicio.id.split('-')[1];  // Extraer el ID del ejercicio
+        const ejercicioNombre = ejercicio.querySelector('h4').innerText;  // Obtener el nombre del ejercicio
+        const table = ejercicio.querySelector('tbody');  // Obtener la tabla
+        const filas = table.querySelectorAll('tr');
+
+        // Itera sobre cada fila (serie)
+        filas.forEach(fila => {
+          const serieId = fila.querySelector('td').innerText;  // Número de serie
+          const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
+          const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
+          const rpe = document.getElementById(`rpe-${ejercicioId}-${serieId}`).value;
+
+          datos.push({
+            ejercicio: ejercicioNombre,
+            serie: serieId,
+            kg: kg,
+            reps: reps,
+            rpe: rpe
+          });
         });
+      });
+
+      console.log(datos);  // Muestra los datos en la consola
+      return datos;
     }
-});
