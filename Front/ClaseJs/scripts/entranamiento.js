@@ -1,4 +1,4 @@
-let ejercicioCounter = 0;  // Contador para ejercicios
+  let ejercicioCounter = 0;  // Contador para ejercicios
     let serieCounter = 0;      // Contador para series
 
     // Añadir nuevo ejercicio con selección de la lista
@@ -59,7 +59,7 @@ let ejercicioCounter = 0;  // Contador para ejercicios
         `;
 
         // Añade la nueva fila a la tabla correspondiente
-        table.insertAdjacentHTML('beforeend', newRow);
+        table.insertAdjacentHTML('beforeend', newRow);s
       }
 
       // Eliminar Serie
