@@ -1,126 +1,140 @@
-// Flag to check if the main structure is initialized
-let isInitialized = false;
+let ejercicioCounter = 0;
+let serieCounter = 0;
 
-export const renderEntrenamiento = (container) => {
-  // Check if content has already been initialized to avoid resetting
-  if (!isInitialized) {
-    container.innerHTML = `
-      <h3>Selecciona un Ejercicio:</h3>
-      <select id="lista-ejercicios">
-        <option value="Press De Banca">Press de Banca</option>
-        <option value="Sentadilla">Sentadilla</option>
-        <option value="Peso Muerto">Peso Muerto</option>
-        <option value="Dominadas">Dominadas</option>
-      </select>
-      <button id="add-ejercicio-btn">Agregar Ejercicio</button>
+// Función para añadir nuevo ejercicio
+document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
+    const ejercicioSeleccionado = ""; // Aquí puedes hacer que el usuario seleccione el ejercicio
+    ejercicioCounter++;
+    addEjercicioToDOM(ejercicioCounter, ejercicioSeleccionado);
+    saveData();
+});
 
-      <div id="ejercicios">
-        <!-- Aquí se insertarán los ejercicios dinámicamente -->
-      </div>
-
-      <button id="guardar-btn">Guardar Entrenamiento</button>
+// Función para agregar ejercicio al DOM
+function addEjercicioToDOM(ejercicioId, ejercicioNombre, series = []) {
+    const newEjercicio = `
+        <div class="container rounded-4 p-4" id="ejercicio-${ejercicioId}">
+          <h4>${ejercicioNombre}</h4>
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>Serie</th>
+                <th>Kg</th>
+                <th>Repeticiones</th>
+                <th>Tipo Serie</th>
+                <th>Checked</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody id="series-table-${ejercicioId}">
+            </tbody>
+          </table>
+          <button class="btn-add btn btn-primary mt-2" data-ejercicio-id="${ejercicioId}">Añadir Serie</button>
+        </div>
     `;
-    isInitialized = true;  // Set flag to true to prevent re-rendering structure
-  }
-
-  let ejercicioCounter = 0; // Counter for exercises
-
-  // Load exercises from localStorage if they exist
-  const savedData = JSON.parse(localStorage.getItem('entrenamientoData')) || [];
-  if (savedData.length > 0) cargarEjerciciosDesdeLocalStorage(savedData);
-
-  // Function to load saved exercises
-  function cargarEjerciciosDesdeLocalStorage(data) {
-    data.forEach((ejercicio) => {
-      ejercicioCounter++;
-      const newEjercicio = crearEjercicioHTML(ejercicio.nombre, ejercicioCounter, ejercicio.series);
-      document.getElementById('ejercicios').insertAdjacentHTML('beforeend', newEjercicio);
+    
+    document.getElementById('ejercicios').insertAdjacentHTML('beforeend', newEjercicio);
+    
+    series.forEach(serie => {
+        addSerieToDOM(ejercicioId, serie.serieId, serie.kg, serie.reps, serie.tSerie, serie.checked);
     });
-  }
+}
 
-  // Function to create HTML for a new exercise
-  function crearEjercicioHTML(nombre, ejercicioId, series = []) {
-    return `
-      <div class="container" id="ejercicio-${ejercicioId}">
-        <h4>${nombre}</h4>
-        <table class="table table-dark">
-          <thead>
-            <tr>
-              <th>Serie</th>
-              <th>Kg</th>
-              <th>Repeticiones</th>
-              <th>RPE</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="series-table-${ejercicioId}">
-            ${series.map((serie, index) => crearSerieHTML(ejercicioId, index + 1, serie)).join('')}
-          </tbody>
-        </table>
-        <button class="btn-add" data-ejercicio-id="${ejercicioId}">Añadir Serie</button>
-      </div>
-    `;
-  }
-
-  // Function to create HTML for a new series within an exercise
-  function crearSerieHTML(ejercicioId, serieId, serie = {}) {
-    return `
+// Función para añadir serie al DOM
+function addSerieToDOM(ejercicioId, serieId, kg = 0, reps = 0, tSerie = "1", checked = false) {
+    const table = document.getElementById(`series-table-${ejercicioId}`);
+    const newRow = `
       <tr id="fila-serie-${ejercicioId}-${serieId}">
         <td>${serieId}</td>
-        <td><input type="number" id="kg-${ejercicioId}-${serieId}" class="form-control" value="${serie.kg || 20}"></td>
-        <td><input type="number" id="reps-${ejercicioId}-${serieId}" class="form-control" value="${serie.reps || 12}"></td>
-        <td><input type="number" id="rpe-${ejercicioId}-${serieId}" class="form-control" value="${serie.rpe || 8.5}"></td>
-        <td><button class="btn-delete" data-ejercicio-id="${ejercicioId}" data-serie-id="${serieId}">Eliminar</button></td>
+        <td><input type="number" id="kg-${ejercicioId}-${serieId}" class="form-control" value="${kg}"></td>
+        <td><input type="number" id="reps-${ejercicioId}-${serieId}" class="form-control" value="${reps}"></td>
+        <td>
+          <select id="tipoSerie-${ejercicioId}-${serieId}" class="form-select">
+            <option value="1" ${tSerie == "1" ? "selected" : ""}>Tipo Serie</option>
+            <option value="2" ${tSerie == "2" ? "selected" : ""}>Fuerza</option>
+            <option value="3" ${tSerie == "3" ? "selected" : ""}>Lineal</option>
+            <option value="4" ${tSerie == "4" ? "selected" : ""}>Piramidal</option>
+          </select>
+        </td>
+        <td>
+          <input type="checkbox" class="btn-check" id="btn-check-outlined-${ejercicioId}-${serieId}" ${checked ? "checked" : ""} autocomplete="off">
+          <label class="btn btn-outline-success" for="btn-check-outlined-${ejercicioId}-${serieId}"><i class="fa fa-check" aria-hidden="true"></i></label>
+        </td>
+        <td><button class="btn-delete btn btn-danger" data-ejercicio-id="${ejercicioId}" data-serie-id="${serieId}">Eliminar</button></td>
       </tr>
     `;
-  }
+    table.insertAdjacentHTML('beforeend', newRow);
+}
 
-  // Handle Add Exercise button
-  document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
-    const ejercicioSeleccionado = document.getElementById('lista-ejercicios').value;
-    ejercicioCounter++;
-    const newEjercicio = crearEjercicioHTML(ejercicioSeleccionado, ejercicioCounter);
-    document.getElementById('ejercicios').insertAdjacentHTML('beforeend', newEjercicio);
-    saveData(); // Save after adding a new exercise
-  });
+// Función para guardar el estado en localStorage
+function saveData() {
+    let ejerciciosData = [];
+    const ejercicios = document.getElementById('ejercicios').children;
 
-  // Event delegation for adding and deleting series
-  document.getElementById('ejercicios').addEventListener('click', function (e) {
-    const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+    Array.from(ejercicios).forEach(ejercicio => {
+        const ejercicioId = ejercicio.id.split('-')[1];
+        const ejercicioNombre = ejercicio.querySelector('h4').innerText;
+        const table = ejercicio.querySelector('tbody');
+        const filas = table.querySelectorAll('tr');
+
+        let series = [];
+        filas.forEach(fila => {
+            const serieId = fila.querySelector('td').innerText;
+            const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
+            const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
+            const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value;
+            const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).checked;
+
+            series.push({
+                serieId: serieId,
+                kg: kg,
+                reps: reps,
+                tSerie: tSerie,
+                checked: checked
+            });
+        });
+
+        ejerciciosData.push({
+            ejercicioId: ejercicioId,
+            ejercicioNombre: ejercicioNombre,
+            series: series
+        });
+    });
+
+    localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
+}
+
+// Función para cargar el estado desde localStorage
+function loadData() {
+    const ejerciciosData = JSON.parse(localStorage.getItem('ejerciciosData'));
+    if (!ejerciciosData) return;
+
+    ejerciciosData.forEach(ejercicioData => {
+        ejercicioCounter = Math.max(ejercicioCounter, ejercicioData.ejercicioId);
+        addEjercicioToDOM(ejercicioData.ejercicioId, ejercicioData.ejercicioNombre, ejercicioData.series);
+    });
+}
+
+// Cargar datos al inicio
+window.onload = loadData;
+
+// Detectar clicks en botones dinámicos
+document.getElementById('ejercicios').addEventListener('click', function (e) {
     if (e.target && e.target.classList.contains('btn-add')) {
-      const table = document.getElementById(`series-table-${ejercicioId}`);
-      const rowCount = table.rows.length + 1;
-      const newRow = crearSerieHTML(ejercicioId, rowCount);
-      table.insertAdjacentHTML('beforeend', newRow);
-      saveData(); // Save after adding a new series
+        const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+        const table = document.getElementById(`series-table-${ejercicioId}`);
+        const rowCount = table.rows.length + 1;
+        addSerieToDOM(ejercicioId, rowCount);
+        saveData();
     }
 
     if (e.target && e.target.classList.contains('btn-delete')) {
-      const serieId = e.target.getAttribute('data-serie-id');
-      const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
-      if (fila) fila.remove();
-      saveData(); // Save after deleting a series
+        const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+        const serieId = e.target.getAttribute('data-serie-id');
+        const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
+
+        if (fila) {
+            fila.remove();
+            saveData();
+        }
     }
-  });
-
-  // Save data to localStorage
-  function saveData() {
-    const ejercicios = document.getElementById('ejercicios').children;
-    const datos = Array.from(ejercicios).map((ejercicio) => {
-      const ejercicioId = ejercicio.id.split('-')[1];
-      const ejercicioNombre = ejercicio.querySelector('h4').innerText;
-      const series = Array.from(ejercicio.querySelectorAll('tbody tr')).map((fila) => {
-        const serieId = fila.querySelector('td').innerText;
-        const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
-        const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
-        const rpe = document.getElementById(`rpe-${ejercicioId}-${serieId}`).value;
-        return { serie: serieId, kg, reps, rpe };
-      });
-      return { nombre: ejercicioNombre, series };
-    });
-    localStorage.setItem('entrenamientoData', JSON.stringify(datos));
-  }
-
-  // Add a click listener to save the data when clicking the "Guardar Entrenamiento" button
-  document.getElementById('guardar-btn').addEventListener('click', saveData);
-};
+});

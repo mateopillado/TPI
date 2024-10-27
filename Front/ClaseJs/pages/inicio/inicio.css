@@ -1,15 +1,15 @@
-/* General styles for dashboard */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(13deg, rgba(0,0,0,1) 0%, rgba(19,19,19,1) 20%, rgba(19,19,19,1) 62%, rgba(0,0,0,1) 100%);
-    color: #d8d8d8;
+    background-color: #302f2f;
 }
 
-/* Sidebar styles */
 .sidebar {
-    height: 100vh;
     background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
  background-blend-mode: multiply;
+ position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Toma el 100% de la altura de la ventana */
+    width: 222px; /* Ancho del sidebar */
 }
 
 .sidebar-header h2 {
@@ -27,6 +27,8 @@ body {
     border-radius: 4px;
 }
 
+
+
 /* Card styles */
 .card {
     border: none;
@@ -43,14 +45,153 @@ body {
 }
 
 /* Main content */
-main h1 {
-    font-size: 2rem;
-    color: #f1f1f1;
+/* General Layout */
+.dashboard {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Dos columnas */
+    grid-template-rows: auto auto; /* Filas automáticas */
+    gap: 20px;
+    padding-top: 20px;
 }
+
+.user-info {
+    grid-column: 1 / span 1; /* Primera columna */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: #444;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    background-color: #666;
+    border-radius: 50%;
+}
+
+.user-details {
+    flex: 1;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2e2e2e; /* Fondo oscuro */
+    color: #e0e0e0; /* Texto claro */
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chart-container h3 {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.stats-card {
+    background: #ff9900;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.weekly-stats {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    height: 10rem;
+}
+
+.stat-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-bar {
+    width: 100%;
+    background: #f97316;
+    border-radius: 0.25rem 0.25rem 0 0;
+    transition: height 0.3s ease-out;
+}
+
+.body-map {
+    grid-column: 1 / span 1;
+    background-color: #555;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.trainers-section {
+    grid-column: 2 / span 1; /* Segunda columna */
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #666;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+}
+
+.trainers-section .trainer-list {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.trainer-list ul {
+    padding-left: 20px;
+}
+
+/* SVG Section */
+.body-map {
+    grid-column: 1 / span 1; /* Toma todo el ancho de ambas columnas */
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    color: white;
+}
+
+
+
+/* Nearby Trainers Section */
+.trainers-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #666;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+}
+
+.trainers-section .trainer-list {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
+}
+
 
 /* General Body Map Styles */
 .body-map {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     gap: 20px;
     margin: 20px 0;
@@ -60,8 +201,7 @@ main h1 {
 /* Individual SVG containers */
 .front-view, .back-view {
     position: relative;
-    width: 100%;
-    max-width: 400px;
+    width: 40%;
     background-color: #e0e0e0fb;
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -78,18 +218,57 @@ main h1 {
 
 /* Sidebar mobile adjustments */
 @media (max-width: 767px) {
-    #sidebarMenu {
-        display: none; /* Hide the sidebar on mobile */
+    body{
+        grid-column: 1fr, 1fr;
     }
-
-    .sidebar-toggle {
-        display: block; /* Add a toggle button for the sidebar */
-    }
-
     .front-view, .back-view {
         width: 90%;
         margin: 0 auto;
     }
+    .trainers-section{
+        grid-column: 1 /  2; /* Segunda columna */
+    grid-row: 2 / span 2;
+    }
+    
+    #sidebarMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100vh;
+        z-index: 1045; /* Para asegurar que esté encima de otros elementos */
+        transform: translateX(-100%); /* Oculto fuera de la pantalla */
+        transition: transform 0.3s ease;
+    }
+
+    #sidebarMenu.collapse.show {
+        transform: translateX(0); /* Muestra el menú */
+    }
+
+    /* Fondo semitransparente para la pantalla cuando el menú está abierto */
+    .collapse.show ~ .content-overlay {
+        display: block;
+    }
+
+    .content-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1044; /* Justo debajo del menú */
+    }
+
+    #sidebarMenu .btn-dark[data-bs-toggle="collapse"] {
+        font-size: 1.5rem;
+        color: #ffffff;
+        background: none;
+        border: none;
+    }
+
+
 }
 
 
@@ -118,3 +297,4 @@ main h1 {
 .ellipse {
     display: none;
 }
+
