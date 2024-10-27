@@ -13,8 +13,8 @@ function getRandomColor() {
 
 // Asignar colores aleatorios a los avatares
 document.getElementById("avatar1").style.backgroundColor = getRandomColor();
-document.getElementById("avatar2").style.backgroundColor = getRandomColor();
-document.getElementById("avatar3").style.backgroundColor = getRandomColor();
+// document.getElementById("avatar2").style.backgroundColor = getRandomColor();
+// document.getElementById("avatar3").style.backgroundColor = getRandomColor();
 document.getElementById("profile-pic").style.backgroundColor = getRandomColor();
 
 
@@ -54,15 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['2/9', '9/9', '16/9', '23/9', '30/9', '7/10', '14/10', '21/10', '28/10'],
+            labels: ['2/9', '9/9', '16/9', '23/9', '30/9', '7/10', '14/10'],
             datasets: [{
                 label: 'Entrenamientos',
-                data: [2, 4, 1, 0, 0, 3, 1, 0, 5], // Datos de ejemplo
+                data: [2, 4, 1, 0, 0, 3, 1], // Datos de ejemplo
                 backgroundColor: '#ff9900', // Color púrpura para las barras
                 borderColor: '#ff9900',
                 borderWidth: 1,
                 borderRadius: 5, // Redondeo de las esquinas
-                barPercentage: 0.6
+                barPercentage: 0.7
             }]
         },
         options: {

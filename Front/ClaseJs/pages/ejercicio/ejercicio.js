@@ -52,7 +52,7 @@ function displayExercises(filter = "") {
         }
 
         const card = document.createElement("div");
-        card.className = "card text-white";
+        card.className = "card text-white ";
 
         card.innerHTML = `
             <img src="../../assets/images/bench.png" alt="${ejercicio.nombre} Icon"> 
