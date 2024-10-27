@@ -1,26 +1,50 @@
 body {
-    background-color: #1c2a39;
+    background-color: #302f2f;
 }
 
-.table-dark {
-    background-color: #343a40;
-    color: #fff;
+
+.sidebar {
+    height: 100vh;
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+ background-blend-mode: multiply;
 }
 
-.btn-custom {
-    background-color: #007bff;
-    color: white;
+.sidebar-header h2 {
+    font-size: 1.5rem;
 }
 
-.btn-custom:hover {
-    background-color: #0056b3;
+.nav-link {
+    font-size: 1.1rem;
+    padding: 15px 10px;
 }
 
-.delete-btn {
-    background-color: #dc3545;
-    color: white;
+.nav-link.active {
+    color: white !important;
+    background-color: #ff9900;
+    border-radius: 4px;
 }
 
-.delete-btn:hover {
-    background-color: #c82333;
+.btn-add{
+    background-color: transparent;
+    border: none;
+    color: rgb(230, 167, 31);
 }
+
+.btn-add:hover{
+    color: rgb(250, 202, 99);
+}
+
+.scrolleable-section {
+    height: 98vh; /* Ajusta la altura según necesites */
+    overflow-y: auto;
+    padding: 15px;
+  }
+
+.fixed{
+    position: absolute;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin:1rem;
+}
+
