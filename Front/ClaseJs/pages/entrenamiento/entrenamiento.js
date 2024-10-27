@@ -1,15 +1,19 @@
-let ejercicioCounter = 0;  // Contador para ejercicios
-    let serieCounter = 0;      // Contador para series
+let ejercicioCounter = 0;
+let serieCounter = 0;
 
-    // Añadir nuevo ejercicio con selección de la lista
-    document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
-        const ejercicioSeleccionado = ""
-        ejercicioCounter++;  // Incrementa el contador de ejercicios
+// Función para añadir nuevo ejercicio
+document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
+    const ejercicioSeleccionado = ""; // Aquí puedes hacer que el usuario seleccione el ejercicio
+    ejercicioCounter++;
+    addEjercicioToDOM(ejercicioCounter, ejercicioSeleccionado);
+    saveData();
+});
 
-        // Crea el nuevo ejercicio con un ID único y el nombre del ejercicio seleccionado
-        const newEjercicio = `
-        <div class="container rounded-4 p-4" id="ejercicio-${ejercicioCounter}">
-          <h4>${ejercicioSeleccionado}</h4>
+// Función para agregar ejercicio al DOM
+function addEjercicioToDOM(ejercicioId, ejercicioNombre, series = []) {
+    const newEjercicio = `
+        <div class="container rounded-4 p-4" id="ejercicio-${ejercicioId}">
+          <h4>${ejercicioNombre}</h4>
           <table class="table table-dark table-striped">
             <thead>
               <tr>
@@ -21,127 +25,116 @@ let ejercicioCounter = 0;  // Contador para ejercicios
                 <th>Eliminar</th>
               </tr>
             </thead>
-            <tbody id="series-table-${ejercicioCounter}">
-              <tr id="fila-serie-${ejercicioCounter}-1">
-                <td>1</td>
-                <td><input type="number" id="kg-${ejercicioCounter}-1" class="form-control" value="20"></td>
-                <td><input type="number" id="reps-${ejercicioCounter}-1" class="form-control" value="12"></td>
-
-                <td>
-                  <select id="tipoSerie-${ejercicioCounter}-1" class="form-select ">
-                    <option value="1">Tipo Serie</option>
-                    <option value="2">Fuerza</option>
-                    <option value="3">Lineal</option>
-                    <option value="4">Piramidal</option>
-                  </select>
-                </td>
-
-                <td><input type="checkbox" class="btn-check" id="btn-check-outlined-${ejercicioCounter}" autocomplete="off">
-                <label class="btn btn-outline-success" for="btn-check-outlined-${ejercicioCounter}"><i class="fa fa-check" aria-hidden="true"></i></label></td>
-
-                <td><button class="btn-delete btn btn-danger" data-ejercicio-id="${ejercicioCounter}" data-serie-id="1">Eliminar</button></td>
-              </tr>
+            <tbody id="series-table-${ejercicioId}">
             </tbody>
           </table>
-          <button class="btn-add"  data-ejercicio-id="${ejercicioCounter}">Añadir Serie</button>
+          <button class="btn-add btn btn-primary mt-2" data-ejercicio-id="${ejercicioId}">Añadir Serie</button>
         </div>
-        `;
+    `;
+    
+    document.getElementById('ejercicios').insertAdjacentHTML('beforeend', newEjercicio);
+    
+    series.forEach(serie => {
+        addSerieToDOM(ejercicioId, serie.serieId, serie.kg, serie.reps, serie.tSerie, serie.checked);
+    });
+}
 
-        // Añade el nuevo ejercicio al contenedor
-        document.getElementById('ejercicios').insertAdjacentHTML('beforeend', newEjercicio);
+// Función para añadir serie al DOM
+function addSerieToDOM(ejercicioId, serieId, kg = 0, reps = 0, tSerie = "1", checked = false) {
+    const table = document.getElementById(`series-table-${ejercicioId}`);
+    const newRow = `
+      <tr id="fila-serie-${ejercicioId}-${serieId}">
+        <td>${serieId}</td>
+        <td><input type="number" id="kg-${ejercicioId}-${serieId}" class="form-control" value="${kg}"></td>
+        <td><input type="number" id="reps-${ejercicioId}-${serieId}" class="form-control" value="${reps}"></td>
+        <td>
+          <select id="tipoSerie-${ejercicioId}-${serieId}" class="form-select">
+            <option value="1" ${tSerie == "1" ? "selected" : ""}>Tipo Serie</option>
+            <option value="2" ${tSerie == "2" ? "selected" : ""}>Fuerza</option>
+            <option value="3" ${tSerie == "3" ? "selected" : ""}>Lineal</option>
+            <option value="4" ${tSerie == "4" ? "selected" : ""}>Piramidal</option>
+          </select>
+        </td>
+        <td>
+          <input type="checkbox" class="btn-check" id="btn-check-outlined-${ejercicioId}-${serieId}" ${checked ? "checked" : ""} autocomplete="off">
+          <label class="btn btn-outline-success" for="btn-check-outlined-${ejercicioId}-${serieId}"><i class="fa fa-check" aria-hidden="true"></i></label>
+        </td>
+        <td><button class="btn-delete btn btn-danger" data-ejercicio-id="${ejercicioId}" data-serie-id="${serieId}">Eliminar</button></td>
+      </tr>
+    `;
+    table.insertAdjacentHTML('beforeend', newRow);
+}
+
+// Función para guardar el estado en localStorage
+function saveData() {
+    let ejerciciosData = [];
+    const ejercicios = document.getElementById('ejercicios').children;
+
+    Array.from(ejercicios).forEach(ejercicio => {
+        const ejercicioId = ejercicio.id.split('-')[1];
+        const ejercicioNombre = ejercicio.querySelector('h4').innerText;
+        const table = ejercicio.querySelector('tbody');
+        const filas = table.querySelectorAll('tr');
+
+        let series = [];
+        filas.forEach(fila => {
+            const serieId = fila.querySelector('td').innerText;
+            const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
+            const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
+            const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value;
+            const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).checked;
+
+            series.push({
+                serieId: serieId,
+                kg: kg,
+                reps: reps,
+                tSerie: tSerie,
+                checked: checked
+            });
+        });
+
+        ejerciciosData.push({
+            ejercicioId: ejercicioId,
+            ejercicioNombre: ejercicioNombre,
+            series: series
+        });
     });
 
-    // Usa Event Delegation para detectar clicks en botones dinámicos
-    document.getElementById('ejercicios').addEventListener('click', function (e) {
-      // Añadir Serie
-      if (e.target && e.target.classList.contains('btn-add')) {
+    localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
+}
+
+// Función para cargar el estado desde localStorage
+function loadData() {
+    const ejerciciosData = JSON.parse(localStorage.getItem('ejerciciosData'));
+    if (!ejerciciosData) return;
+
+    ejerciciosData.forEach(ejercicioData => {
+        ejercicioCounter = Math.max(ejercicioCounter, ejercicioData.ejercicioId);
+        addEjercicioToDOM(ejercicioData.ejercicioId, ejercicioData.ejercicioNombre, ejercicioData.series);
+    });
+}
+
+// Cargar datos al inicio
+window.onload = loadData;
+
+// Detectar clicks en botones dinámicos
+document.getElementById('ejercicios').addEventListener('click', function (e) {
+    if (e.target && e.target.classList.contains('btn-add')) {
         const ejercicioId = e.target.getAttribute('data-ejercicio-id');
         const table = document.getElementById(`series-table-${ejercicioId}`);
         const rowCount = table.rows.length + 1;
-        serieCounter++;  // Incrementa el contador de series global
+        addSerieToDOM(ejercicioId, rowCount);
+        saveData();
+    }
 
-        // Nueva fila para la tabla con IDs únicos para los inputs y botón de eliminar
-        const newRow = `
-          <tr id="fila-serie-${ejercicioId}-${rowCount}">
-            <td>${rowCount}</td>
-
-            <td><input type="number" id="kg-${ejercicioId}-${rowCount}" class="form-control" value="0"></td>
-            <td><input type="number" id="reps-${ejercicioId}-${rowCount}" class="form-control" value="0"></td>
-
-              <td>
-                <select id="tipoSerie-${ejercicioId}-${rowCount}" class="form-select ">
-                  <option value="1">Fuerza</option>
-                  <option value="2">Ligero</option>
-                  <option value="3">Lineal</option>
-                  <option value="4">Piramidal</option>
-                </select>
-              </td>
-
-            
-            <td><input type="checkbox" class="btn-check" id="btn-check-outlined-${rowCount}" autocomplete="off">
-            <label class="btn btn-outline-success" for="btn-check-outlined-${rowCount}"><i class="fa fa-check" aria-hidden="true"></i></label></td>
-
-            <td><button class=" btn-delete btn btn-danger" data-ejercicio-id="${ejercicioId}" data-serie-id="${rowCount}">Eliminar</button></td>
-
-          </tr>
-        `;
-
-        // Añade la nueva fila a la tabla correspondiente
-        table.insertAdjacentHTML('beforeend', newRow);
-      }
-
-      // Eliminar Serie
-      if (e.target && e.target.classList.contains('btn-delete')) {
+    if (e.target && e.target.classList.contains('btn-delete')) {
         const ejercicioId = e.target.getAttribute('data-ejercicio-id');
         const serieId = e.target.getAttribute('data-serie-id');
         const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
 
         if (fila) {
-          fila.remove();  // Elimina la fila correspondiente
+            fila.remove();
+            saveData();
         }
-      }
-    });
-
-    // Función para obtener todos los datos de todos los ejercicios
-    let ejerciciosTodos = []
-    function obtenerDatos() {
-      
-      const ejercicios = document.getElementById('ejercicios').children;
-      let datos = [];
-
-      // Itera sobre cada ejercicio
-      Array.from(ejercicios).forEach(ejercicio => {
-        const ejercicioId = ejercicio.id.split('-')[1];  // Extraer el ID del ejercicio
-        const ejercicioNombre = ejercicio.querySelector('h4').innerText;  // Obtener el nombre del ejercicio
-        const table = ejercicio.querySelector('tbody');  // Obtener la tabla
-        const filas = table.querySelectorAll('tr');
-
-        // Itera sobre cada fila (serie)
-        filas.forEach(fila => {
-          const serieId = fila.querySelector('td').innerText;  // Número de serie
-          const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
-          const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
-          const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value
-
-          datos.push({
-            ejercicio: ejercicioNombre,
-            serie: serieId,
-            kg: kg,
-            reps: reps,
-            tSerie: tSerie
-          });
-        });
-
-        ejerciciosTodos.push(datos)
-        datos = []
-      });
-
-      console.log(ejerciciosTodos);  // Muestra los datos en la consola
-      alert("aca directamente redirigimos a la pagina de historial y se limpia la pagina de paso uwu onichan")
-      location.replace("https://www.youtube.com/watch?v=hjWINKZsoEE");
-
-      return datos;
-      
     }
-
-
+});

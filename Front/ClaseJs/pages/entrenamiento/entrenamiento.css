@@ -4,9 +4,14 @@ body {
 
 
 .sidebar {
-    height: 100vh;
     background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
  background-blend-mode: multiply;
+ position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Toma el 100% de la altura de la ventana */
+    width: 222px; /* Ancho del sidebar */
+}
 }
 
 .sidebar-header h2 {
@@ -48,3 +53,45 @@ body {
     margin:1rem;
 }
 
+@media (max-width: 767px) {
+    
+    #sidebarMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100vh;
+        z-index: 1045; /* Para asegurar que esté encima de otros elementos */
+        transform: translateX(-100%); /* Oculto fuera de la pantalla */
+        transition: transform 0.3s ease;
+    }
+
+    #sidebarMenu.collapse.show {
+        transform: translateX(0); /* Muestra el menú */
+    }
+
+    /* Fondo semitransparente para la pantalla cuando el menú está abierto */
+    .collapse.show ~ .content-overlay {
+        display: block;
+    }
+
+    .content-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1044; /* Justo debajo del menú */
+    }
+
+    #sidebarMenu .btn-dark[data-bs-toggle="collapse"] {
+        font-size: 1.5rem;
+        color: #ffffff;
+        background: none;
+        border: none;
+    }
+
+
+}

@@ -1,0 +1,189 @@
+
+
+.text-muted {
+    color: #979797 !important;
+}
+
+.sidebar {
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.25) 200%);
+    background-blend-mode: multiply;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    /* Toma el 100% de la altura de la ventana */
+    width: 222px;
+    /* Ancho del sidebar */
+}
+
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    padding: 15px 10px;
+}
+
+.nav-link.active {
+    color: white !important;
+    background-color: #ff9900;
+    border-radius: 4px;
+}
+
+.search-container {
+    transition: display 0.3s ease;
+}
+
+.separator {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: orange;
+}
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5px;
+}
+
+
+.card img {
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.btn-light {
+    background-color: #3a3a3a;
+    color: white;
+    border: none;
+}
+
+.btn-light:hover {
+    background-color: #4a4a4a;
+}
+
+body {
+    background-color: #1c1c1c;
+    color: white;
+}
+
+.search-container {
+    transition: display 0.3s ease;
+    margin-right: 30px;
+}
+
+.card {
+    background-color: #2c2c2c;
+    border: none;
+    border-radius: 8px;
+    width: 200px;
+    cursor: pointer;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+}
+
+.modal-content {
+    background-color: #2c2c2c;
+    color: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+}
+
+.modal-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: white;
+    z-index: 1001;
+}
+
+#modal-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#modal-description {
+    font-size: 1em;
+    color: #d3d3d3;
+}
+
+@media (max-width: 767px) {
+
+    #sidebarMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100vh;
+        z-index: 1045;
+        /* Para asegurar que esté encima de otros elementos */
+        transform: translateX(-100%);
+        /* Oculto fuera de la pantalla */
+        transition: transform 0.3s ease;
+    }
+
+    #sidebarMenu.collapse.show {
+        transform: translateX(0);
+        /* Muestra el menú */
+    }
+
+    /* Fondo semitransparente para la pantalla cuando el menú está abierto */
+    .collapse.show~.content-overlay {
+        display: block;
+    }
+
+    .content-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1044;
+        /* Justo debajo del menú */
+    }
+
+    #sidebarMenu .btn-dark[data-bs-toggle="collapse"] {
+        font-size: 1.5rem;
+        color: #ffffff;
+        background: none;
+        border: none;
+    }
+
+
+}

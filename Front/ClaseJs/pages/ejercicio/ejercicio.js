@@ -46,7 +46,7 @@ function displayExercises(filter = "") {
             separator.innerText = currentLetter;
 
             const cardContainer = document.createElement("div");
-            cardContainer.className = "card-container d-flex flex-wrap gap-2";
+            cardContainer.className = "card-container d-flex flex-wrap gap-3";
 
             letterGroup.appendChild(separator);
             letterGroup.appendChild(cardContainer);
@@ -58,12 +58,12 @@ function displayExercises(filter = "") {
         card.onclick = () => showModal(ejercicio);
 
         card.innerHTML = `
-            <img src="${ejercicio.img}" class="rounded-top mb-3" alt="${ejercicio.nombre} Icon"> 
-            <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <h5 class="card-title">${ejercicio.nombre}</h5>
-                <p class="card-text text-muted">${ejercicio.musculo}</p>
-            </div>
-        `;
+    <img src="${ejercicio.img}" class="rounded-top mb-3" alt="${ejercicio.nombre} Icon"> 
+    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+        <h5 class="card-title">${ejercicio.nombre}</h5>
+        <p class="card-text text-muted">${ejercicio.musculo}</p>
+    </div>
+`;
 
         const currentCardContainer = exerciseList.querySelector(
             `.letter-group:last-child .card-container`
