@@ -1,0 +1,118 @@
+/* Estilo general */
+body {
+    background-color: #282828;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #ffbe46;
+}
+
+button {
+    background-color: #ffbe46;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    color: black;
+    font-weight: bold;
+}
+
+/* Contenedor de las tarjetas */
+.session-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Tarjetas individuales */
+.session-card {
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(33.333% - 40px); /* 3 tarjetas por fila en pantallas grandes */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+}
+
+.session-card:hover {
+    transform: scale(1.05); /* Pequeña animación en hover */
+}
+
+/* Estilos de los textos en la tarjeta */
+.session-card h3 {
+    color: orange;
+    margin: 0;
+}
+
+.session-card p {
+    margin: 5px 0;
+}
+
+.session-card button {
+    background-color: #ffbe46;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.exercises {
+    margin-top: 10px;
+}
+
+/* Ajustes para la fila de ejercicios y la mejor serie */
+.exercise-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.exercise-info {
+    color: #ddd;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.best-set {
+    color: orange;
+    font-weight: bold;
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Responsividad: pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .session-card {
+        width: 100%; /* Una tarjeta por fila en dispositivos móviles */
+    }
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-group button {
+    background-color: #ffbe46;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+.subtitle{
+    color: orange;
+    margin: 0   ;
+
+}
