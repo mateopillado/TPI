@@ -2,6 +2,21 @@ function updateSliderValue(value) {
     document.getElementById("slider-value").textContent = value;
 }
 
+function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// Asignar colores aleatorios a los avatares
+document.getElementById("avatar1").style.backgroundColor = getRandomColor();
+document.getElementById("avatar2").style.backgroundColor = getRandomColor();
+document.getElementById("avatar3").style.backgroundColor = getRandomColor();
+document.getElementById("profile-pic").style.backgroundColor = getRandomColor();
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const shoulders = document.querySelectorAll('.shoulder');
@@ -43,8 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
             datasets: [{
                 label: 'Entrenamientos',
                 data: [2, 4, 1, 0, 0, 3, 1, 0, 5], // Datos de ejemplo
-                backgroundColor: 'rgba(138, 43, 226, 0.7)', // Color púrpura para las barras
-                borderColor: 'rgba(138, 43, 226, 1)',
+                backgroundColor: '#ff9900', // Color púrpura para las barras
+                borderColor: '#ff9900',
                 borderWidth: 1,
                 borderRadius: 5, // Redondeo de las esquinas
                 barPercentage: 0.6
