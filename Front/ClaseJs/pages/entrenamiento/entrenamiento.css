@@ -53,3 +53,45 @@ body {
     margin:1rem;
 }
 
+@media (max-width: 767px) {
+    
+    #sidebarMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100vh;
+        z-index: 1045; /* Para asegurar que esté encima de otros elementos */
+        transform: translateX(-100%); /* Oculto fuera de la pantalla */
+        transition: transform 0.3s ease;
+    }
+
+    #sidebarMenu.collapse.show {
+        transform: translateX(0); /* Muestra el menú */
+    }
+
+    /* Fondo semitransparente para la pantalla cuando el menú está abierto */
+    .collapse.show ~ .content-overlay {
+        display: block;
+    }
+
+    .content-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1044; /* Justo debajo del menú */
+    }
+
+    #sidebarMenu .btn-dark[data-bs-toggle="collapse"] {
+        font-size: 1.5rem;
+        color: #ffffff;
+        background: none;
+        border: none;
+    }
+
+
+}

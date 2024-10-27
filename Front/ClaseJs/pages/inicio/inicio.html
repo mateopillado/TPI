@@ -73,13 +73,15 @@
 
                     <!-- User Information and Weekly Chart -->
                     <div class="user-info">
-                        <div class="profile-pic"></div>
-                        <div class="col-md-9">
-
+                        <div class="d-flex align-items-center flex-column text-center">
+                            <div class="profile-pic" id="profile-pic">N</div>
                             <div class="user-details">
-                                <h2>Nombre Usuario</h2>
-                                <p>5 entrenamientos realizados</p>
-                            </div>
+                        </div>
+                            <h2>Nombre Usuario</h2>
+                            <p>5 entrenamientos realizados</p>
+                        </div>
+                        <div class="col-md-7">
+
                             <div class="chart-container">
                                 <h3>Entrenamientos por semana</h3>
                                 <canvas id="trainingChart"></canvas>
@@ -830,15 +832,41 @@
                     </div>
 
                     <!-- Nearby Trainers Section -->
-                    <div class="trainers-section">
-                        <button class="btn btn-outline-dark mb-3">Buscar Profesor</button>
-                        <div class="trainer-list">
+                    <div class="trainers-section mb-4">
+                    
+                        <div class="trainer-list d-flex align-items-center flex-column">
                             <h4>Profesores Cercanos</h4>
-                            <ul>
-                                <li>Profesor 1 - Especialidad: Fuerza</li>
-                                <li>Profesor 2 - Especialidad: Cardio</li>
-                                <li>Profesor 3 - Especialidad: Flexibilidad</li>
-                            </ul>
+                            <div class="cardFind p-4">
+                                <h2 class="text-center">Distancia en Km</h2>
+                                <div class="slider-container mt-4">
+                                    <div class="slider-value text-center mb-3" id="slider-value" >5</div>
+                                    <input type="range" class="form-range"  min="1" max="15" value="5" id="customRange" oninput="updateSliderValue(this.value)">
+                                </div>
+                            </div>
+                            <button class="btn mb-3 m-3 btn-warning">Buscar Profesor</button>
+                            <div class="container d-flex align-items-center flex-column">
+                                <div class="card col-lg-10 bg-dark mb-3 p-3 d-flex flex-row align-items-center">
+                                    <div class="avatar" id="avatar1">S</div>
+                                    <div>
+                                        <h5 class="mb-0">Sarah Johnson</h5>
+                                        <small class="text-light">0.8 km</small>
+                                    </div>
+                                </div>
+                                <div class="card col-lg-10 bg-dark mb-3 p-3 d-flex flex-row align-items-center">
+                                    <div class="avatar" id="avatar2">S</div>
+                                    <div>
+                                        <h5 class="mb-0">Sarah Johnson</h5>
+                                        <small class="text-light">0.8 km</small>
+                                    </div>
+                                </div>
+                                <div class="card col-lg-10 bg-dark mb-3 p-3 d-flex flex-row align-items-center">
+                                    <div class="avatar" id="avatar3">S</div>
+                                    <div>
+                                        <h5 class="mb-0">Sarah Johnson</h5>
+                                        <small class="text-light">0.8 km</small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
