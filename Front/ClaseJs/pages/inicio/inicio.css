@@ -298,3 +298,41 @@ body {
     display: none;
 }
 
+
+/* find profesor */
+.cardFind {
+    max-width: 350px;
+    margin-top: 50px;
+}
+
+.slider-value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+input[type="range"] {
+    width: 100%;
+    color: orange !important;
+    accent-color: #f5910e !important; /* Color personalizado para el thumb en navegadores compatibles */
+}
+
+#customRange::-webkit-slider-thumb {
+    background-color: #ee840b;
+    border: 2px solid #ff9100;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-appearance: none; 
+    margin-top: -6px;
+}
+
+#customRange::-moz-range-thumb {
+    background-color: #ee840b;
+    border: 2px solid #ff9100;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}

@@ -1,3 +1,8 @@
+function updateSliderValue(value) {
+    document.getElementById("slider-value").textContent = value;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const shoulders = document.querySelectorAll('.shoulder');
     const chests = document.querySelectorAll('.chest');
