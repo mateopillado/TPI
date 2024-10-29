@@ -97,3 +97,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+
+// RADAAAAAR
+
+const radar = document.getElementById("radar");
+      
+      // Puntos con distancias en kilómetros
+      const points = [
+        { distance: 10, label: "km1" },
+        { distance: 8, label: "km2" },
+        { distance: 8, label: "km3" },
+    
+      ];
+    
+      // Tamaño del radar y ajuste de distancia máxima
+      const radarRadius = 180; // El radio del círculo
+      const maxDistance = 10; // La distancia máxima que se muestra en el radar
+    
+      // Función para generar posición según la distancia
+      function getPositionByDistance(distance) {
+        let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
+        let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
+        let x = r * Math.cos(angle);
+        let y = r * Math.sin(angle);
+        return { x, y };
+      }
+    
+      // Crear puntos en el radar
+      points.forEach(point => {
+        const pointElement = document.createElement("div");
+        pointElement.classList.add("point");
+        pointElement.innerText = point.label;
+    
+        const position = getPositionByDistance(point.distance);
+        pointElement.style.left = 200 + position.x + "px"; // 200px es el centro del radar
+        pointElement.style.top = 200 + position.y + "px";
+    
+        radar.appendChild(pointElement);
+      });

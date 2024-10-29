@@ -357,3 +357,62 @@ input[type="range"] {
     color: white;
     margin-right: 15px;
 }
+
+
+/* RADAAAAR */
+
+.radar {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border: 3px solid #6c757d; /* Borde gris */
+    border-radius: 50%;
+    background-color: #343a40; /* Fondo del radar gris oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra para un efecto de profundidad */
+  }
+  
+  .center-point {
+    width: 20px;
+    height: 20px;
+    background-color: #ff073a; /* Punto central rojo brillante */
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    box-shadow: 0 0 10px rgba(255, 7, 58, 0.7); /* Sombra para el punto central */
+  }
+  
+  .center-point::after {
+    content: "Me";
+    position: absolute;
+    top: 30px; /* Ajusta la distancia encima del punto central */
+    background-color: #ff073a;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .point {
+    width: 10px;
+    height: 10px;
+    background-color: #adb5bd; /* Puntos grises */
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #adb5bd;
+    font-size: 12px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px rgba(173, 181, 189, 0.7); /* Sombra para los puntos */
+  }
