@@ -105,16 +105,16 @@ const radar = document.getElementById("radar");
       
       // Puntos con distancias en kilómetros
       const points = [
-        { distance: 10, label: "km1" },
-        { distance: 8, label: "km2" },
-        { distance: 8, label: "km3" },
+        { distance: 1, label: "km1" },
+        { distance: 5, label: "km2" },
+        { distance: 10, label: "km3" },
     
       ];
     
       // Tamaño del radar y ajuste de distancia máxima
       const radarRadius = 180; // El radio del círculo
-      const maxDistance = 10; // La distancia máxima que se muestra en el radar
-    
+      const maxDistance = document.getElementById("customRange").value; // La distancia máxima que se muestra en el radar
+      console.log(maxDistance)
       // Función para generar posición según la distancia
       function getPositionByDistance(distance) {
         let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes

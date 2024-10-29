@@ -11,28 +11,25 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg fixed-top bg-black">
         <div class="container-fluid">
-            <a class="navbar-brand logoInicial" href="#">Nombrecito</a>
+            <a class="navbar-brand text-light" href="#hero">GYM TRACKER</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="navitem">
-                        <a class="navlink active" href="#">Home</a>
+                        <a class="navlink active" href="#hero">Home</a>
                     </li>
                     <li class="navitem">
-                        <a class="navlink" href="#plans">Services</a>
+                        <a class="navlink" href="#Features">Services</a>
                     </li>
                     <li class="navitem">
-                        <a class="navlink" href="#">About</a>
+                        <a class="navlink" href="#acerca" >Acerca De</a>
                     </li>
                     <li class="navitem">
-                        <a class="navlink" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Acerca De</a>
-                    </li>
-                    <li class="navitem">
-                        <a class="navjoin bg-warning" href="#">Ingrear</a>
+                        <a class="navjoin bg-warning text-black" href="/Front/ClaseJs/pages/login/login.html">Ingrear</a>
                     </li>
                 </ul>
             </div>
@@ -40,16 +37,16 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero text-center text-light d-flex align-items-center desplazar" style="background: url('/assets/images/fondito.png') no-repeat center center/cover; height: 95vh;">
+    <section class="hero text-center text-light d-flex align-items-center desplazar" style="background: url('/Front/ClaseJs/assets/images/fondito.png') no-repeat center center/cover; height: 95vh;" id="hero">
         <div class="container">
             <h1 class="display-4">Transform Your Body</h1>
-            <p class="lead">We are dedicated to helping you transform your body and mind through the power of fitness.</p>
-            <a href="#" class="btn btn-primary btn-lg">Comenzar</a>
-            <a href="#" class="btn btn-outline-light btn-lg">Unute</a>
+            <p class="lead m-3">We are dedicated to helping you transform your body and mind through the power of fitness.</p>
+            <a href="/Front/ClaseJs/pages/registro/registro.html" class="btn btn-warning btn-lg">Comenzar</a>
+            <a href="/Front/ClaseJs/pages/login/login.html" class="btn btn-outline-light btn-lg">Ingresar</a>
         </div>
     </section>
 
-    <div class="PRUEBITA " style="background: url('/assets/images/fonditoRotado.png') no-repeat center center/cover;">
+    <div class="PRUEBITA" id="Features" style="background: url('/assets/images/fonditoRotado.png') no-repeat center center/cover;">
         <h2 class="featuresText">Features</h2>
         <div class="row centrarFeatures">
             <div class="col-md-4 padd text-center lineBottom">
@@ -86,8 +83,56 @@
             </div>
         </div>
     </div>
- 
-
+    
+    <h2 class="featuresText text-center" id="acerca">Integrantes</h2>
+    <section class="col-md-12 d-flex justify-content-around mb-5">
+        <div class="">
+            <div class="card bg-dark" style="width: 18rem;">
+                <img src="/Front/ClaseJs/assets/images/avatar.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title text-light">Card title</h5>
+                  <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="card bg-dark" style="width: 18rem;">
+                <img src="/Front/ClaseJs/assets/images/avatar.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title text-light">Card title</h5>
+                  <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="card bg-dark" style="width: 18rem;">
+                <img src="/Front/ClaseJs/assets/images/avatar.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title text-light">Card title</h5>
+                  <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="card bg-dark" style="width: 18rem;">
+                <img src="/Front/ClaseJs/assets/images/avatar.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title text-light">Card title</h5>
+                  <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="card bg-dark" style="width: 18rem;">
+                <img src="/Front/ClaseJs/assets/images/avatar.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title text-light">Card title</h5>
+                  <p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 
     <!-- Footer -->
     <footer class="bg-warning text-dark py-3">
