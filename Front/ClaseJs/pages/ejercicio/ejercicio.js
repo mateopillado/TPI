@@ -1,26 +1,28 @@
 var ejercicios = [
-    { nombre: "Plano", musculo: "Pecho" },
-    { nombre: "Inclinado", musculo: "Pecho" },
-    { nombre: "Ab Crunch", musculo: "Abdominales" },
-    { nombre: "Burpees", musculo: "Todo el cuerpo" },
-    { nombre: "Sentadillas", musculo: "Piernas" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
-    { nombre: "Ab Roller", musculo: "Abdominales" },
+    { nombre: "Plano", musculo: "Pecho", gif: "../../assets/images/benchgif.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio plano para trabajar el pecho." },
+    { nombre: "Inclinado", musculo: "Pecho", gif: "ruta_del_gif_inclinado.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio inclinado para la parte superior del pecho." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Ab Crunch", musculo: "Abdominales", gif: "ruta_del_gif_ab_crunch.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de crunch para trabajar abdominales." },
+    { nombre: "Burpees", musculo: "Todo el cuerpo", gif: "ruta_del_gif_burpees.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de burpees para todo el cuerpo." },
+    { nombre: "Sentadillas", musculo: "Piernas", gif: "ruta_del_gif_sentadillas.gif", img: "../../assets/images/bench.png", descripcion: "Ejercicio de sentadillas para piernas." }
 ];
 
 ejercicios.sort((a, b) => a.nombre.toLowerCase().localeCompare(b.nombre.toLowerCase()));
 
 const exerciseList = document.getElementById("exercise-list");
+const modalOverlay = document.getElementById("modal-overlay");
+const closeModalButton = document.getElementById("close-modal");
+const modalTitle = document.getElementById("modal-title");
+const modalDescription = document.getElementById("modal-description");
+const exerciseGif = document.getElementById("exercise-gif");
 
 function displayExercises(filter = "") {
     exerciseList.innerHTML = ""; 
@@ -37,14 +39,14 @@ function displayExercises(filter = "") {
             currentLetter = firstLetter;
 
             const letterGroup = document.createElement("div");
-            letterGroup.className = "letter-group";
+            letterGroup.className = "letter-group mb-4";
 
             const separator = document.createElement("div");
-            separator.className = "separator text-uppercase font-weight-bold";
+            separator.className = "separator mb-2 text-warning fs-1 text-uppercase font-weight-bold";
             separator.innerText = currentLetter;
 
             const cardContainer = document.createElement("div");
-            cardContainer.className = "card-container";
+            cardContainer.className = "card-container d-flex flex-wrap gap-3";
 
             letterGroup.appendChild(separator);
             letterGroup.appendChild(cardContainer);
@@ -52,21 +54,39 @@ function displayExercises(filter = "") {
         }
 
         const card = document.createElement("div");
-        card.className = "card text-white ";
+        card.className = "card text-white";
+        card.onclick = () => showModal(ejercicio);
 
         card.innerHTML = `
-            <img src="../../assets/images/bench.png" alt="${ejercicio.nombre} Icon"> 
-            <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <h5 class="card-title">${ejercicio.nombre}</h5>
-                <p class="card-text text-muted">${ejercicio.musculo}</p>
-            </div>
-        `;
+    <img src="${ejercicio.img}" class="rounded-top mb-3" alt="${ejercicio.nombre} Icon"> 
+    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+        <h5 class="card-title">${ejercicio.nombre}</h5>
+        <p class="card-text text-muted">${ejercicio.musculo}</p>
+    </div>
+`;
 
         const currentCardContainer = exerciseList.querySelector(
             `.letter-group:last-child .card-container`
         );
         currentCardContainer.appendChild(card);
     });
+}
+
+function showModal(ejercicio) {
+    modalTitle.innerText = ejercicio.nombre;
+    exerciseGif.src = ejercicio.gif;
+    modalDescription.innerText = ejercicio.descripcion;
+    modalOverlay.style.display = "flex"; 
+}
+
+closeModalButton.addEventListener("click", closeModal);
+modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) closeModal();
+});
+
+function closeModal() {
+    modalOverlay.style.display = "none";
+    exerciseGif.src = ""; // Elimina la fuente del GIF al cerrar
 }
 
 document.getElementById("search-input").addEventListener("input", function() {
@@ -85,12 +105,3 @@ document.getElementById("search-toggle").addEventListener("click", function() {
         searchContainer.style.display = "none"; 
     }
 });
-
-// document.addEventListener("click", function(event) {
-//     const searchContainer = document.querySelector(".search-container");
-//     const searchButton = document.getElementById("search-toggle");
-
-//     if (!searchContainer.contains(event.target) && !searchButton.contains(event.target)) {
-//         searchContainer.style.display = "none";
-//     }
-// });
