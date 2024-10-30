@@ -1,5 +1,8 @@
 body {
-    background-color: #302f2f;
+    background-color: black;
+    background-image: url("/Front/ClaseJs/assets/images/acercaDe.png");
+    background-position: center;
+    background-size: cover;
 }
 
 .sidebar {
@@ -25,4 +28,41 @@ body {
     color: white !important;
     background-color: #ff9900;
     border-radius: 4px;
+}
+
+html{
+    cursor: url('/Front/ClaseJs/assets/images/weight.png'), auto;
+}
+
+
+.navitem{
+    padding: 5px;
+    margin-left: 1rem;
+}
+
+.navlink{
+    list-style: none;
+    text-decoration: none;
+    color: white;
+    padding-bottom: 8px;
+}
+
+.navlink:hover{
+    border-bottom: 1px solid orange;
+}
+
+.navjoin{
+    padding: 7px;
+    border-radius: 3px;
+    color: white;
+    list-style: none;
+    text-decoration: none;
+}
+
+.navjoin:hover{
+    background-color: rgb(255, 190, 70);
+}
+
+.logoInicial{
+    color: white;
 }

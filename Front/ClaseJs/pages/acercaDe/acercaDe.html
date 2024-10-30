@@ -16,99 +16,81 @@
     </head>
   
   <body style="color: white;">
-    <div class="container-fluid" id="root">
-      <div class="row">
-        <button class="btn btn-dark d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
-          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-          &#9776; Menú
-        </button>
-        <!-- Sidebar -->
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
-          <div class="position-sticky d-flex flex-column vh-100">
-  
-            <div class="d-md-none text-end p-2">
-              <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
-                aria-controls="sidebarMenu" aria-expanded="false" aria-label="Close menu">
-                &times; <!-- Símbolo de "X" para cerrar -->
-              </button>
-            </div>
-  
-            <div class="sidebar-header p-3 text-white d-flex align-items-center justify-content-center">
-              <h1>Tracker</h1>
-            </div>
-            <ul class="nav flex-column flex-grow-1">
-              <li class="nav-item">
-                <a class="nav-link text-white" href="/Front/ClaseJs/pages/inicio/inicio.html" onclick="router()">
-                  Inicio
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="/Front/ClaseJs/pages/entrenamiento/entrenamiento.html">
-                  Entrenamiento
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="/Front/ClaseJs/pages/historial/historial.html" onclick="router()">
-                  Historial
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="/Front/ClaseJs/pages/ejercicio/ejercicio.html" onclick="router()">
-                  Ejercicios
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active text-white" href="/Front/ClaseJs/pages/ejercicio/ejercicio.html" onclick="router()">
-                  Acerca De
-                </a>
-              </li>
-              <li class="nav-item mt-auto">
-                <a class="nav-link text-warning " href="#">
-                  Log Out
-                </a>
-              </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg bg-black">
+      <div class="container-fluid">
+          <a class="navbar-brand text-light" href="#hero">GYM TRACKER</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                  <li class="navitem">
+                      <a class="navlink active" href="#hero">Home</a>
+                  </li>
+                  <li class="navitem">
+                      <a class="navlink" href="#Features">Services</a>
+                  </li>
+                  <li class="navitem">
+                      <a class="navlink" href="#acerca" >Acerca De</a>
+                  </li>
+                  <li class="navitem">
+                      <a class="navjoin bg-warning text-black" href="/Front/ClaseJs/pages/login/login.html">Ingrear</a>
+                  </li>
+              </ul>
           </div>
-        </nav>
+      </div>
+  </nav>
         <!-- Main -->
-        <main id="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
-            <h1>Intregantes</h1>
-            <div>
-                <div class="card bg-dark te" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <main id="main" class="col-md-8 ms-sm-auto col-lg-12 col-md-8 col-sm-10  px-md-4 mt-4">
+            <h1 class="text-center">Integrantes</h1>
+            <div class="d-flex align-items-center container-fluid justify-content-center flex-wrap" style="height:80%; gap: 3rem;">
+
+              
+                <div class="d-flex flex-column justify-content-center" style="width: 18rem;">
+                  <img src="/Front/ClaseJs/assets/images/1.png" class="card-img-top" alt="...">
+                    <div class="card-body bg-dark card">
+                      <h5 class="card-title">Pillado Mateo</h5>
+                      <p class="card-text">412017</p>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="d-flex flex-column justify-content-center" style="width: 18rem;">
+                  <img src="/Front/ClaseJs/assets/images/2.png" class="card-img-top" alt="...">
+                    <div class="card-body bg-dark card">
+                      <h5 class="card-title">Pillado Mateo</h5>
+                      <p class="card-text">412017</p>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="d-flex flex-column justify-content-center" style="width: 18rem;">
+                  <img src="/Front/ClaseJs/assets/images/3.png" class="card-img-top" alt="...">
+                    <div class="card-body bg-dark card">
+                      <h5 class="card-title">Pillado Mateo</h5>
+                      <p class="card-text">412017</p>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="d-flex flex-column justify-content-center" style="width: 18rem;">
+                  <img src="/Front/ClaseJs/assets/images/4.png" class="card-img-top" alt="...">
+                    <div class="card-body bg-dark card">
+                      <h5 class="card-title">Pillado Mateo</h5>
+                      <p class="card-text">412017</p>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="d-flex flex-column justify-content-center" style="width: 18rem;">
+                  <img src="/Front/ClaseJs/assets/images/5.png" class="card-img-top" alt="...">
+                    <div class="card-body bg-dark card">
+                      <h5 class="card-title">Pillado Mateo</h5>
+                      <p class="card-text">412017</p>
                     </div>
                 </div>
+
+                
+
+
+
+                <!-- //aca cierra -->
             </div>
         </main>
 
