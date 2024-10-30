@@ -1,0 +1,14 @@
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\bin\Release\net8.0\trackerBack.deps.json
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\bin\Release\net8.0\trackerBack.runtimeconfig.json
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\bin\Release\net8.0\trackerBack.dll
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\bin\Release\net8.0\trackerBack.pdb
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.csproj.AssemblyReference.cache
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.AssemblyInfoInputs.cache
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.AssemblyInfo.cs
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.csproj.CoreCompileInputs.cache
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.dll
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\refint\trackerBack.dll
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.pdb
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\trackerBack.genruntimeconfig.cache
+C:\Users\dario\source\repos\utn\tpi\grupo7_1w3\trackerBack\obj\Release\net8.0\ref\trackerBack.dll

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>\\vm01\shared\app-pool-vm01\api</_PublishTargetUrl>
+    <History>True|2024-10-30T03:44:33.0250396Z;True|2024-10-29T20:43:39.2064532-03:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

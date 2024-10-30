@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "trackerApi", "trackerApi\trackerApi.csproj", "{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "trackerBack", "trackerBack\trackerBack.csproj", "{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94152A9E-5D36-475E-A979-518F4C3C3543}
+	EndGlobalSection
+EndGlobal
