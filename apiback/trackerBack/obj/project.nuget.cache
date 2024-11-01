@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dg8309YMwyTS/0S7kVBRr7CMOEIDIIpKLjY9j7QQS06aNAqUot54AISShJQ3nsxiTp5a2r+dRAk6+kb/MD1r/w==",
+  "dgSpecHash": "vYnuwvqJEfqAe+QC8BZ7xy5UncqdghNUBHriqSHxP3Wmgne+QibWAnZXuKWghVJnyIhorPjkpkF8+GPUpytvKQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerBack\\trackerBack.csproj",
+  "projectFilePath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dario\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\dario\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

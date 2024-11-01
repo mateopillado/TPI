@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>\\vm01\shared\app-pool-vm01\api</_PublishTargetUrl>
-    <History>True|2024-10-30T03:44:33.0250396Z;True|2024-10-29T20:43:39.2064532-03:00;</History>
+    <History>True|2024-11-01T20:25:18.3508004Z;True|2024-11-01T17:18:18.5123590-03:00;True|2024-11-01T17:16:21.8344702-03:00;True|2024-11-01T17:08:58.7372388-03:00;True|2024-10-30T00:44:33.0250396-03:00;True|2024-10-29T20:43:39.2064532-03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

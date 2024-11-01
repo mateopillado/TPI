@@ -22,10 +22,12 @@ namespace trackerApi.Controllers
         {
             try
             {
-                return Ok(await _service.Login(data));
+                var token = await _service.Login(data);
+                return Ok( new { token = token});
             }
             catch (Exception e)
             {
+               Console.WriteLine(e.Message);
                 throw new Exception(e.Message);
             }
         }

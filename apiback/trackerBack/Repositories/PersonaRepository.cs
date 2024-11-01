@@ -124,7 +124,7 @@ namespace trackerBack.Repositories
                 issuer: issuer,
                 audience: audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(240),
                 signingCredentials: credentials
             );
 

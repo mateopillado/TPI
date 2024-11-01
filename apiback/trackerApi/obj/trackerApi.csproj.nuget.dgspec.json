@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerApi\\trackerApi.csproj": {}
+    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\trackerApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerApi\\trackerApi.csproj": {
+    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\trackerApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerApi\\trackerApi.csproj",
+        "projectUniqueName": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\trackerApi.csproj",
         "projectName": "trackerApi",
-        "projectPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerApi\\trackerApi.csproj",
+        "projectPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\trackerApi.csproj",
         "packagesPath": "C:\\Users\\dario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerApi\\obj\\",
+        "outputPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dario\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerBack\\trackerBack.csproj": {
-                "projectPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerBack\\trackerBack.csproj"
+              "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj": {
+                "projectPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj"
               }
             }
           }
@@ -95,14 +95,14 @@
         }
       }
     },
-    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerBack\\trackerBack.csproj": {
+    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerBack\\trackerBack.csproj",
+        "projectUniqueName": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
         "projectName": "trackerBack",
-        "projectPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerBack\\trackerBack.csproj",
+        "projectPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
         "packagesPath": "C:\\Users\\dario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\grupo7_1w3\\trackerBack\\obj\\",
+        "outputPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dario\\AppData\\Roaming\\NuGet\\NuGet.Config",
