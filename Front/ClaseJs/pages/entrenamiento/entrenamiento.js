@@ -72,44 +72,49 @@ function addSerieToDOM(ejercicioId, serieId, kg = 0, reps = 0, tSerie = "1", che
 
 // Función para guardar el estado en localStorage
 function saveData() {
-    let ejerciciosData = [];
-    const ejercicios = document.getElementById('ejercicios').children;
+  let ejerciciosData = [];
+  const ejercicios = document.getElementById('ejercicios').children;
 
-    Array.from(ejercicios).forEach(ejercicio => {
-        const ejercicioId = ejercicio.id.split('-')[1];
-        const table = ejercicio.querySelector('tbody');
-        const filas = table.querySelectorAll('tr');
+  Array.from(ejercicios).forEach(ejercicio => {
+      const ejercicioId = ejercicio.id.split('-')[1];
+      const ejercicioNombre = ejercicio.querySelector('h4').innerText; // Capturamos el nombre del ejercicio
+      const table = ejercicio.querySelector('tbody');
+      const filas = table.querySelectorAll('tr');
 
-        let series = [];
-        if (filas.length == 0) {
-          return
-        }
+      let series = [];
+      if (filas.length === 0) {
+          return;
+      }
 
-        filas.forEach(fila => {
-            const serieId = fila.querySelector('td').innerText;
-            const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
-            const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
-            const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value;
-            const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).checked;
+      filas.forEach(fila => {
+          const serieId = fila.querySelector('td').innerText;
+          const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
+          const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
+          const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value;
+          const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).checked;
 
-            series.push({
-                serieId: serieId,
-                kg: kg,
-                reps: reps,
-                tSerie: tSerie,
-                checked: checked
-            });
-        });
+          if (checked) {
+              series.push({
+                  serieId: serieId,
+                  kg: kg,
+                  reps: reps,
+                  tSerie: tSerie,
+                  checked: checked
+              });
+          }
+      });
 
-        ejerciciosData.push({
-            ejercicioId: ejercicioId,
-            series: series
-        });
-    });
+      ejerciciosData.push({
+          ejercicioId: ejercicioId,
+          ejercicioNombre: ejercicioNombre,  // Guardamos el nombre del ejercicio
+          series: series
+      });
+  });
 
-    localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
-    dataGuardar = ejerciciosData
+  localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
+  dataGuardar = ejerciciosData;
 }
+
 
 // Función para cargar el estado desde localStorage
 function loadData() {
@@ -128,6 +133,7 @@ window.onload = loadData();
 
 let guardarEntrenamiento = document.getElementById('guardarEntrenamiento')
 guardarEntrenamiento.addEventListener('click', function() {
+  saveData();
   localStorage.clear();
   console.log(dataGuardar)
   // window.location.href = '../Historial/historial.html' //descomentar al terminar
@@ -153,7 +159,7 @@ document.getElementById('ejercicios').addEventListener('click', function (e) {
              // Si no quedan filas, ocultar el contenedor de la tabla
              if ((fila.id).charAt(13) == 1) {
                  const container = document.getElementById(`ejercicio-${ejercicioId}`);
-                 container.style.display = 'none';
+                 container.innerHTML = '' // fijarse aca el borrado del cabezal
              }
 
             fila.remove();

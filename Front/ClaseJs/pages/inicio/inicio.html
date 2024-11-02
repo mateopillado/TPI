@@ -34,25 +34,22 @@
                     </div>
                     <ul class="nav flex-column flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" href="/Front/ClaseJs/pages/inicio/inicio.html"
-                                onclick="router()">
+                            <a class="nav-link active text-white" href="../inicio/inicio.html">
                                 Inicio
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/Front/ClaseJs/pages/entrenamiento/entrenamiento.html">
+                            <a class="nav-link text-white" href="../entrenamiento/entrenamiento.html">
                                 Entrenamiento
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/Front/ClaseJs/pages/Historial/historial.html"
-                                onclick="router()">
+                            <a class="nav-link text-white" href="../Historial/historial.html">
                                 Historial
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/Front/ClaseJs/pages/ejercicio/ejercicio.html"
-                                onclick="router()">
+                            <a class="nav-link text-white" href="../ejercicio/ejercicio.html">
                                 Ejercicios
                             </a>
                         </li>
@@ -68,27 +65,30 @@
             <!-- Main -->
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="dashboard">
+                <div class="dashboard py-4">
 
                     <!-- User Information -->
-                    <div class="user-info">
-                        <div class="d-flex align-items-center flex-column text-center">
-                            <div class="profile-pic" id="profile-pic">N</div>
-                            <div class="user-details">
-                        </div>
-                            <h2>Nombre Usuario</h2>
-                            <p>5 entrenamientos realizados</p>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="chart-container">
-                                <h3>Entrenamientos por semana</h3>
+                    <div class="container-fluid">
+                        <div class="row user-info">
+                            <!-- Columna para la información del usuario -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 d-flex flex-column align-items-center text-center mb-4">
+                                <div class="profile-pic mb-3" id="profile-pic"></div>
+                                <div class="user-details">
+                                    <h2 id="username" class="mb-1"></h2>
+                                    <p id="numEntrenamientos"></p>
+                                </div>
+                            </div>
+                            
+                            <!-- Columna para el gráfico -->
+                            <div class="col-lg-8 col-md-12 chart-container mb-4">
+                                <h3 class="text-center text-md-start">Entrenamientos por semana</h3>
                                 <canvas id="trainingChart"></canvas>
                             </div>
                         </div>
                     </div>
 
-                    <div class="body-map">
-                        <div class="front-view">
+                    <div class="body-map flex-row container-fluid justify-content-center align-items-center d-flex rounded p-2 flex-wrap">
+                        <div class="front-view m-3">
                             <svg viewBox="0 0 660.46 1206.46" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 class="w-screen lg:w-full mc:h-[700px] 2xl:h-[90vh] 3xl:h-[95vh] 4xl:h-screen sm:mx-auto object-fit  menor ">
                                 <defs>
@@ -796,36 +796,30 @@
                     </div>
 
                     <!-- Nearby Trainers Section -->
-                    <div class="trainers-section mb-4">
-                    
-                        <div class="trainer-list d-flex align-items-center flex-column">
-                            <h2 class="mt-5">Buscar Profesor</h2>
-                            <div class="cardFind p-4">
-                                <h3 class="text-center">Distancia en Km</h3>
-                                <div class="slider-container mt-4">
-                                    <div class="slider-value text-center mb-3" id="slider-value" >5</div>
-                                    <input type="range" class="form-range"  min="1" max="15" value="5" id="customRange" oninput="updateSliderValue(this.value)">
+                    <div class="trainers-section rounded container-fluid">
+                        <!-- Título y Controles de Búsqueda -->
+                        <div class="trainer-list d-flex flex-column align-items-center text-center">
+                            <h2 class="mt-4 mb-4">Buscar Profesor</h2>
+                            
+                            <!-- Card de control de distancia con slider -->
+                            <div class="cardFind p-4 rounded shadow-sm mb-4">
+                                <h3 class="text-center mb-3">Distancia en Km</h3>
+                                <div class="slider-container mt-3">
+                                    <div class="slider-value text-center mb-2" id="slider-value">5</div>
+                                    <input type="range" class="form-range" min="1" max="15" value="5" id="customRange" oninput="updateSliderValue(this.value)">
                                 </div>
                             </div>
-                            <button class="btn mb-3 m-3 btn-warning">Buscar Profesor</button>
-                            <div class="container d-flex align-items-center flex-column">
-                                <div class="radar m-5" id="radar">
-                                    <div class="center-point"></div>
+                            <button class="btn mb-3 m-3 btn-warning" id="buscarProfesor">Buscar Profesor</button>
+                            <div class="radarMe">
+                                <div class="center-point" id="me"></div>
+                                <div class="radar m-5">
+                                    <div id="radar"></div>
                                   </div>
-
-                                <div class="card col-lg-10 bg-dark mb-3 p-3 d-flex flex-row align-items-center">
-                                    <div class="avatar" id="avatar1">S</div>
-                                    <div>
-                                        <h5 class="mb-0">Sarah Johnson</h5>
-                                        <div class="d-flex flex-column">
-                                            <p class="m-0">Contacto: </p>
-                                            <small class="text-light">Distance: 0.8 km</small>
-                                        </div>
-                                    </div>
-                                </div>  
                             </div>
-                        </div>
+                            
+                        <div id="resultadosRadar" class="container d-flex flex-column justify-content-center align-items-center"></div>
                     </div>
+                    
                 </div>
             </main>
         </div>
@@ -833,7 +827,7 @@
 
 
     <!-- Bootstrap JS -->
-    <script src="./inicio.js"></script>
+    <script type="module" src="./inicio.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>

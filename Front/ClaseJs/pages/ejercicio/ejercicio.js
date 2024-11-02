@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return await ejercicioService.getAll();
   }
 
-  var ejercicios = await getEjercicios();
+  let ejercicios = await getEjercicios();
 
   ejercicios.sort((a, b) =>
     a.nombre.toLowerCase().localeCompare(b.nombre.toLowerCase())
