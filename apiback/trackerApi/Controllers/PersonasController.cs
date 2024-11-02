@@ -115,15 +115,14 @@ namespace trackerApi.Controllers
                 throw new Exception(e.Message);
             }
         }
-        [HttpGet("/userLogged")]
+        [HttpGet("UsuarioActual")]
         [Authorize]
-        public IActionResult GetUserInfo()
+        public async Task<IActionResult> GetUserInfo()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
             if (userId != null)
             {
-                // Aquí puedes utilizar el userId para hacer consultas sobre el usuario
-                return Ok($"El ID del usuario es: {userId}");
+                return Ok(await _service.GetLoggedUser(int.Parse(userId)));
             }
 
             return Unauthorized();
