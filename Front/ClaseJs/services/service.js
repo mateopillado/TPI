@@ -9,7 +9,7 @@ class Service {
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYXJvbiIsInVzZXJJZCI6IjUiLCJqdGkiOiJkMDk4N2I5YS1kNDgyLTRhMzEtYWJiZi03ZTU1ODA5YTllOWYiLCJleHAiOjE3MzA1MDcxNDgsImlzcyI6IlR1SXNzdWVyQXF1aSIsImF1ZCI6IlR1QXVkaWVuY2VBcXVpIn0.6p2sLE77A654xlVCtF63038kESXzQpMizaYZWuEvrYw`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYXJvbiIsInVzZXJJZCI6IjUiLCJqdGkiOiIzNjRmZTViMC1iMThmLTQxNGEtODRjZS1mNmYwZWEwM2IyNjciLCJleHAiOjE3MzA1MjIwNjMsImlzcyI6IlR1SXNzdWVyQXF1aSIsImF1ZCI6IlR1QXVkaWVuY2VBcXVpIn0.pJrLXoU4gD_lt3lNQ-I2Ze6hUNRhsPRaGfRKILwvFRU`,
     //   Authorization: `Bearer ${JSON.parse(token)}`,
     };
     
