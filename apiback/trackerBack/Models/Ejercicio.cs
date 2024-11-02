@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace trackerBack.Models;
 
@@ -15,11 +16,14 @@ public partial class Ejercicio
 
     public string? Instruccion { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<EjercicioEntrenamiento> EjerciciosEntrenamientos { get; set; } = new List<EjercicioEntrenamiento>();
+    [JsonIgnore]
 
     public virtual ICollection<EjercicioRutina> EjerciciosRutinas { get; set; } = new List<EjercicioRutina>();
 
     public virtual TipoEjercicio IdTipoEjercicioNavigation { get; set; } = null!;
+    [JsonIgnore]
 
     public virtual ICollection<MusculoEjercicio> MusculosEjercicios { get; set; } = new List<MusculoEjercicio>();
 }

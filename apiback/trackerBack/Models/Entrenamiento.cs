@@ -16,5 +16,5 @@ public partial class Entrenamiento
 
     public virtual ICollection<EjercicioEntrenamiento> EjerciciosEntrenamientos { get; set; } = new List<EjercicioEntrenamiento>();
     [JsonIgnore]
-    public virtual Persona IdPersonaNavigation { get; set; } = null!;
+    public virtual Persona? IdPersonaNavigation { get; set; } = null!;
 }
