@@ -169,70 +169,59 @@ button {
 }
 
 /* Estilo para el modal */
-.modal-header {
-    background-color: #000000;
-    color: #ff9900;
-}
-
-.modal-title {
-    font-weight: bold;
-}
-
 .modal-content {
-    background-color: #343a40;
-    color: white;
+    background-color: #343a40; 
+    color: white; 
 }
 
 .modal-body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #000000; 
+    color: white; 
     padding: 20px;
+}
+
+.modal-header {
+    background-color: #000000; 
+    color: #ff9900; 
 }
 
 .modal-footer {
-    background-color: #343a40;
+    background-color: #343a40; 
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-}
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-
-/* Asegurar que el texto dentro del modal sea visible */
 .modal-body p, .modal-body h5, .modal-body h6 {
-    color: #212529;
+    color: white; 
 }
 
 #sessionModal .modal-content {
-    background-color: #343a40;
-    color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    font-size: 16px;
+    background-color: #343a40; 
+    color: white; 
+    border-radius: 10px; 
+    padding: 20px; 
+    font-size: 16px; 
 }
 
 #sessionModal h5 {
-    color: orange;
-    margin-bottom: 20px;
+    color: orange; 
+    margin-bottom: 20px; 
 }
 
 #sessionModal p {
-    margin: 10px 0;
-    line-height: 1.5;
+    margin: 10px 0; 
+    line-height: 1.5; 
 }
 
 #sessionModal .modal-footer {
-    border-top: 1px solid #495057;
-    padding: 10px;
+    border-top: 1px solid #495057; 
+    padding: 10px; 
 }
 
-/* Mejorar el diseño responsivo */
+
 @media (max-width: 768px) {
     .modal-dialog {
-        max-width: 90%;
+        max-width: 90%; /* Ancho máximo del modal en pantallas pequeñas */
     }
 }
+
+
