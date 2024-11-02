@@ -14,6 +14,8 @@ namespace trackerBack.Services
     public interface IPersonaService : IGenericService<Persona>
     {
         Task<string> Login(LoginDto data);Task<RegisterResult> Register(RegisterDto register);
+        Task<UsuarioLogeado> GetLoggedUser(int id);
+
     }
     public class PersonaService : GenericService<Persona>, IPersonaService
     {
@@ -22,6 +24,13 @@ namespace trackerBack.Services
         {
             _personaRepository = personaRepository; 
         }
+
+        public async Task<UsuarioLogeado> GetLoggedUser(int id)
+        {
+            return await _personaRepository.GetLoggedUser(id);
+        }
+
+        
 
         public async Task<string> Login(LoginDto data)
         {
