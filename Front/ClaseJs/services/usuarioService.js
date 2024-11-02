@@ -9,6 +9,10 @@ class usuarioService extends Service {
     return await this.fetchWithAuth("GET", '/5');
   }
 
+  async login(data) {
+    return await this.fetchWithoutAuth("/login", data);
+  }
+
 }
 
 export default new usuarioService();
