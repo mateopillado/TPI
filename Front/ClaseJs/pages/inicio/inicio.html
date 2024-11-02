@@ -807,23 +807,17 @@
                                     <input type="range" class="form-range"  min="1" max="15" value="5" id="customRange" oninput="updateSliderValue(this.value)">
                                 </div>
                             </div>
-                            <button class="btn mb-3 m-3 btn-warning">Buscar Profesor</button>
-                            <div class="container d-flex align-items-center flex-column">
-                                <div class="radar m-5" id="radar">
-                                    <div class="center-point"></div>
+                            <button class="btn mb-3 m-3 btn-warning" id="buscarProfesor">Buscar Profesor</button>
+                            <div class="radarMe">
+                                <div class="center-point" id="me"></div>
+                                <div class="radar m-5">
+                                    <div id="radar"></div>
                                   </div>
-
-                                <div class="card col-lg-10 bg-dark mb-3 p-3 d-flex flex-row align-items-center">
-                                    <div class="avatar" id="avatar1">S</div>
-                                    <div>
-                                        <h5 class="mb-0">Sarah Johnson</h5>
-                                        <div class="d-flex flex-column">
-                                            <p class="m-0">Contacto: </p>
-                                            <small class="text-light">Distance: 0.8 km</small>
-                                        </div>
-                                    </div>
-                                </div>  
                             </div>
+
+                            <div id="resultadosRadar" class="container d-flex flex-column justify-content-center align-items-center"></div>
+
+
                         </div>
                     </div>
                 </div>

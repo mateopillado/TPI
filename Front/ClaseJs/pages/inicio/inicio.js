@@ -12,10 +12,13 @@ function getRandomColor() {
 }
 
 // Asignar colores aleatorios a los avatares
-document.getElementById("avatar1").style.backgroundColor = getRandomColor();
-// document.getElementById("avatar2").style.backgroundColor = getRandomColor();
-// document.getElementById("avatar3").style.backgroundColor = getRandomColor();
-document.getElementById("profile-pic").style.backgroundColor = getRandomColor();
+// document.getElementById("avatar1").style.backgroundColor = getRandomColor();
+// // document.getElementById("avatar2").style.backgroundColor = getRandomColor();
+// // document.getElementById("avatar3").style.backgroundColor = getRandomColor();
+// document.getElementById("profile-pic").style.backgroundColor = getRandomColor();
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -105,34 +108,71 @@ const radar = document.getElementById("radar");
       
       // Puntos con distancias en kilómetros
       const points = [
-        { distance: 1, label: "km1" },
-        { distance: 5, label: "km2" },
-        { distance: 10, label: "km3" },
-    
+        { distance: 0, label: "km1" },
+        { distance: 1, label: "km2" },
+        { distance: 2, label: "km3" },
       ];
+
+      const contacts = [
+        { name: "Sarah Johnson", contact: "Contacto:", distance: 1, avatar: "S" },
+        { name: "John Doe", contact: "Contacto:", distance: 2, avatar: "J" },
+        // Añade más contactos si es necesario
+    ];
     
-      // Tamaño del radar y ajuste de distancia máxima
-      const radarRadius = 180; // El radio del círculo
-      const maxDistance = document.getElementById("customRange").value; // La distancia máxima que se muestra en el radar
-      console.log(maxDistance)
-      // Función para generar posición según la distancia
-      function getPositionByDistance(distance) {
-        let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
-        let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
-        let x = r * Math.cos(angle);
-        let y = r * Math.sin(angle);
-        return { x, y };
-      }
-    
-      // Crear puntos en el radar
-      points.forEach(point => {
+// Crear puntos en el radar
+let buscarProfesor = document.getElementById('buscarProfesor')
+buscarProfesor.addEventListener('click', function() {
+
+    while (radar.firstChild) {
+        radar.removeChild(radar.firstChild);
+    }
+
+    // Tamaño del radar y ajuste de distancia máxima
+    const radarRadius = 180; // El radio del círculo
+    const maxDistance = document.getElementById("customRange").value; // La distancia máxima que se muestra en el radar
+
+    // Función para generar posición según la distancia
+    function getPositionByDistance(distance) {
+    let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
+    let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
+    let x = r * Math.cos(angle);
+    let y = r * Math.sin(angle);
+    return { x, y };
+    }
+
+    contacts.forEach(point => {
         const pointElement = document.createElement("div");
         pointElement.classList.add("point");
-        pointElement.innerText = point.label;
-    
+        pointElement.setAttribute('data-label', point.name.substring(0, point.name.indexOf(' '))); // Agregar el texto del comentario
         const position = getPositionByDistance(point.distance);
         pointElement.style.left = 200 + position.x + "px"; // 200px es el centro del radar
         pointElement.style.top = 200 + position.y + "px";
-    
         radar.appendChild(pointElement);
-      });
+    });
+
+        const container = document.getElementById('resultadosRadar');
+        container.innerHTML = ''
+
+        contacts.forEach((contact, index) => {
+            const card = document.createElement('div');
+            card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
+            card.innerHTML = `
+                <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.name.charAt(1).toUpperCase()}</div>
+                <div>
+                    <h5 class="mb-0">${contact.name}</h5>
+                    <div class="d-flex flex-column">
+                        <p class="m-0">${contact.contact}</p>
+                        <small class="text-dark">Distance: ${contact.distance}</small>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+
+    // creacion de cartas del contacto
+
+
+
+
+})
