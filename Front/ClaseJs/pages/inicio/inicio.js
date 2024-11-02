@@ -2,6 +2,7 @@ import usuarioService from "../../services/usuarioService.js";
 import entrenaminetoService from "../../services/entrenaminetoService.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    logIn();
 
     async function getUsuarios() {
         return await usuarioService.getUser().then(usuario => {
@@ -32,12 +33,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializeHoverEffect();
     initializeAvatarColors();
     initializeRadar();
-    setupSlider();
+    document.getElementById("customRange").addEventListener("input", updateSliderValue);
+    document.getElementById("logOutBtn").addEventListener("click", logOut);
 });
 
 // Función para actualizar el valor del slider
-function updateSliderValue(value) {
-    document.getElementById("slider-value").textContent = value;
+function updateSliderValue() {
+    document.getElementById("slider-value").textContent = document.getElementById("customRange").value;
 }
 
 // Función para obtener un color aleatorio en formato hexadecimal
@@ -52,7 +54,7 @@ function getRandomColor() {
 
 // Inicializa los colores de fondo de los avatares
 function initializeAvatarColors() {
-    document.getElementById("avatar1").style.backgroundColor = getRandomColor();
+    // document.getElementById("avatar1").style.backgroundColor = getRandomColor();
     // document.getElementById("avatar2").style.backgroundColor = getRandomColor();
     // document.getElementById("avatar3").style.backgroundColor = getRandomColor();
     document.getElementById("profile-pic").style.backgroundColor = getRandomColor();
@@ -140,45 +142,85 @@ function getLast7WeeksLabels() {
     return labels;
 }
 
-// Inicializa el radar con puntos aleatorios basados en la distancia
+
+// RADAAAAAR
+
 function initializeRadar() {
-    const radar = document.getElementById("radar");
-    const radarRadius = 180;
-    const maxDistance = parseFloat(document.getElementById("customRange").value);
-    const points = [
-        { distance: 1, label: "km1" },
-        { distance: 5, label: "km2" },
-        { distance: 10, label: "km3" }
-    ];
 
-    points.forEach(point => {
-        const position = getPositionByDistance(point.distance, maxDistance, radarRadius);
-        const pointElement = createRadarPoint(point.label, position);
-        radar.appendChild(pointElement);
-    });
+    
+const radar = document.getElementById("radar");
+      
+// Puntos con distancias en kilómetros
+const points = [
+  { distance: 0, label: "km1" },
+  { distance: 1, label: "km2" },
+  { distance: 2, label: "km3" },
+];
+
+const contacts = [
+  { name: "Sarah Johnson", contact: "Contacto:", distance: 1, avatar: "S" },
+  { name: "John Doe", contact: "Contacto:", distance: 2, avatar: "J" },
+  // Añade más contactos si es necesario
+];
+
+// Crear puntos en el radar
+let buscarProfesor = document.getElementById('buscarProfesor')
+buscarProfesor.addEventListener('click', function() {
+
+while (radar.firstChild) {
+  radar.removeChild(radar.firstChild);
 }
 
-// Función auxiliar para obtener posición aleatoria en el radar según distancia
-function getPositionByDistance(distance, maxDistance, radarRadius) {
-    const angle = Math.random() * 2 * Math.PI;
-    const r = (distance / maxDistance) * radarRadius;
-    const x = r * Math.cos(angle);
-    const y = r * Math.sin(angle);
-    return { x, y };
+// Tamaño del radar y ajuste de distancia máxima
+const radarRadius = 180; // El radio del círculo
+const maxDistance = document.getElementById("customRange").value; // La distancia máxima que se muestra en el radar
+
+// Función para generar posición según la distancia
+function getPositionByDistance(distance) {
+let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
+let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
+let x = r * Math.cos(angle);
+let y = r * Math.sin(angle);
+return { x, y };
 }
 
-// Crea un punto en el radar con su respectiva etiqueta
-function createRadarPoint(label, position) {
-    const pointElement = document.createElement("div");
-    pointElement.classList.add("point");
-    pointElement.innerText = label;
-    pointElement.style.left = `${200 + position.x}px`;
-    pointElement.style.top = `${200 + position.y}px`;
-    return pointElement;
+contacts.forEach(point => {
+  const pointElement = document.createElement("div");
+  pointElement.classList.add("point");
+  pointElement.setAttribute('data-label', point.name.substring(0, point.name.indexOf(' '))); // Agregar el texto del comentario
+  const position = getPositionByDistance(point.distance);
+  pointElement.style.left = 200 + position.x + "px"; // 200px es el centro del radar
+  pointElement.style.top = 200 + position.y + "px";
+  radar.appendChild(pointElement);
+});
+
+  const container = document.getElementById('resultadosRadar');
+  container.innerHTML = ''
+
+  contacts.forEach((contact, index) => {
+      const card = document.createElement('div');
+      card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
+      card.innerHTML = `
+          <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.name.charAt(1).toUpperCase()}</div>
+          <div>
+              <h5 class="mb-0">${contact.name}</h5>
+              <div class="d-flex flex-column">
+                  <p class="m-0">${contact.contact}</p>
+                  <small class="text-dark">Distance: ${contact.distance}</small>
+              </div>
+          </div>
+      `;
+      container.appendChild(card);
+  });
+})}
+
+function logIn(){
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "../login/login.html";
+    }
 }
 
-// Configuración del slider
-function setupSlider() {
-    const slider = document.getElementById("customRange");
-    slider.addEventListener("input", (event) => updateSliderValue(event.target.value));
+function logOut() {
+    localStorage.removeItem("token");
 }

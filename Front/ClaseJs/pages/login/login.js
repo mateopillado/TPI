@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
         
         const response = await usuarioService.login(data);
+        
+        localStorage.setItem("token", response.token);
         window.location.href = "../inicio/inicio.html";
     });
 })

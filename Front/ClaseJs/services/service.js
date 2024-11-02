@@ -9,7 +9,6 @@ class Service {
     const token = localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
-      // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkYXJvbiIsInVzZXJJZCI6IjUiLCJqdGkiOiIxNTAxY2JhYS0zNzY2LTQ2YzAtYjU4ZS02OWIwYzg0ZTc0YTEiLCJleHAiOjE3MzA1OTEwNDgsImlzcyI6IlR1SXNzdWVyQXF1aSIsImF1ZCI6IlR1QXVkaWVuY2VBcXVpIn0.5_bidik2Zlg2BtbDf1CA68BYifoAyPS_FxPDrSwW7RE`,
       Authorization: `Bearer ${token}`,
     };
 
@@ -43,8 +42,7 @@ class Service {
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
-      const { token } = await response.json();
-      localStorage.setItem("token", token);
+      return await response.json();
     } catch (error) {
       console.error("Error:", error);
       return error;

@@ -6,11 +6,15 @@ class usuarioService extends Service {
   }
 
   async getUser() {
-    return await this.fetchWithAuth("GET", '/5');
+    return await this.fetchWithAuth("GET", "/usuarioActual");
   }
 
   async login(data) {
     return await this.fetchWithoutAuth("/login", data);
+  }
+
+  async register(data) {
+    return await this.fetchWithoutAuth("/registrar", data);
   }
 
 }
