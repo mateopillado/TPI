@@ -1,5 +1,6 @@
-/* Estilo general */
+/* Estilos generales */
 body {
+    display: flex;
     background-color: #282828;
     color: white;
     font-family: Arial, sans-serif;
@@ -22,117 +23,21 @@ button {
     font-weight: bold;
 }
 
-/* Contenedor de las tarjetas */
-.session-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-}
-
-/* Tarjetas individuales */
-.session-card {
-    background-color: #1a1a1a;
-    border-radius: 5px;
-    padding: 20px;
-    width: calc(33.333% - 40px); /* 3 tarjetas por fila en pantallas grandes */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    box-sizing: border-box;
-    transition: transform 0.2s ease;
-}
-
-.session-card:hover {
-    transform: scale(1.05); /* Pequeña animación en hover */
-}
-
-/* Estilos de los textos en la tarjeta */
-.session-card h3 {
-    color: orange;
-    margin: 0;
-}
-
-.session-card p {
-    margin: 5px 0;
-}
-
-.session-card button {
-    background-color: #ffbe46;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.exercises {
-    margin-top: 10px;
-}
-
-/* Ajustes para la fila de ejercicios y la mejor serie */
-.exercise-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.exercise-info {
-    color: #ddd;
-    margin: 0;
-    flex-grow: 1;
-}
-
-.best-set {
-    color: orange;
-    font-weight: bold;
-    margin: 0;
-    text-align: right;
-    white-space: nowrap;
-}
-
-/* Responsividad: pantallas pequeñas (móviles) */
-@media (max-width: 768px) {
-    .session-card {
-        width: 100%; /* Una tarjeta por fila en dispositivos móviles */
-    }
-}
-
-.button-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.button-group button {
-    background-color: #ffbe46;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    color: black;
-    font-weight: bold;
-}
-
-.subtitle{
-    color: orange;
-    margin: 0   ;
-
-}
-
-body {
-    background-color: #302f2f;
-}
-
+/* Sidebar */
 .sidebar {
-    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
- background-blend-mode: multiply;
- position: fixed;
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), 
+                linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+    background-blend-mode: multiply;
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100vh; /* Toma el 100% de la altura de la ventana */
-    width: 222px; /* Ancho del sidebar */
+    height: 100vh;
+    width: 222px;
 }
 
 .sidebar-header h2 {
     font-size: 1.5rem;
+    color: black; 
 }
 
 .nav-link {
@@ -146,11 +51,188 @@ body {
     border-radius: 4px;
 }
 
-.fixed{
-    position: absolute;
+/* Contenedor de las tarjetas */
+.session-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Tarjetas individuales */
+.session-card {
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(33.333% - 40px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+    flex: 1 1 calc(33% - 1rem);
+    margin: 0.5rem;
+    min-width: 250px;
+    max-width: 340px;
+}
+
+.session-card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.session-card:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos de los textos en la tarjeta */
+.session-card h3 {
+    color: orange;
+    margin: 0;
+}
+
+.session-card p {
+    margin: 5px 0;
+}
+
+.exercises {
+    margin-top: 10px;
+}
+
+.exercise-name, .best-set {
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.exercise-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Ajustes para la fila de ejercicios y la mejor serie */
+.exercise-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px 0;
+    flex-wrap: wrap;
+}
+
+.best-set-row {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding-left: 10px;
+}
+
+.exercise-info {
+    color: #ddd;
+    margin: 0;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.best-set {
+    color: orange;
+    font-weight: bold;
+    margin-left: 20px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .session-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .session-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}
+
+.fixed {
     position: fixed;
     bottom: 0;
     right: 0;
-    margin:1rem;
+    margin: 1rem;
 }
 
+/* Estilo para el modal */
+.modal-header {
+    background-color: #000000;
+    color: #ff9900;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-content {
+    background-color: #343a40;
+    color: white;
+}
+
+.modal-body {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.modal-footer {
+    background-color: #343a40;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Asegurar que el texto dentro del modal sea visible */
+.modal-body p, .modal-body h5, .modal-body h6 {
+    color: #212529;
+}
+
+#sessionModal .modal-content {
+    background-color: #343a40;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 16px;
+}
+
+#sessionModal h5 {
+    color: orange;
+    margin-bottom: 20px;
+}
+
+#sessionModal p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+#sessionModal .modal-footer {
+    border-top: 1px solid #495057;
+    padding: 10px;
+}
+
+/* Mejorar el diseño responsivo */
+@media (max-width: 768px) {
+    .modal-dialog {
+        max-width: 90%;
+    }
+}

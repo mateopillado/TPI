@@ -70,19 +70,17 @@
 
         <h3 class="">Entrenamiento:</h3>
 
-
-
         <div id="ejercicios">
           <!-- Aquí se insertarán los ejercicios dinámicamente -->
         </div>
 
 
-
         <div class="fixed d-flex">
-          <button id="guardarEntrenamiento" onclick="obtenerDatos()" class="btn btn-warning m-1">Guardar
+          <button id="guardarEntrenamiento" class="btn btn-warning m-1">Guardar
             Entrenamiento</button>
+
           <!-- Button trigger modal -->
-          <button id="add-ejercicio-btn" type="button" class="btn btn-warning m-1" data-bs-toggle="modal"
+          <button id="add-ejercicio-btn" type="button" class="btn btn-warning m-1" data-bs-toggle="modal" 
             data-bs-target="#staticBackdrop">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
@@ -91,16 +89,16 @@
 
 
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <div class="modal fade modal-xl" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
           aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content bg-dark">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Ejercicios</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                ...
+                <div id="modal-Body"></div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -116,7 +114,7 @@
     </div>
   </div>
 
-  <script src="./entrenamiento.js"></script>
+  <script type="module" src="./entrenamiento.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
