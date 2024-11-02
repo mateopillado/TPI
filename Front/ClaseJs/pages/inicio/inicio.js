@@ -11,16 +11,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function getEntrenamientos() {
         return await entrenaminetoService.getManyTraining().then(entrenamientos => {
-            if (entrenamientos.ejerciciosEntrenamientos) {
-                return entrenamientos.ejerciciosEntrenamientos.length;
+            if (entrenamientos) {
+                return entrenamientos.length;
             } else {
                 return 0;
             }
         });
     }
-
-    console.log(await getEntrenamientos());
-    
 
     document.getElementById("profile-pic").textContent = await getUsuarios()
         .then(u => { return u.substring(0, 1).toUpperCase() });
@@ -32,13 +29,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializeHoverEffect();
     initializeAvatarColors();
     initializeRadar();
-    // setupSlider();
+
 });
 
 // Función para actualizar el valor del slider
-function updateSliderValue(value) {
-    document.getElementById("slider-value").textContent = value;
-}
+    //falta la funcion, pero no puedo hacer andar el oninput de mierda en el html
+    let range = document.getElementById('customRange');
+    range.addEventListener('input', function() {
+        let valor = range.value;
+        console.log(valor);
+        document.getElementById("slider-value").textContent = valor; // Muestra el valor en el elemento
+    });
+
 
 // Función para obtener un color aleatorio en formato hexadecimal
 function getRandomColor() {
@@ -136,7 +138,6 @@ function getLast7WeeksLabels() {
         const month = firstDayOfWeek.getMonth() + 1; // Months are zero-based
         labels.unshift(`${day}/${month}`);
     }
-    
     return labels;
 }
 
@@ -145,69 +146,62 @@ function getLast7WeeksLabels() {
 
 function initializeRadar() {
 
-    
-const radar = document.getElementById("radar");
-      
-// Puntos con distancias en kilómetros
-const points = [
-  { distance: 0, label: "km1" },
-  { distance: 1, label: "km2" },
-  { distance: 2, label: "km3" },
-];
+    const radar = document.getElementById("radar");
 
-const contacts = [
-  { name: "Sarah Johnson", contact: "Contacto:", distance: 1, avatar: "S" },
-  { name: "John Doe", contact: "Contacto:", distance: 2, avatar: "J" },
-  // Añade más contactos si es necesario
-];
+    const contacts = [
+    { name: "Sarah Johnson", contact: "Contacto:", distance: 1, avatar: "S", redSocial: 'Instagram 1' },
+    { name: "John Doe", contact: "Contacto:", distance: 2, avatar: "J", redSocial: 'Instagram 1'},
+    // Añade más contactos si es necesario
+    ];
 
-// Crear puntos en el radar
-let buscarProfesor = document.getElementById('buscarProfesor')
-buscarProfesor.addEventListener('click', function() {
+    // Crear puntos en el radar
+    let buscarProfesor = document.getElementById('buscarProfesor')
+    buscarProfesor.addEventListener('click', function() {
 
-while (radar.firstChild) {
-  radar.removeChild(radar.firstChild);
+    while (radar.firstChild) {
+    radar.removeChild(radar.firstChild);
+    }
+
+    // Tamaño del radar y ajuste de distancia máxima
+    const radarRadius = 180; // El radio del círculo
+    const maxDistance = document.getElementById("customRange").value; // La distancia máxima que se muestra en el radar
+
+    // Función para generar posición según la distancia
+    function getPositionByDistance(distance) {
+    let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
+    let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
+    let x = r * Math.cos(angle);
+    let y = r * Math.sin(angle);
+    return { x, y };
+    }
+
+    contacts.forEach(point => {
+    const pointElement = document.createElement("div");
+    pointElement.classList.add("point");
+    pointElement.setAttribute('data-label', point.name.substring(0, point.name.indexOf(' '))); // Agregar el texto del comentario
+    const position = getPositionByDistance(point.distance);
+    pointElement.style.left = 200 + position.x + "px"; // 200px es el centro del radar
+    pointElement.style.top = 200 + position.y + "px";
+    radar.appendChild(pointElement);
+    });
+
+    const container = document.getElementById('resultadosRadar');
+    container.innerHTML = ''
+
+    contacts.forEach((contact, index) => {
+        const card = document.createElement('div');
+        card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
+        card.innerHTML = `
+            <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.name.charAt(1).toUpperCase()}</div>
+            <div>
+                <h5 class="mb-0 text-start">${contact.name}</h5>
+                <div class="text-start">
+                    <p class="m-0">Contacto: ${contact.redSocial}</p>
+                    <small class="text-dark">Distance: ${contact.distance}</small>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+        });
+    })
 }
-
-// Tamaño del radar y ajuste de distancia máxima
-const radarRadius = 180; // El radio del círculo
-const maxDistance = document.getElementById("customRange").value; // La distancia máxima que se muestra en el radar
-
-// Función para generar posición según la distancia
-function getPositionByDistance(distance) {
-let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
-let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
-let x = r * Math.cos(angle);
-let y = r * Math.sin(angle);
-return { x, y };
-}
-
-contacts.forEach(point => {
-  const pointElement = document.createElement("div");
-  pointElement.classList.add("point");
-  pointElement.setAttribute('data-label', point.name.substring(0, point.name.indexOf(' '))); // Agregar el texto del comentario
-  const position = getPositionByDistance(point.distance);
-  pointElement.style.left = 200 + position.x + "px"; // 200px es el centro del radar
-  pointElement.style.top = 200 + position.y + "px";
-  radar.appendChild(pointElement);
-});
-
-  const container = document.getElementById('resultadosRadar');
-  container.innerHTML = ''
-
-  contacts.forEach((contact, index) => {
-      const card = document.createElement('div');
-      card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
-      card.innerHTML = `
-          <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.name.charAt(1).toUpperCase()}</div>
-          <div>
-              <h5 class="mb-0">${contact.name}</h5>
-              <div class="d-flex flex-column">
-                  <p class="m-0">${contact.contact}</p>
-                  <small class="text-dark">Distance: ${contact.distance}</small>
-              </div>
-          </div>
-      `;
-      container.appendChild(card);
-  });
-})}
