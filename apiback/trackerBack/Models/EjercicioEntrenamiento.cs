@@ -13,11 +13,11 @@ public partial class EjercicioEntrenamiento
     public int IdEntrenamiento { get; set; }
 
     public string? Nota { get; set; }
-    [JsonIgnore]
-    public virtual Ejercicio IdEjercicioNavigation { get; set; } = null!;
+    
+    public virtual Ejercicio? IdEjercicioNavigation { get; set; } = null!;
     [JsonIgnore]
 
-    public virtual Entrenamiento IdEntrenamientoNavigation { get; set; } = null!;
+    public virtual Entrenamiento? IdEntrenamientoNavigation { get; set; } = null!;
 
     public virtual ICollection<Serie> Series { get; set; } = new List<Serie>();
 }

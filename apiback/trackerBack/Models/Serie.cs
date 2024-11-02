@@ -23,8 +23,8 @@ public partial class Serie
     public decimal? Rpe { get; set; }
     [JsonIgnore]
 
-    public virtual EjercicioEntrenamiento IdEjercicioEntrenamientoNavigation { get; set; } = null!;
+    public virtual EjercicioEntrenamiento? IdEjercicioEntrenamientoNavigation { get; set; } = null!;
     [JsonIgnore]
 
-    public virtual TipoSerie IdTipoSerieNavigation { get; set; } = null!;
+    public virtual TipoSerie? IdTipoSerieNavigation { get; set; } = null!;
 }

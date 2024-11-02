@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="nav-item mt-auto">
-                            <a class="nav-link text-warning " href="#">
+                            <a class="nav-link text-warning " id="logOutBtn" href="../login/login.html">
                                 Log Out
                             </a>
                         </li>
@@ -806,31 +806,20 @@
                                 <h3 class="text-center mb-3">Distancia en Km</h3>
                                 <div class="slider-container mt-3">
                                     <div class="slider-value text-center mb-2" id="slider-value">5</div>
-                                    <input type="range" class="form-range" min="1" max="15" value="5" id="customRange" oninput="updateSliderValue(this.value)">
+                                    <input type="range" class="form-range" min="1" max="15" value="5" id="customRange">
                                 </div>
                             </div>
-                            
-                            <button class="btn btn-warning mb-4">Buscar Profesor</button>
-                            
-                            <!-- Contenedor para radar y lista de entrenadores -->
-                            <div class="container d-flex flex-column align-items-center">
-                                <!-- Radar -->
-                                <div class="radar m-4" id="radar">
-                                    <div class="center-point"></div>
-                                </div>
-                    
-                                <!-- Card de entrenador -->
-                                <div class="card col-lg-8 col-md-10 col-sm-12 mb-3 p-3 d-flex flex-row align-items-center shadow-sm">
-                                    <div class="avatar me-3" id="avatar1">S</div>
-                                    <div>
-                                        <h5 class="mb-1">Sarah Johnson</h5>
-                                        <p class="m-0">Contacto:</p>
-                                        <small class="text-muted">Distancia: 0.8 km</small>
-                                    </div>
-                                </div>  
+                            <button class="btn mb-3 m-3 btn-warning" id="buscarProfesor">Buscar Profesor</button>
+                            <div class="radarMe">
+                                <div class="center-point" id="me"></div>
+                                <div class="radar m-5">
+                                    <div id="radar"></div>
+                                  </div>
                             </div>
-                        </div>
+                        <div id="resultadosRadar" class="container d-flex flex-column justify-content-center align-items-center"></div>
                     </div>
+
+                    
                     
                 </div>
             </main>
