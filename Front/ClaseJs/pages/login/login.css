@@ -12,7 +12,7 @@ option{
 .fondo{
     background-color: rebeccapurple;
     width: 100%;
-    background-image: url("/images/edgar-chaparro-sHfo3WOgGTU-unsplash.jpg");
+    background-image: url("../../assets/images/edgar-chaparro-sHfo3WOgGTU-unsplash.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     mask-image: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);

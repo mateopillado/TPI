@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using trackerBack.Models;
+using trackerBack.Repositories;
+using trackerBack.Services;
 using trackerBack.Services.Common;
 
 namespace trackerApi.Controllers
@@ -8,25 +11,34 @@ namespace trackerApi.Controllers
     [ApiController]
     public class EntrenamientosController : ControllerBase
     {
-        private readonly IGenericService<Entrenamiento> _service;
+        private readonly IEntrenamientoService _service;
 
-        public EntrenamientosController(IGenericService<Entrenamiento> service)
+        public EntrenamientosController(IEntrenamientoService service)
         {
             _service = service;
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             return Ok(await _service.GetAllAsync());
         }
+        [HttpGet("Historial")]
+        [Authorize]
 
+        public async Task<IActionResult> GetHistorial()
+        {
+            return Ok(await _service.GetEntrenamientosHistorial(GetUserId()));
+        }
         [HttpGet("{id}")]
+        [Authorize]
+
         public async Task<IActionResult> GetById(int id)
         {
             try
             {
-                var entrenamiento = await _service.GetByIdAsync(id);
+                var entrenamiento = await _service.GetById(id);
 
                 if(entrenamiento == null) { return NotFound(); }
                 return Ok(entrenamiento);
@@ -38,6 +50,8 @@ namespace trackerApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+
         public async Task<IActionResult> Post([FromBody] Entrenamiento entrenamiento)
         {
             try
@@ -52,6 +66,8 @@ namespace trackerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
+
         public async Task<IActionResult> Put(int id, [FromBody] Entrenamiento entrenamiento)
         {
             try
@@ -66,6 +82,8 @@ namespace trackerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
+
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -77,6 +95,12 @@ namespace trackerApi.Controllers
             {
                 throw new Exception(e.Message);
             }
+        }
+        private int GetUserId()
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+            
+            return int.Parse(userId);
         }
     }
 }

@@ -36,24 +36,24 @@
                     </div>
                     <ul class="nav flex-column flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/Front/ClaseJs/pages/inicio/inicio.html"
+                            <a class="nav-link text-white" href="../../pages/inicio/inicio.html"
                                 onclick="router()">
                                 Inicio
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/Front/ClaseJs/pages/entrenamiento/entrenamiento.html">
+                            <a class="nav-link text-white" href="../../pages/entrenamiento/entrenamiento.html">
                                 Entrenamiento
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/Front/ClaseJs/pages/historial/historial.html"
+                            <a class="nav-link text-white" href="../../pages/historial/historial.html"
                                 onclick="router()">
                                 Historial
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" href="/Front/ClaseJs/pages/ejercicio/ejercicio.html"
+                            <a class="nav-link active text-white" href="../../pages/ejercicio/ejercicio.html"
                                 onclick="router()">
                                 Ejercicios
                             </a>
@@ -88,9 +88,29 @@
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" id="close-modal">&times;</span>
-            <img src="" id="exercise-gif" alt="GIF del ejercicio">
-            <h5 id="modal-title">Nombre del ejercicio</h5>
-            <p id="modal-description">Descripción del ejercicio y músculos trabajados.</p>
+
+            <div class ="modal-tabs">
+                <button class="tab-button active" data-tab="about">Informacion</button>
+                <button class="tab-button" data-tab="history">Historial</button>
+                <button class="tab-button" data-tab="records">Records</button>
+            </div>
+
+            <div class="tab-content" id="about-content">
+                <img src="" id="exercise-photo" alt="Foto del ejercicio">
+                <h5 id="modal-title">Nombre del ejercicio</h5>
+                <p id="modal-description">Descripción del ejercicio y músculos trabajados.</p>
+            </div>
+
+            <div class="tab-content" id="history-content" style="display: none;">
+                <div id="history-list-container" class="list-group mt-3">
+                    <div id="history-list" ></div>
+                </div>    
+            </div>
+
+            <div class="tab-content" id="records-content" style="display: none;">
+
+            </div>
+            
         </div>
     </div>
 

@@ -2,6 +2,7 @@ import usuarioService from "../../services/usuarioService.js";
 import entrenaminetoService from "../../services/entrenaminetoService.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    logIn();
 
     async function getUsuarios() {
         return await usuarioService.getUser().then(usuario => {
@@ -29,18 +30,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializeHoverEffect();
     initializeAvatarColors();
     initializeRadar();
-
+    document.getElementById("customRange").addEventListener("input", updateSliderValue);
+    document.getElementById("logOutBtn").addEventListener("click", logOut);
 });
 
 // Función para actualizar el valor del slider
-    //falta la funcion, pero no puedo hacer andar el oninput de mierda en el html
-    let range = document.getElementById('customRange');
-    range.addEventListener('input', function() {
-        let valor = range.value;
-        console.log(valor);
-        document.getElementById("slider-value").textContent = valor; // Muestra el valor en el elemento
-    });
-
+function updateSliderValue() {
+    document.getElementById("slider-value").textContent = document.getElementById("customRange").value;
+}
 
 // Función para obtener un color aleatorio en formato hexadecimal
 function getRandomColor() {
@@ -204,4 +201,15 @@ function initializeRadar() {
         container.appendChild(card);
         });
     })
+}
+
+function logIn(){
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "../login/login.html";
+    }
+}
+
+function logOut() {
+    localStorage.removeItem("token");
 }
