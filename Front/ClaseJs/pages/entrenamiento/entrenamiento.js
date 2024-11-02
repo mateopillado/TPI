@@ -1,13 +1,17 @@
-let ejercicioCounter = 0;
-let serieCounter = 0;
 
-// Función para añadir nuevo ejercicio
-document.getElementById('add-ejercicio-btn').addEventListener('click', function () {
-    const ejercicioSeleccionado = ""; // Aquí puedes hacer que el usuario seleccione el ejercicio
-    ejercicioCounter++;
-    addEjercicioToDOM(ejercicioCounter, ejercicioSeleccionado);
-    saveData();
-});
+import ejercicioService from "../../services/ejercicioService.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+ 
+  async function getEjercicios() {
+    return await ejercicioService.getAll();
+  }
+
+  var ejercicios = await getEjercicios();
+
+  let ejercicioCounter = 0;
+  let serieCounter = 0;
+  let dataGuardar = [];
 
 // Función para agregar ejercicio al DOM
 function addEjercicioToDOM(ejercicioId, ejercicioNombre, series = []) {
@@ -37,6 +41,7 @@ function addEjercicioToDOM(ejercicioId, ejercicioNombre, series = []) {
     series.forEach(serie => {
         addSerieToDOM(ejercicioId, serie.serieId, serie.kg, serie.reps, serie.tSerie, serie.checked);
     });
+
 }
 
 // Función para añadir serie al DOM
@@ -67,41 +72,49 @@ function addSerieToDOM(ejercicioId, serieId, kg = 0, reps = 0, tSerie = "1", che
 
 // Función para guardar el estado en localStorage
 function saveData() {
-    let ejerciciosData = [];
-    const ejercicios = document.getElementById('ejercicios').children;
+  let ejerciciosData = [];
+  const ejercicios = document.getElementById('ejercicios').children;
 
-    Array.from(ejercicios).forEach(ejercicio => {
-        const ejercicioId = ejercicio.id.split('-')[1];
-        const ejercicioNombre = ejercicio.querySelector('h4').innerText;
-        const table = ejercicio.querySelector('tbody');
-        const filas = table.querySelectorAll('tr');
+  Array.from(ejercicios).forEach(ejercicio => {
+      const ejercicioId = ejercicio.id.split('-')[1];
+      const ejercicioNombre = ejercicio.querySelector('h4').innerText; // Capturamos el nombre del ejercicio
+      const table = ejercicio.querySelector('tbody');
+      const filas = table.querySelectorAll('tr');
 
-        let series = [];
-        filas.forEach(fila => {
-            const serieId = fila.querySelector('td').innerText;
-            const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
-            const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
-            const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value;
-            const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).checked;
+      let series = [];
+      if (filas.length === 0) {
+          return;
+      }
 
-            series.push({
-                serieId: serieId,
-                kg: kg,
-                reps: reps,
-                tSerie: tSerie,
-                checked: checked
-            });
-        });
+      filas.forEach(fila => {
+          const serieId = fila.querySelector('td').innerText;
+          const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
+          const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
+          const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value;
+          const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).checked;
 
-        ejerciciosData.push({
-            ejercicioId: ejercicioId,
-            ejercicioNombre: ejercicioNombre,
-            series: series
-        });
-    });
+          if (checked) {
+              series.push({
+                  serieId: serieId,
+                  kg: kg,
+                  reps: reps,
+                  tSerie: tSerie,
+                  checked: checked
+              });
+          }
+      });
 
-    localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
+      ejerciciosData.push({
+          ejercicioId: ejercicioId,
+          ejercicioNombre: ejercicioNombre,  // Guardamos el nombre del ejercicio
+          series: series
+      });
+  });
+
+  localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
+  dataGuardar = ejerciciosData;
 }
+
 
 // Función para cargar el estado desde localStorage
 function loadData() {
@@ -114,8 +127,18 @@ function loadData() {
     });
 }
 
+
 // Cargar datos al inicio
-window.onload = loadData;
+window.onload = loadData();
+
+let guardarEntrenamiento = document.getElementById('guardarEntrenamiento')
+guardarEntrenamiento.addEventListener('click', function() {
+  saveData();
+  localStorage.clear();
+  console.log(dataGuardar)
+  // window.location.href = '../Historial/historial.html' //descomentar al terminar
+})
+
 
 // Detectar clicks en botones dinámicos
 document.getElementById('ejercicios').addEventListener('click', function (e) {
@@ -133,8 +156,65 @@ document.getElementById('ejercicios').addEventListener('click', function (e) {
         const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
 
         if (fila) {
+             // Si no quedan filas, ocultar el contenedor de la tabla
+             if ((fila.id).charAt(13) == 1) {
+                 const container = document.getElementById(`ejercicio-${ejercicioId}`);
+                 container.innerHTML = '' // fijarse aca el borrado del cabezal
+             }
+
             fila.remove();
             saveData();
         }
     }
 });
+
+  function cargarModal(){
+    let padre = document.getElementById('modal-Body')
+
+    ejercicios.forEach(ejercicios => {
+
+      
+      // Crear un nuevo div para cada ejercicio
+      const ejercicioDiv = document.createElement("div");
+      ejercicioDiv.classList.add("cardModal");
+      ejercicioDiv.id = ejercicios.id
+      // Crear un elemento h3 para el nombre del ejercicio
+      const nombre = document.createElement("h5");
+      nombre.textContent = ejercicios.nombre;
+    
+      // Crear un párrafo para la descripción del ejercicio
+      const descripcion = document.createElement("p");
+      descripcion.textContent = ejercicios.instruccion;
+    
+      // Añadir el nombre y la descripción al div del ejercicio
+      ejercicioDiv.appendChild(nombre);
+      ejercicioDiv.appendChild(descripcion);
+    
+      // Añadir el div del ejercicio al contenedor principal
+
+      ejercicioDiv.addEventListener("click", function() {
+        
+        clickEjercicio(ejercicioDiv)
+        const modalElement = document.getElementById('staticBackdrop');
+        // Obtén la instancia del modal o crea una nueva si no existe
+        const myModal = bootstrap.Modal.getOrCreateInstance(modalElement);
+        // Ahora puedes usar el método hide() para cerrar el modal
+        myModal.hide();
+
+      });
+
+      padre.appendChild(ejercicioDiv);
+    });
+  }
+
+  cargarModal();
+
+  function clickEjercicio(element) {
+    console.log(element.id)
+    let e = ejercicios.find( a => a.id == element.id)
+    console.log(element)
+    console.log(e)
+    addEjercicioToDOM(element.id, e.nombre);
+    saveData();
+  }
+})

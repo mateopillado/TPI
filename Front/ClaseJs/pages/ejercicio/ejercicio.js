@@ -101,6 +101,14 @@ function addExerciseCard(exerciseList, ejercicio) {
 
 
 
+
+
+
+
+
+
+
+
 // Función de búsqueda y filtrado de ejercicios
 function setupSearchFeature(ejercicios) {
   const searchInput = document.getElementById("search-input");
@@ -121,6 +129,10 @@ function setupSearchFeature(ejercicios) {
     }
   });
 }
+
+
+
+
 
 
 
@@ -169,6 +181,8 @@ function setupModalControls() {
 
 
 
+
+
 // Función de navegación por pestañas
 function setupTabNavigation() {
   document.querySelectorAll('.tab-button').forEach(button => {
@@ -193,7 +207,7 @@ function setupTabNavigation() {
 function loadHistory() {
   const historyList = document.getElementById("history-list");
 
-  // Datos de ejemplo de entrenamientos
+  
   const historyData = [
     {
       nombre: "Lunes",
@@ -227,7 +241,7 @@ function loadHistory() {
   // Vaciar historial previo
   historyList.innerHTML = "";
 
-  // Crear elementos de historial
+  
   historyData.forEach((entry) => {
       const historyItem = document.createElement("div");
       historyItem.className = "border border-white bg-dark text-white mb-3 p-2 rounded";
@@ -253,10 +267,18 @@ function loadHistory() {
 }
 
 
+
+
+
+
+
+
+
+
 function displayRecords() {
   const recordsContainer = document.getElementById("records-content");
 
-  // Datos de ejemplo hardcodeados
+  
   const recordsData = {
     estimated1RM: "9 kg",
     maxVolume: "163 kg",
@@ -267,13 +289,13 @@ function displayRecords() {
       { reps: 3, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
       { reps: 4, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
       { reps: 5, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
-      // Agregar más datos si es necesario
+      
     ],
     totalReps: 37,
     totalVolume: "423 kg"
   };
 
-  // Generar el contenido HTML
+  
   recordsContainer.innerHTML = `
     <div class="text-white">
       <h5 class="text-uppercase">Personal Records</h5>
@@ -314,7 +336,6 @@ function displayRecords() {
   `;
 }
 
-// Llamar a la función cuando se seleccione el tab "Records"
 document.querySelector('[data-tab="records"]').addEventListener("click", displayRecords);
 
 
