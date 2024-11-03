@@ -17,6 +17,10 @@ body{
     transform: scale(1.05);
 }
 
+h1{
+    font-weight: 800;    
+}
+
 .navitem{
     padding: 5px;
     margin-left: 1rem;

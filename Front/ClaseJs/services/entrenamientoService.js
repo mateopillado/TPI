@@ -8,6 +8,14 @@ class entrenamientoService extends Service {
   async getManyTraining() {
     return await this.fetchWithAuth("GET");
   }
+  
+  async getHistorial() {
+    return await this.fetchWithAuth("GET","/historial");
+  }
+  
+  async getById(id) {
+    return await this.fetchWithAuth("GET","/" + id);
+  }
 
 }
 
