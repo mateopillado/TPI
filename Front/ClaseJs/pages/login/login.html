@@ -1,33 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
+  <title>Página de Inicio de Sesión</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./login.css">
 </head>
 <body>
  
     <div class="padre">
-        <div  class="container-fluid d-flex justify-content-center">
+        <div class="container-fluid d-flex justify-content-center">
             <div class="col-md-6 d-flex align-items-center justify-content-center">
                 <div class="login-box">
-                  <h2>Welcome Back <span>👋</span></h2>
-                  <p>Today is a new day. Its your day. You shape it. Sign in to start managing your projects.</p>
+                  <h2>Bienvenido de Vuelta <span>👋</span></h2>
+                  <p>Hoy es un nuevo día. Es tu día. Tú lo moldeas. Inicia sesión para empezar a gestionar tus proyectos.</p>
                   <form id="login-form">
                     <div class="mb-3">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="text" class="form-control" id="username" placeholder="Example@email.com" required>
+                      <label for="username" class="form-label">Nombre de Usuario</label>
+                      <input type="text" class="form-control" id="username" required>
                     </div>
                     <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="password" placeholder="At least 8 characters" required>
+                      <label for="password" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" id="password" required>
                     </div>
-                    <button id="submitLogin" type="submit" class="btn btn-dark w-100 mt-3">Sign in</button>
+                    <button id="submitLogin" type="submit" class="btn btn-dark w-100 mt-3">Iniciar sesión</button>
+                    
+                    <!-- Mensaje de error -->
+                    <div id="login-error" class="text-danger text-center mt-3" style="display: none;">
+                      Usuario o contraseña incorrectos.
+                    </div>
                     
                     <div class="text-center mt-3">
-                      <p>Don't have an account? <a href="../registro/registro.html" class="text-decoration-none">Register</a></p>
+                      <p>¿No tienes una cuenta? <a href="../registro/registro.html" class="text-decoration-none">Regístrate</a></p>
                     </div>
                   </form>
                 </div>
@@ -35,10 +40,8 @@
         </div>
         <div class="fondo">  
       </div>
-
-
-      
     </div>
+  
   <script type="module" src="./login.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

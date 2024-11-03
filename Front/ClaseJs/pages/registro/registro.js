@@ -1,40 +1,38 @@
 import usuarioService from "../../services/usuarioService.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("register-form");
+  const errorMsg = document.createElement("p");
+  errorMsg.style.color = "red";
+  errorMsg.style.display = "none";
+  form.appendChild(errorMsg);
 
-    setMinDate();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    const form = document.getElementById("register-form");
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = {
-            dni: document.getElementById("dni").value,
-            nombre: document.getElementById("nombre").value,
-            apellido: document.getElementById("apellido").value,
-            fechaNacimiento: document.getElementById("fecha_nacimiento").value,
-            idGenero: document.getElementById("id_genero").value,
-            idRol: document.getElementById("id_rol").value,
-            username: document.getElementById("username").value,
-            contrasena: document.getElementById("password").value,
-        };
-        
-        console.log(data);
-        
+    const data = {
+      dni: document.getElementById("dni").value,
+      nombre: document.getElementById("nombre").value,
+      apellido: document.getElementById("apellido").value,
+      fechaNacimiento: document.getElementById("fecha_nacimiento").value,
+      genero: document.getElementById("id_genero").value,
+      nombreUsuario: document.getElementById("username").value,
+      password: document.getElementById("password").value,
+      rol: document.getElementById("id_rol").value,
+    };
 
-        await usuarioService.register(data);
-        // window.location.href = "../login/login.html";
-    });
-})
-
-function setMinDate() {
-    const inputFecha = document.getElementById('fecha_nacimiento');
-    const today = new Date();
-    
-    // Restamos 3 años a la fecha actual
-    const minDate = new Date(today.getFullYear() - 4, 11, 31); // 11 = Diciembre (0 es enero)
-  
-    // Formateamos la fecha en el formato YYYY-MM-DD requerido para el input de tipo date
-    const formattedDate = minDate.toISOString().split('T')[0];
-    inputFecha.max = formattedDate;
-  }
+    try {
+      const response = await usuarioService.register(data);
+      
+      if (response.success) {
+        window.location.href = "../login/login.html";
+      } else {
+        errorMsg.style.display = "block";
+        errorMsg.textContent = "Error al registrarse: " + (response.message || "Datos inválidos.");
+      }
+    } catch (error) {
+      errorMsg.style.display = "block";
+      errorMsg.textContent = "Error en el servidor. Inténtalo más tarde.";
+    }
+  });
+});

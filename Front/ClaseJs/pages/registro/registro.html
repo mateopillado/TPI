@@ -1,107 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register Page</title>
+  <title>Registro</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="./registro.css">
 </head>
-<body>
- 
-    <div class="padre">
-        <div  class="container-fluid d-flex justify-content-center">
-            <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <div class="login-box">
-                  <h2>Welcome<span>👋</span></h2>
-                  <p>Today is a new day. Its your day. You shape it. Sign in to start managing your projects.</p>
-                    <form id="register-form">
-                        <!-- DNI -->
-                        <div class="mb-3">
-                            <label for="dni" class="form-label">DNI</label>
-                            <input type="number" class="form-control" id="dni" placeholder="Introduce tu DNI" required>
-                        </div>
+<body class="contenedor">
+  <div class="container d-flex align-items-center min-vh-100 text-light">
+    <div class="row w-100">
+      <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+        <div class="card p-4">
+          <h2 class="text-center">¡Bienvenido! <span>👋</span></h2>
+          <p class="text-center">Crea tu cuenta para empezar a seguir tus entrenamientos.</p>
+          <form id="register-form">
+            <!-- DNI -->
+            <div class="mb-3">
+              <label for="dni" class="form-label">DNI</label>
+              <input type="number" class="form-control" id="dni" placeholder="Introduce tu DNI" required>
+            </div>
 
-                        <!-- Nombre -->
-                        <div class="mb-3">
-                            <div>
-                                <label for="nombre" class="form-label">Nombre</label>
-                            
-                            </div>
-                            <div class="d-flex">
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
-                                <input type="text" class="form-control" id="apellido" placeholder="Apellido" required>
-                            </div>
-                        </div>
-
-                        <!-- Fecha de Nacimiento -->
-                        <div class="mb-3">
-                            <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                            <input type="date" class="form-control" id="fecha_nacimiento" required>
-                        </div>
-
-                        <!-- Género (Select) -->
-                        <div class="mb-3">
-                            <label for="id_genero" class="form-label">Género</label>
-                            <select class="form-select" id="id_genero" required>
-                                <option value="1">Masculino</option>
-                                <option value="2">Femenino</option>
-                                <option value="3">No Binario</option>
-                                <option value="4">Otro</option>
-                            </select>
-                        </div>
-
-                        <!-- Nombre Usuario -->
-                        <div class="mb-3">
-                            <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
-                            <input type="text" class="form-control" id="username" placeholder="Introduce tu nombre de usuario" required>
-                        </div>
-
-                        <!-- Contraseña -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" placeholder="Introduce tu contraseña" required>
-                        </div>
-
-                        <!-- Rol (Select) -->
-                        <div class="mb-3">
-                            <label for="id_rol" class="form-label">Uso</label>
-                            <select class="form-select" id="id_rol" required>
-                                <option value="1">Uso Personal</option>
-                                <option value="2">Entrenador</option>
-                            </select>
-                        </div>
-
-                        <!-- Botón de Registro -->
-                        <button id="submitRegister" type="submit" class="btn btn-dark w-100 mt-3">Registrarse</button>
-
-                        <div class="text-center mt-3">
-                            <p>have an account? <a href="../login/login.html" class="text-decoration-none">Sign up</a></p>
-                          </div>
-                    </form>
+            <!-- Nombre y Apellido -->
+            <div class="mb-3">
+              <label class="form-label">Nombre Completo</label>
+              <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" id="apellido" placeholder="Apellido" required>
                 </div>
               </div>
-        </div>
-        <div class="fondo">
-            
-        </div>
+            </div>
 
+            <!-- Fecha de Nacimiento -->
+            <div class="mb-3">
+              <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+              <input type="date" class="form-control" id="fecha_nacimiento" required>
+            </div>
 
+            <!-- Género -->
+            <div class="mb-3">
+              <label for="id_genero" class="form-label">Género</label>
+              <select class="form-select" id="id_genero" required>
+                <option value="1">Masculino</option>
+                <option value="2">Femenino</option>
+                <option value="3">No Binario</option>
+                <option value="4">Otro</option>
+              </select>
+            </div>
+
+            <!-- Nombre de Usuario -->
+            <div class="mb-3">
+              <label for="username" class="form-label">Nombre de Usuario</label>
+              <input type="text" class="form-control" id="username" placeholder="Introduce tu nombre de usuario" required>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="password" placeholder="Introduce tu contraseña" required>
+            </div>
+
+            <!-- Rol -->
+            <div class="mb-3">
+              <label for="id_rol" class="form-label">Uso</label>
+              <select class="form-select" id="id_rol" required>
+                <option value="1">Uso Personal</option>
+                <option value="2">Entrenador</option>
+              </select>
+            </div>
+
+            <!-- Botón de Registro -->
+            <button id="submitRegister" type="submit" class="btn btn-warning w-100 mt-3">Registrarse</button>
+
+            <!-- Link para iniciar sesión -->
+            <div class="text-center mt-3">
+              <p>¿Ya tienes una cuenta? <a href="../login/login.html" class="text-decoration-none text-warning">Iniciar sesión</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
   <script type="module" src="./registro.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
