@@ -1,5 +1,4 @@
 import usuarioService from "../../services/usuarioService.js";
-import entrenaminetoService from "../../services/entrenaminetoService.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     logIn();
@@ -11,21 +10,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     async function getEntrenamientos() {
-        return await entrenaminetoService.getManyTraining().then(entrenamientos => {
-            if (entrenamientos) {
-                return entrenamientos.length;
-            } else {
-                return 0;
-            }
+        return await usuarioService.getUser().then(entrenamientos => {
+            return entrenamientos.cantidadEntrenamientos
         });
     }
+
+    async function getAVG() {
+        return await usuarioService.getUser().then(avg => {
+            return avg.musculos;
+        });
+    }
+
+    let avg = await getAVG();
+    let cantEntrenamientos = await getEntrenamientos();
+
+    const initTooltips = () => {
+        avg.forEach(musculo => {
+          const element = document.getElementById(musculo.grupoMuscular.toLowerCase());
+          if (element) {
+            element.setAttribute('title', `Grupo Muscular: ${musculo.grupoMuscular}<br>Cantidad: ${musculo.cant}<br>Porcentaje: ${musculo.porcentaje}%`);
+          }
+        });
+      };
 
     document.getElementById("profile-pic").textContent = await getUsuarios()
         .then(u => { return u.substring(0, 1).toUpperCase() });
     document.getElementById("username").textContent = await getUsuarios();
-    document.getElementById("numEntrenamientos").textContent = await getEntrenamientos() + ' Entrenamientos realizados';
+    document.getElementById("numEntrenamientos").textContent = cantEntrenamientos === 1 ? "1 entrenamiento realizado" : `${cantEntrenamientos} entrenamientos realizados` ; 
+
 
     initializeTooltip();
+    initTooltips();
     initializeChart();
     initializeHoverEffect();
     initializeAvatarColors();
@@ -189,7 +204,7 @@ function initializeRadar() {
         const card = document.createElement('div');
         card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
         card.innerHTML = `
-            <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.name.charAt(1).toUpperCase()}</div>
+            <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.name.charAt(0).toUpperCase()}</div>
             <div>
                 <h5 class="mb-0 text-start">${contact.name}</h5>
                 <div class="text-start">
