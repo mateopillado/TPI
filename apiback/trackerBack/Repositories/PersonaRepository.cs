@@ -48,9 +48,9 @@ namespace trackerBack.Repositories
             //userLogged.Username = user.Nombre;
 
             var ahora = DateTime.Now;
-            var inicioDeLaSemana = this.StartOfWeek(ahora,DayOfWeek.Monday);
+            var inicioDeLaSemana = this.StartOfWeek(ahora, DayOfWeek.Monday);
 
-            var entrenamientos =  _context.Entrenamientos
+            var entrenamientos = _context.Entrenamientos
     .Where(e => e.IdPersona == id &&
                  e.Fecha >= DateTime.Now.AddDays(-35))
     .ToList();
@@ -85,8 +85,8 @@ namespace trackerBack.Repositories
             };
 
         }
-       
-          
+
+
         public async Task<string> Login(LoginDto data)
         {
             var user = await _context.Personas.FirstOrDefaultAsync(e => e.Username == data.Usuario);
@@ -151,10 +151,10 @@ namespace trackerBack.Repositories
 
                 throw;
             }
-            
+
 
         }
-        
+
         private string GenerateJwtToken(string username, int userId, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("Jwt");
@@ -210,6 +210,50 @@ namespace trackerBack.Repositories
                 Porcentaje = m.Porcentaje,
                 Cant = m.Cantidad
             }).ToList();
+        }
+        //public async Task<List<Persona>> GetPersonasCerca(int userId, int distanciaMax)
+        //{
+        //    var referencia = await _context.Coordenadas
+        //        .Where(c => c.IdPersonaNavigation.Id == userId)
+        //        .Select(c => new { c.Latitud, c.Longitud })
+        //        .FirstOrDefaultAsync();
+
+        //    if (referencia == null)
+        //    {
+        //        // Manejar el caso en el que no existe una referencia
+        //        return null;
+        //    }
+
+        //    var query = await _context.Personas
+        //        .Where(p => p.Buscando == true && p.IdRol == 2)
+        //        .Join(_context.Coordenadas,
+        //            p => p.Id,
+        //            c => c.IdPersona,
+        //            (p, c) => new { Persona = p, Coordenada = c })
+        //        .Join(_context.Contactos,
+        //            pc => pc.Persona.Id,
+        //            cont => cont.Id,
+        //            (pc, cont) => new
+        //            {
+        //                pc.Persona.Id,
+        //                NombreCompleto = pc.Persona.Nombre + " " + pc.Persona.Apellido,
+        //                RedSocial = cont.RedSocial1,
+        //                DistanciaKm = 6371 * Math.Acos(
+        //                    Math.Cos(DegreeToRadian(referencia.Latitud)) *
+        //                    Math.Cos(DegreeToRadian(pc.Coordenada.Latitud)) *
+        //                    Math.Cos(DegreeToRadian(pc.Coordenada.Longitud) - DegreeToRadian(referencia.Longitud)) +
+        //                    Math.Sin(DegreeToRadian(referencia.Latitud)) *
+        //                    Math.Sin(DegreeToRadian(pc.Coordenada.Latitud))
+        //                )
+        //            })
+        //        .Where(result => result.DistanciaKm <= distanciaMax)
+        //        .OrderBy(result => result.DistanciaKm)
+        //        .ToListAsync();
+
+        //}
+        private static double DegreeToRadian(double angle)
+        {
+            return Math.PI * angle / 180.0;
         }
 
     }

@@ -9,6 +9,7 @@ namespace trackerBack.Dtos
     public class EntrenamientoHistorialDto
     {
         public int Id { get; set; }
+        public string Descripcion { get; set; } 
         public DateTime Fecha { get; set; }
         public int Tonelaje { get; set; }   
         public List<EjercicioHistorialDto> Ejercicios { get; set; }

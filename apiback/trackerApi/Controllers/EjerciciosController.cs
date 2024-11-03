@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using trackerBack.Models;
+using trackerBack.Services;
 using trackerBack.Services.Common;
 
 namespace trackerApi.Controllers
@@ -9,11 +10,12 @@ namespace trackerApi.Controllers
     [ApiController]
     public class EjerciciosController : ControllerBase
     {
-        private readonly IGenericService<Ejercicio> _service;
-        public EjerciciosController(IGenericService<Ejercicio> service)
+        private readonly IEjercicioService _service;
+        public EjerciciosController(IEjercicioService service)
         {
             _service = service;
         }
+
 
         [HttpGet]
         [Authorize]
@@ -27,7 +29,7 @@ namespace trackerApi.Controllers
         {
             try
             {
-                var ejercicio = await _service.GetByIdAsync(id);
+                var ejercicio = await _service.GetHistorialByEjercicio(GetUserId(),id);
 
                 if(ejercicio  == null) { return NotFound(); }  
                 return Ok(ejercicio);
@@ -84,6 +86,12 @@ namespace trackerApi.Controllers
 
                 throw new Exception(e.Message);
             }
+        }
+        private int GetUserId()
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+            return int.Parse(userId);
         }
     }
 }

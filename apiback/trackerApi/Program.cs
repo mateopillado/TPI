@@ -19,15 +19,23 @@ builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConection")));
-builder.Services.AddScoped<IPersonaService, PersonaService>();
-builder.Services.AddScoped<IPersonaRepository, PersonaRepository>();
-builder.Services.AddScoped<IEntrenamientoRepository, EntrenamientoRepository>();
-builder.Services.AddScoped<IEntrenamientoService, EntrenamientoService>();
-
 
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IPersonaRepository, PersonaRepository>();
+builder.Services.AddScoped<IEntrenamientoRepository, EntrenamientoRepository>();
+builder.Services.AddScoped<IEjercicioRepository, EjercicioRepository>();
+
+
+
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+builder.Services.AddScoped<IPersonaService, PersonaService>();
+builder.Services.AddScoped<IEntrenamientoService, EntrenamientoService>();
+builder.Services.AddScoped<IEjercicioService, EjercicioService>();
+
+
+
+
 
 
 

@@ -3,96 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|c:\\users\\dario\\source\\repos\\utn\\tpi\\proyect\\tpi\\apiback\\trackerback\\repositories\\personarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\repositories\\personarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|c:\\users\\dario\\source\\repos\\utn\\tpi\\proyect\\tpi\\apiback\\trackerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|solutionrelative:trackerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\repositories\\personarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\repositories\\personarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\repositories\\ejerciciorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\repositories\\ejerciciorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerapi\\controllers\\ejercicioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|solutionrelative:trackerapi\\controllers\\ejercicioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\services\\ejercicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\services\\ejercicioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\dtos\\ejerciciohistorial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\dtos\\ejerciciohistorial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|solutionrelative:trackerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\dtos\\usuariologeado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\dtos\\usuariologeado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerapi\\controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|solutionrelative:trackerapi\\controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\services\\personaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\services\\personaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\serie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\serie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\services\\entrenamientoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\services\\entrenamientoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\dtos\\entrenamientohistorialdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\dtos\\entrenamientohistorialdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\ejercicioentrenamiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\ejercicioentrenamiento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerapi\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|solutionrelative:trackerapi\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\utils\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\utils\\passwordhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerapi\\controllers\\contactoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|solutionrelative:trackerapi\\controllers\\contactoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\dtos\\registerresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\dtos\\registerresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\objetivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\objetivo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\musculoejercicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\musculoejercicio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\recomendacionnutricional.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\recomendacionnutricional.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerapi\\controllers\\tipoejerciciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D5A75F5-FD8A-422E-8E4A-DB1269A92A36}|trackerApi\\trackerApi.csproj|solutionrelative:trackerapi\\controllers\\tipoejerciciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\alumnoprofesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\alumnoprofesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\models\\ejerciciorutina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\models\\ejerciciorutina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerback\\services\\personaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE5F70ED-59C6-49D2-8FB5-85114C08FEB8}|trackerBack\\trackerBack.csproj|solutionrelative:trackerback\\services\\personaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -102,66 +46,91 @@
       "DocumentGroups": [
         {
           "DockedWidth": 453,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "PersonaRepository.cs",
               "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Repositories\\PersonaRepository.cs",
               "RelativeDocumentMoniker": "trackerBack\\Repositories\\PersonaRepository.cs",
               "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Repositories\\PersonaRepository.cs",
               "RelativeToolTip": "trackerBack\\Repositories\\PersonaRepository.cs",
-              "ViewState": "AQIAALoAAAAAAAAAAAAAwLwAAAAIAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAwwCIAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T20:32:01.537Z"
+              "WhenOpened": "2024-11-03T20:07:26.465Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PersonaService.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Services\\PersonaService.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Services\\PersonaService.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Services\\PersonaService.cs",
-              "RelativeToolTip": "trackerBack\\Services\\PersonaService.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAWwBAAAAAzAAAA",
+              "DocumentIndex": 3,
+              "Title": "EjerciciosController.cs",
+              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\EjerciciosController.cs",
+              "RelativeDocumentMoniker": "trackerApi\\Controllers\\EjerciciosController.cs",
+              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\EjerciciosController.cs",
+              "RelativeToolTip": "trackerApi\\Controllers\\EjerciciosController.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAzwBwAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T20:29:38.571Z"
+              "WhenOpened": "2024-11-03T19:19:29.208Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "EjercicioService.cs",
+              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Services\\EjercicioService.cs",
+              "RelativeDocumentMoniker": "trackerBack\\Services\\EjercicioService.cs",
+              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Services\\EjercicioService.cs",
+              "RelativeToolTip": "trackerBack\\Services\\EjercicioService.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAuwBQAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T19:18:10.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\appsettings.json",
               "RelativeDocumentMoniker": "trackerApi\\appsettings.json",
               "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\appsettings.json",
               "RelativeToolTip": "trackerApi\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAABjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-10-29T21:58:56.827Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PersonasController.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\PersonasController.cs",
-              "RelativeDocumentMoniker": "trackerApi\\Controllers\\PersonasController.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\PersonasController.cs",
-              "RelativeToolTip": "trackerApi\\Controllers\\PersonasController.cs",
-              "ViewState": "AQIAAGYAAAAAAAAAAAAUwIAAAAAJAAAA",
+              "DocumentIndex": 5,
+              "Title": "EjercicioHistorial.cs",
+              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\EjercicioHistorial.cs",
+              "RelativeDocumentMoniker": "trackerBack\\Dtos\\EjercicioHistorial.cs",
+              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\EjercicioHistorial.cs",
+              "RelativeToolTip": "trackerBack\\Dtos\\EjercicioHistorial.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAMwBUAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T21:15:23.634Z"
+              "WhenOpened": "2024-11-03T19:25:52.654Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "EjercicioRepository.cs",
+              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Repositories\\EjercicioRepository.cs",
+              "RelativeDocumentMoniker": "trackerBack\\Repositories\\EjercicioRepository.cs",
+              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Repositories\\EjercicioRepository.cs",
+              "RelativeToolTip": "trackerBack\\Repositories\\EjercicioRepository.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAqwCAAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T18:55:50.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Program.cs",
               "RelativeDocumentMoniker": "trackerApi\\Program.cs",
               "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Program.cs",
               "RelativeToolTip": "trackerApi\\Program.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAABQAAAAAAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAB0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-02T19:03:13.732Z"
             },
@@ -179,207 +148,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Serie.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\Serie.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\Serie.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\Serie.cs",
-              "RelativeToolTip": "trackerBack\\Models\\Serie.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAA3wBwAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T20:27:30.607Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UsuarioLogeado.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\UsuarioLogeado.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Dtos\\UsuarioLogeado.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\UsuarioLogeado.cs",
-              "RelativeToolTip": "trackerBack\\Dtos\\UsuarioLogeado.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T20:25:35.613Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Persona.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\Persona.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\Persona.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\Persona.cs",
-              "RelativeToolTip": "trackerBack\\Models\\Persona.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAkwBYAAAAxAAAA",
+              "Title": "PersonaService.cs",
+              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Services\\PersonaService.cs",
+              "RelativeDocumentMoniker": "trackerBack\\Services\\PersonaService.cs",
+              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Services\\PersonaService.cs",
+              "RelativeToolTip": "trackerBack\\Services\\PersonaService.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAWwBAAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T20:26:07.847Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "EntrenamientoHistorialDto.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\EntrenamientoHistorialDto.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Dtos\\EntrenamientoHistorialDto.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\EntrenamientoHistorialDto.cs",
-              "RelativeToolTip": "trackerBack\\Dtos\\EntrenamientoHistorialDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T18:43:01.264Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "EjercicioEntrenamiento.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\EjercicioEntrenamiento.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\EjercicioEntrenamiento.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\EjercicioEntrenamiento.cs",
-              "RelativeToolTip": "trackerBack\\Models\\EjercicioEntrenamiento.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABAAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T19:59:23.082Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "RolesController.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\RolesController.cs",
-              "RelativeDocumentMoniker": "trackerApi\\Controllers\\RolesController.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\RolesController.cs",
-              "RelativeToolTip": "trackerApi\\Controllers\\RolesController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T00:14:01.913Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PasswordHelper.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Utils\\PasswordHelper.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Utils\\PasswordHelper.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Utils\\PasswordHelper.cs",
-              "RelativeToolTip": "trackerBack\\Utils\\PasswordHelper.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwCgAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T23:46:14.187Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "LoginDto.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\LoginDto.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Dtos\\LoginDto.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\LoginDto.cs",
-              "RelativeToolTip": "trackerBack\\Dtos\\LoginDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T20:47:37.46Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "ContactosController.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\ContactosController.cs",
-              "RelativeDocumentMoniker": "trackerApi\\Controllers\\ContactosController.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\ContactosController.cs",
-              "RelativeToolTip": "trackerApi\\Controllers\\ContactosController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T21:12:42.738Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "RegisterResult.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\RegisterResult.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Dtos\\RegisterResult.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\RegisterResult.cs",
-              "RelativeToolTip": "trackerBack\\Dtos\\RegisterResult.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T21:40:18.533Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "RegisterDto.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\RegisterDto.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Dtos\\RegisterDto.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Dtos\\RegisterDto.cs",
-              "RelativeToolTip": "trackerBack\\Dtos\\RegisterDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-26T21:31:39.52Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "TipoEjercicioController.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\TipoEjercicioController.cs",
-              "RelativeDocumentMoniker": "trackerApi\\Controllers\\TipoEjercicioController.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerApi\\Controllers\\TipoEjercicioController.cs",
-              "RelativeToolTip": "trackerApi\\Controllers\\TipoEjercicioController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAbAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T21:35:53.068Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "AlumnoProfesor.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\AlumnoProfesor.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\AlumnoProfesor.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\AlumnoProfesor.cs",
-              "RelativeToolTip": "trackerBack\\Models\\AlumnoProfesor.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T20:25:09.769Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Objetivo.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\Objetivo.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\Objetivo.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\Objetivo.cs",
-              "RelativeToolTip": "trackerBack\\Models\\Objetivo.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T20:30:25.106Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "RecomendacionNutricional.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\RecomendacionNutricional.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\RecomendacionNutricional.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\RecomendacionNutricional.cs",
-              "RelativeToolTip": "trackerBack\\Models\\RecomendacionNutricional.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T20:27:18.687Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MusculoEjercicio.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\MusculoEjercicio.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\MusculoEjercicio.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\MusculoEjercicio.cs",
-              "RelativeToolTip": "trackerBack\\Models\\MusculoEjercicio.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T20:27:08.979Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "EjercicioRutina.cs",
-              "DocumentMoniker": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\EjercicioRutina.cs",
-              "RelativeDocumentMoniker": "trackerBack\\Models\\EjercicioRutina.cs",
-              "ToolTip": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\Models\\EjercicioRutina.cs",
-              "RelativeToolTip": "trackerBack\\Models\\EjercicioRutina.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T20:26:56.946Z"
+              "WhenOpened": "2024-10-26T20:29:38.571Z"
             }
           ]
         }
