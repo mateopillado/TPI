@@ -10,9 +10,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   var ejercicios = await getEjercicios();
 
   let ejercicioCounter = 0;
-  let serieCounter = 0;
   let dataGuardar = [];
 
+  document.querySelectorAll('#nav-tab>[data-bs-toggle="tab"]').forEach(el => {
+    el.addEventListener('shown.bs.tab', () => {
+      const target = el.getAttribute('data-bs-target')
+      const scrollElem = document.querySelector(`${target} [data-bs-spy="scroll"]`)
+      bootstrap.ScrollSpy.getOrCreateInstance(scrollElem).refresh()
+    })
+  })
+  
 // Función para agregar ejercicio al DOM
 function addEjercicioToDOM(ejercicioId, ejercicioNombre, series = []) {
     const newEjercicio = `
@@ -87,19 +94,19 @@ function saveData() {
       }
 
       filas.forEach(fila => {
-          const serieId = fila.querySelector('td').innerText;
-          const kg = document.getElementById(`kg-${ejercicioId}-${serieId}`).value;
-          const reps = document.getElementById(`reps-${ejercicioId}-${serieId}`).value;
-          const tSerie = document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).value;
-          const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).checked;
+          const orden = fila.querySelector('td').innerText;
+          const kilo = document.getElementById(`kg-${ejercicioId}-${orden}`).value;
+          const repeticion = document.getElementById(`reps-${ejercicioId}-${orden}`).value;
+          const idTipoSerie = document.getElementById(`tipoSerie-${ejercicioId}-${orden}`).value;
+          const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${orden}`).checked;
 
           if (checked) {
               series.push({
-                  serieId: serieId,
-                  kg: kg,
-                  reps: reps,
-                  tSerie: tSerie,
-                  checked: checked
+                  orden: orden,
+                  kilo: kilo,
+                  repeticion: repeticion,
+                  idTipoSerie: idTipoSerie,
+                  // checked: checked
               });
           }
       });
@@ -133,10 +140,34 @@ window.onload = loadData();
 
 let guardarEntrenamiento = document.getElementById('guardarEntrenamiento')
 guardarEntrenamiento.addEventListener('click', function() {
+
+  const fechaActual = new Date();
+
   saveData();
-  localStorage.clear();
-  console.log(dataGuardar)
+  localStorage.removeItem('ejerciciosData');
   // window.location.href = '../Historial/historial.html' //descomentar al terminar
+  let data1 = {
+    idPersona: 1005,
+    fecha: fechaActual.toISOString().split('T')[0],
+    nombre: "string",
+    ejerciciosEntrenamientos: dataGuardar.map(data => ({
+      idEjercicio: data.ejercicioId,
+      idEntrenamiento: 0,
+      nombreEjercicio: data.ejercicioNombre,
+      nota: "string",
+      series: data.series.map(serie => ({
+        orden: serie.orden,
+        kilo: serie.kilo,
+        repeticion: serie.repeticion,
+        idTipoSerie: serie.idTipoSerie,
+        rer: 1,
+        rpe: 1
+      }))
+    }))
+  };
+
+  console.log(data1)
+
 })
 
 
@@ -172,8 +203,6 @@ document.getElementById('ejercicios').addEventListener('click', function (e) {
     let padre = document.getElementById('modal-Body')
 
     ejercicios.forEach(ejercicios => {
-
-      
       // Crear un nuevo div para cada ejercicio
       const ejercicioDiv = document.createElement("div");
       ejercicioDiv.classList.add("cardModal");
@@ -210,10 +239,7 @@ document.getElementById('ejercicios').addEventListener('click', function (e) {
   cargarModal();
 
   function clickEjercicio(element) {
-    console.log(element.id)
     let e = ejercicios.find( a => a.id == element.id)
-    console.log(element)
-    console.log(e)
     addEjercicioToDOM(element.id, e.nombre);
     saveData();
   }

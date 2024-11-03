@@ -163,6 +163,10 @@ function initializeRadar() {
     const contacts = [
     { name: "Sarah Johnson", contact: "Contacto:", distance: 1, avatar: "S", redSocial: 'Instagram 1' },
     { name: "John Doe", contact: "Contacto:", distance: 2, avatar: "J", redSocial: 'Instagram 1'},
+    { name: "Sarah Johnson", contact: "Contacto:", distance: 1, avatar: "S", redSocial: 'Instagram 1' },
+    { name: "John Doe", contact: "Contacto:", distance: 2, avatar: "J", redSocial: 'Instagram 1'},
+    { name: "Sarah Johnson", contact: "Contacto:", distance: 1, avatar: "S", redSocial: 'Instagram 1' },
+    { name: "John Doe", contact: "Contacto:", distance: 2, avatar: "J", redSocial: 'Instagram 1'},
     // Añade más contactos si es necesario
     ];
 
