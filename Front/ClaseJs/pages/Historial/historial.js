@@ -78,3 +78,17 @@ function formatearFecha(fechaStr) {
 
 // Inicializa la aplicación
 init();
+
+function logIn(){
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "../login/login.html";
+    }
+}
+
+function logOut() {
+    localStorage.removeItem("token");
+}
+
+logIn();
+document.getElementById("logout").addEventListener("click", logOut);

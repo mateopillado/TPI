@@ -23,13 +23,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     let avg = await getAVG();
     let cantEntrenamientos = await getEntrenamientos();
+    
+console.log(avg.map(musculo => {return musculo.grupoMuscular.toLowerCase() + '-back'}));
+
 
     const initTooltips = () => {
-        avg.forEach(musculo => {
-          const element = document.getElementById(musculo.grupoMuscular.toLowerCase());
+        avg.map(musculo => {
+          const element = document.getElementById(musculo.grupoMuscular.toLowerCase())
+          const elementBack =document.getElementById(musculo.grupoMuscular.toLowerCase() + '-back')
           if (element) {
-            element.setAttribute('title', `Grupo Muscular: ${musculo.grupoMuscular}<br>Cantidad: ${musculo.cant}<br>Porcentaje: ${musculo.porcentaje}%`);
+            let porcentaje = parseFloat(musculo.porcentaje).toFixed(2);
+            element.setAttribute('title', `Grupo Muscular: ${musculo.grupoMuscular}<br>Cantidad: ${musculo.cant}<br>Porcentaje: ${porcentaje}%`);
+        }
+        if (elementBack) {
+            let porcentaje = parseFloat(musculo.porcentaje).toFixed(2);
+            elementBack.setAttribute('title', `Grupo Muscular: ${musculo.grupoMuscular}<br>Cantidad: ${musculo.cant}<br>Porcentaje: ${porcentaje}%`);
           }
+        });
+
+        new bootstrap.Tooltip(document.body, {
+            selector: '[data-bs-toggle="tooltip"]'
         });
       };
 
@@ -39,7 +52,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("numEntrenamientos").textContent = cantEntrenamientos === 1 ? "1 entrenamiento realizado" : `${cantEntrenamientos} entrenamientos realizados` ; 
 
 
-    initializeTooltip();
     initTooltips();
     initializeChart();
     initializeHoverEffect();
