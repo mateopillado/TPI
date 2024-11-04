@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = trackerBack
-build_property.ProjectDir = C:\Users\dario\source\repos\utn\tpi\proyect\TPI\apiback\trackerBack\
+build_property.ProjectDir = C:\Users\mateo\Desktop\Facultad\Prog II\TPI\TPI\apiback\trackerBack\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

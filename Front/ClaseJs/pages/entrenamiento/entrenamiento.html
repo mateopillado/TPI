@@ -68,13 +68,16 @@
       <!-- Main -->
       <main id="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
 
-        <h3 class="">Entrenamiento:</h3>
-
+        <div class="d-flex align-items-center m-3">
+          <h3 class="me-2 ms-2">Entrenamiento:</h3>
+          <input type="text" id="nombreEntrenamiento" placeholder="Nombre del entrenamiento" class="form-control me-5">
+        </div>
+       
         <div id="ejercicios">
           <!-- Aquí se insertarán los ejercicios dinámicamente -->
         </div>
 
-
+    
         <div class="fixed d-flex">
           <button id="guardarEntrenamiento" class="btn btn-warning m-1">Guardar
             Entrenamiento</button>

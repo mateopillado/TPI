@@ -17,6 +17,11 @@ class usuarioService extends Service {
     return await this.fetchWithoutAuth("/registrar", data);
   }
 
+  async radar(km) {
+    return await this.fetchWithAuth("GET","/genteCerca/" + km);
+  }
+
+
 }
 
 export default new usuarioService();
