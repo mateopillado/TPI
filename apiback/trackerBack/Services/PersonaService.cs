@@ -15,6 +15,7 @@ namespace trackerBack.Services
     {
         Task<string> Login(LoginDto data);Task<RegisterResult> Register(RegisterDto register);
         Task<UsuarioLogeado> GetLoggedUser(int id);
+        Task<List<PersonaCercaDto>> GetPersonasCerca(int userId, int distanciaMax);
 
     }
     public class PersonaService : GenericService<Persona>, IPersonaService
@@ -30,7 +31,10 @@ namespace trackerBack.Services
             return await _personaRepository.GetLoggedUser(id);
         }
 
-        
+        public async Task<List<PersonaCercaDto>> GetPersonasCerca(int userId, int distanciaMax)
+        {
+            return await _personaRepository.GetPersonasCerca(userId, distanciaMax);
+        }
 
         public async Task<string> Login(LoginDto data)
         {
