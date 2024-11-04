@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await usuarioService.radar(km)
     }
 
-    const  radarDatos = await getRadar(10)
-    console.log(radarDatos)
+    // const  radarDatos = await getRadar(10)
+    // console.log(radarDatos)
     
     let avg = await getAVG();
     let cantEntrenamientos = await getEntrenamientos();
@@ -63,13 +63,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializeChart();
     initializeHoverEffect();
     initializeAvatarColors();
-    initializeRadar();
+    document.getElementById("buscarProfesor").addEventListener("click", async () => {
+        const km = document.getElementById("customRange").value;
+        document.getElementById("slider-value").textContent = km;
+        const radarDatos = await getRadar(km);
+        initializeRadar(radarDatos, km);
+    });
     document.getElementById("customRange").addEventListener("mouseup", updateSliderValue);
     document.getElementById("logOutBtn").addEventListener("click", logOut);
 });
 
 // Función para actualizar el valor del slider
 function updateSliderValue() {
+    console.log(document.getElementById("slider-value").textContent = document.getElementById("customRange").value)
+    
     return document.getElementById("slider-value").textContent = document.getElementById("customRange").value;
 }
 
@@ -177,63 +184,53 @@ function getLast7WeeksLabels() {
 
 
 // RADAAAAAR
-function initializeRadar() {
+
+function initializeRadar(radarDatos, km) {
     const radar = document.getElementById("radar");
 
-    // Crear puntos en el radar al hacer clic en "buscar profesor"
-    let buscarProfesor = document.getElementById("buscarProfesor");
-    buscarProfesor.addEventListener("click", async () => {
-        // Obtener el valor del slider
-        let km = document.getElementById("customRange").value;
-        
-        // Limpiar radar antes de agregar nuevos puntos
-        while (radar.firstChild) {
-            radar.removeChild(radar.firstChild);
-        }
+    // Limpiar radar antes de agregar nuevos puntos
+    while (radar.firstChild) {
+        radar.removeChild(radar.firstChild);
+    }
 
-        // Tamaño del radar y ajuste de distancia máxima
-        const radarRadius = 180; // El radio del círculo
-        const maxDistance = km;  // La distancia máxima basada en el valor del slider
+    const radarRadius = 180;
+    const maxDistance = km;
 
-        // Función para generar posición según la distancia
-        function getPositionByDistance(distance) {
-            let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
-            let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
-            let x = r * Math.cos(angle);
-            let y = r * Math.sin(angle);
-            return { x, y };
-        }
+    function getPositionByDistance(distance) {
+        let angle = Math.random() * 2 * Math.PI;
+        let r = (distance / maxDistance) * radarRadius;
+        let x = r * Math.cos(angle);
+        let y = r * Math.sin(angle);
+        return { x, y };
+    }
 
-        // Crear puntos en el radar
-        radarDatos.forEach(point => {
-            const pointElement = document.createElement("div");
-            pointElement.classList.add("point");
-            pointElement.setAttribute('data-label', point.nombreCompleto.substring(0, point.nombreCompleto.indexOf(' ')));
-            const position = getPositionByDistance(point.distancia);
-            pointElement.style.left = 200 + position.x + "px"; // 200px es el centro del radar
-            pointElement.style.top = 200 + position.y + "px";
-            radar.appendChild(pointElement);
-        });
+    radarDatos.forEach(point => {
+        const pointElement = document.createElement("div");
+        pointElement.classList.add("point");
+        pointElement.setAttribute('data-label', point.nombreCompleto.substring(0, point.nombreCompleto.indexOf(' ')));
+        const position = getPositionByDistance(point.distancia);
+        pointElement.style.left = 200 + position.x + "px";
+        pointElement.style.top = 200 + position.y + "px";
+        radar.appendChild(pointElement);
+    });
 
-        // Generar tarjetas en `resultadosRadar`
-        const container = document.getElementById('resultadosRadar');
-        container.innerHTML = '';
-        
-        radarDatos.forEach((contact, index) => {
-            const card = document.createElement('div');
-            card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
-            card.innerHTML = `
-                <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.nombreCompleto.charAt(0).toUpperCase()}</div>
-                <div>
-                    <h5 class="mb-0 text-start">${contact.nombreCompleto}</h5>
-                    <div class="text-start">
-                        <p class="m-0">Contacto: ${contact.redSocial}</p>
-                        <small class="text-dark">Distancia: ${contact.distancia}</small>
-                    </div>
+    const container = document.getElementById('resultadosRadar');
+    container.innerHTML = '';
+    
+    radarDatos.forEach((contact, index) => {
+        const card = document.createElement('div');
+        card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
+        card.innerHTML = `
+            <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.nombreCompleto.charAt(0).toUpperCase()}</div>
+            <div>
+                <h5 class="mb-0 text-start">${contact.nombreCompleto}</h5>
+                <div class="text-start">
+                    <p class="m-0">Contacto: ${contact.redSocial}</p>
+                    <small class="text-dark">Distancia: ${Math.round(contact.distancia,2)} Km</small>
                 </div>
-            `;
-            container.appendChild(card);
-        });
+            </div>
+        `;
+        container.appendChild(card);
     });
 }
 
