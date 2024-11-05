@@ -20,16 +20,19 @@ async function init() {
 function mostrarSesiones() {
     const listaSesiones = document.getElementById("sessionList");
     listaSesiones.innerHTML = "";
-
+    
     sesiones.forEach(sesion => {
         const tarjeta = document.createElement("div");
+        const descripcionEntrenamiento = (sesion.descripcion && sesion.descripcion !== "string") ?sesion.descripcion : "Sin Nombre";
         tarjeta.classList.add("session-card");
         tarjeta.onclick = function() {
             mostrarDetallesSesion(sesion.id); 
-        };
-
+        };  
+        
+        
+        
         tarjeta.innerHTML = `
-            <h3>${sesion.nombre || 'Sin nombre'}</h3>
+            <h3>${descripcionEntrenamiento}</h3>
             <p>${formatearFecha(sesion.fecha)}</p>
             <p><strong>Peso Total Levantado:</strong> ${sesion.tonelaje} kg</p>
             <h4>Ejercicios:</h4>
@@ -74,7 +77,7 @@ async function mostrarDetallesSesion(idSesion) {
         modalContenido.innerHTML = `
             <h2>${detallesSesion.nombre}</h2>
             <p><strong>Fecha:</strong> ${formatearFecha(detallesSesion.fecha)}</p>
-            <p><strong>Entrenador:</strong> ${detallesSesion.idPersona}</p>
+        
             <div>
                 ${detallesSesion.ejerciciosEntrenamientos.map(ejercicio => formatearEjercicioEnModal(ejercicio)).join("")}
             </div>

@@ -252,7 +252,7 @@ async function loadHistory(exerciseId) {
         day: "numeric",
       });
 
-      const descripcionEntrenamiento = (entry.descripcion && entry.descripcion !== "string") 
+      const descripcionEntrenamiento = (entry.descripcion && entry.descripcion !== "") 
         ? entry.descripcion 
         : "Sin nombre";
 
