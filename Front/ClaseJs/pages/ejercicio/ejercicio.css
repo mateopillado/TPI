@@ -47,7 +47,7 @@
 
 
 body {
-    background-color: #302f2f;;
+    background-color: #302f2f;
     color: white;
 }
 
@@ -146,6 +146,7 @@ body {
     overflow-y: auto;
     padding-right: 10px; /* Evitar que el scroll tape el contenido */
 }
+
 
 
 #history-list-container {

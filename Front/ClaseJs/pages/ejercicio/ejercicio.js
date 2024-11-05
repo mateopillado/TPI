@@ -252,7 +252,7 @@ async function loadHistory(exerciseId) {
         day: "numeric",
       });
 
-      const descripcionEntrenamiento = (entry.descripcion && entry.descripcion !== "string") 
+      const descripcionEntrenamiento = (entry.descripcion && entry.descripcion !== "") 
         ? entry.descripcion 
         : "Sin nombre";
 
@@ -291,68 +291,68 @@ async function loadHistory(exerciseId) {
 
 
 
-function displayRecords() {
-  const recordsContainer = document.getElementById("records-content");
+// function displayRecords() {
+//   const recordsContainer = document.getElementById("records-content");
 
   
-  const recordsData = {
-    estimated1RM: "9 kg",
-    maxVolume: "163 kg",
-    maxWeight: "6 kg",
-    history: [
-      { reps: 1, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "9 kg" },
-      { reps: 2, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "9 kg" },
-      { reps: 3, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
-      { reps: 4, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
-      { reps: 5, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
+//   const recordsData = {
+//     estimated1RM: "9 kg",
+//     maxVolume: "163 kg",
+//     maxWeight: "6 kg",
+//     history: [
+//       { reps: 1, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "9 kg" },
+//       { reps: 2, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "9 kg" },
+//       { reps: 3, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
+//       { reps: 4, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
+//       { reps: 5, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
       
-    ],
-    totalReps: 37,
-    totalVolume: "423 kg"
-  };
+//     ],
+//     totalReps: 37,
+//     totalVolume: "423 kg"
+//   };
 
   
-  recordsContainer.innerHTML = `
-    <div class="text-white">
-      <h5 class="text-uppercase">Marcas Personales</h5>
-      <div class="mb-3">
-        <p>1RM Estimado: ${recordsData.estimated1RM}</p>
-        <p>Volumen Max: ${recordsData.maxVolume}</p>
-        <p>Peso Max: ${recordsData.maxWeight}</p>
-      </div>
+//   recordsContainer.innerHTML = `
+//     <div class="text-white">
+//       <h5 class="text-uppercase">Marcas Personales</h5>
+//       <div class="mb-3">
+//         <p>1RM Estimado: ${recordsData.estimated1RM}</p>
+//         <p>Volumen Max: ${recordsData.maxVolume}</p>
+//         <p>Peso Max: ${recordsData.maxWeight}</p>
+//       </div>
       
-      <div class="d-flex justify-content-between text-uppercase text-muted mb-2">
-        <div>Mejor Rendimiento</div>
-        <div>Estimado</div>
-      </div>
-      <hr class="bg-secondary">
+//       <div class="d-flex justify-content-between text-uppercase text-muted mb-2">
+//         <div>Mejor Rendimiento</div>
+//         <div>Estimado</div>
+//       </div>
+//       <hr class="bg-secondary">
 
-      <!-- Contenedor con scroll para el historial de records -->
-      <div class="records-history-container">
-        ${recordsData.history
-          .map(
-            (record) => `
-            <div class="d-flex justify-content-between">
-              <div>
-                <span>${record.reps} reps - ${record.bestPerformance}</span><br>
-                <small>${record.date}</small>
-              </div>
-              <div><strong>${record.estimated}</strong></div>
-            </div>
-            <hr class="bg-secondary">
-          `
-          )
-          .join("")}
-      </div>
+//       <!-- Contenedor con scroll para el historial de records -->
+//       <div class="records-history-container">
+//         ${recordsData.history
+//           .map(
+//             (record) => `
+//             <div class="d-flex justify-content-between">
+//               <div>
+//                 <span>${record.reps} reps - ${record.bestPerformance}</span><br>
+//                 <small>${record.date}</small>
+//               </div>
+//               <div><strong>${record.estimated}</strong></div>
+//             </div>
+//             <hr class="bg-secondary">
+//           `
+//           )
+//           .join("")}
+//       </div>
       
-      <h6 class="text-uppercase mt-4">Estadisticas</h6>
-      <p>Total reps: ${recordsData.totalReps}</p>
-      <p>Total volumen: ${recordsData.totalVolume}</p>
-    </div>
-  `;
-}
+//       <h6 class="text-uppercase mt-4">Estadisticas</h6>
+//       <p>Total reps: ${recordsData.totalReps}</p>
+//       <p>Total volumen: ${recordsData.totalVolume}</p>
+//     </div>
+//   `;
+// }
 
-document.querySelector('[data-tab="records"]').addEventListener("click", displayRecords);
+// document.querySelector('[data-tab="records"]').addEventListener("click", displayRecords);
 
 
 function logIn(){
