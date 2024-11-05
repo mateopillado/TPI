@@ -19,9 +19,6 @@ async function getContact() {
     return await ContactoService.getById();
 }
 
-
-
-
 document.addEventListener("DOMContentLoaded", async () => {
     logIn();
 
@@ -162,13 +159,20 @@ async function saveContactData() {
         await postContacto(newContacto)
         console.log('post');
         contacto = await getContact();
-        window.location.href = '../inicio/inicio.html'
+        console.log(contacto.email)
+        // window.location.href = '../inicio/inicio.html'
+        loadContactData()
         
     }
     else{
         newContacto.id = contacto.id
         await putContacto(newContacto)
+        contacto = await getContact();
+        console.log(contacto.email)
+
         console.log('put');
+            //    window.location.href = '../inicio/inicio.html'
+        loadContactData()
     }
 
 

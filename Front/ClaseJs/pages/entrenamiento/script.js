@@ -5,6 +5,9 @@ import tipoSerieService from "../../services/tipoSerieService.js";
 let tiposSerie = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+  logIn();
+
   async function getEjercicios() {
     return await ejercicioService.getAll();
   }
@@ -312,6 +315,5 @@ function cargarEntrenamientoGuardado() {
     window.location.href = "../login/login.html";
   }
 
-  logIn();
   document.getElementById("logout").addEventListener("click", logOut);
 });
