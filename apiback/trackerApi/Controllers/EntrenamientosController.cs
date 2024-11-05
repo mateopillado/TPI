@@ -51,13 +51,13 @@ namespace trackerApi.Controllers
 
         [HttpPost]
         [Authorize]
-
         public async Task<IActionResult> Post([FromBody] Entrenamiento entrenamiento)
         {
             try
             {
+                entrenamiento.IdPersona = GetUserId();
                 await _service.AddAsync(entrenamiento);
-                return Ok();
+                return Ok(new {success = true});
             }
             catch (Exception e)
             {

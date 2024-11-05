@@ -34,7 +34,10 @@ coverage/
 # Build directories
 dist/
 build/
-.apiback/.vs/
-.apiback/trackerApi/bin/
-.apiback/trackerApi/obj/
 
+# Visual Studio files
+apiback/.vs/
+apiback/trackerApi/bin/
+apiback/trackerApi/obj/
+apiback/trackerBack/bin/
+apiback/trackerBack/obj/
