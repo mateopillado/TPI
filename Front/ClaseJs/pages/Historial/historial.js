@@ -35,13 +35,36 @@ function mostrarSesiones() {
     });
 }
 
+// async function mostrarDetallesSesion(idSesion) {
+//     try {
+//         // Llama al servicio para obtener detalles de la sesión por ID
+//         const detallesSesion = await entrenamientoService.getById(idSesion);
+
+//         // Llena el modal con los datos detallados
+//         const modalContenido = document.getElementById("sessionDetails");
+//         modalContenido.innerHTML = `
+//             <h2>${detallesSesion.nombre}</h2>
+//             <p><strong>Fecha:</strong> ${formatearFecha(detallesSesion.fecha)}</p>
+//             <p><strong>Entrenador:</strong> ${detallesSesion.idPersona}</p>
+//             <div>
+//                 ${detallesSesion.ejerciciosEntrenamientos.map(ejercicio => formatearEjercicioEnModal(ejercicio)).join("")}
+//             </div>
+//         `;
+
+//         // Mostrar el modal
+//         const modal = new bootstrap.Modal(document.getElementById('sessionModal'));
+//         modal.show();
+//     } catch (error) {
+//         console.error("Error al obtener detalles de la sesión:", error);
+//     }
+// }
+
 async function mostrarDetallesSesion(idSesion) {
     try {
-        // Llama al servicio para obtener detalles de la sesión por ID
         const detallesSesion = await entrenamientoService.getById(idSesion);
-
-        // Llena el modal con los datos detallados
         const modalContenido = document.getElementById("sessionDetails");
+
+        // Rellenar el contenido del modal
         modalContenido.innerHTML = `
             <h2>${detallesSesion.nombre}</h2>
             <p><strong>Fecha:</strong> ${formatearFecha(detallesSesion.fecha)}</p>
@@ -51,13 +74,31 @@ async function mostrarDetallesSesion(idSesion) {
             </div>
         `;
 
-        // Mostrar el modal
+        // Abrir el modal
         const modal = new bootstrap.Modal(document.getElementById('sessionModal'));
         modal.show();
+
+        
+        // Agregar evento click al botón de repetir solo si el modal se abre correctamente
+        document.getElementById("repetirEntrenamientoBtn").addEventListener("click",()=>{repetirEntrenamiento(idSesion)});
+        
+
     } catch (error) {
-        console.error("Error al obtener detalles de la sesión:", error);
+        console.error("Error al obtener detalles de la sesión o al mostrar el modal:", error);
     }
 }
+
+
+function repetirEntrenamiento(sesion) {
+    // Guardar el objeto de la sesión en el localStorage
+    localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesion));
+    // console.log(sesion)
+    // Redirigir a la página de entrenamiento
+    window.location.href = "../entrenamiento/entrenamiento.html";
+}
+
+
+
 
 function formatearEjercicioEnModal(ejercicio) {
     return `

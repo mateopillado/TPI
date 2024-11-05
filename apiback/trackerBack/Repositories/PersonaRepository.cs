@@ -24,6 +24,7 @@ namespace trackerBack.Repositories
         Task<string> Login(LoginDto data);
         Task<RegisterResult> Register(RegisterDto data);
         Task<UsuarioLogeado> GetLoggedUser(int id);
+        Task<List<PersonaCercaDto>> GetPersonasCerca(int userId, int distanciaMax);
     }
     public class PersonaRepository : GenericRepository<Persona>, IPersonaRepository
     {
@@ -211,46 +212,48 @@ namespace trackerBack.Repositories
                 Cant = m.Cantidad
             }).ToList();
         }
-        //public async Task<List<Persona>> GetPersonasCerca(int userId, int distanciaMax)
-        //{
-        //    var referencia = await _context.Coordenadas
-        //        .Where(c => c.IdPersonaNavigation.Id == userId)
-        //        .Select(c => new { c.Latitud, c.Longitud })
-        //        .FirstOrDefaultAsync();
+        public async Task<List<PersonaCercaDto>> GetPersonasCerca(int userId, int distanciaMax)
+        {
+            var referencia = await _context.Coordenadas
+                .Where(c => c.IdPersonaNavigation.Id == userId)
+                .Select(c => new { c.Latitud, c.Longitud })
+                .FirstOrDefaultAsync();
 
-        //    if (referencia == null)
-        //    {
-        //        // Manejar el caso en el que no existe una referencia
-        //        return null;
-        //    }
+            if (referencia == null)
+            {
+                // Manejar el caso en el que no existe una referencia
+                return null;
+            }
 
-        //    var query = await _context.Personas
-        //        .Where(p => p.Buscando == true && p.IdRol == 2)
-        //        .Join(_context.Coordenadas,
-        //            p => p.Id,
-        //            c => c.IdPersona,
-        //            (p, c) => new { Persona = p, Coordenada = c })
-        //        .Join(_context.Contactos,
-        //            pc => pc.Persona.Id,
-        //            cont => cont.Id,
-        //            (pc, cont) => new
-        //            {
-        //                pc.Persona.Id,
-        //                NombreCompleto = pc.Persona.Nombre + " " + pc.Persona.Apellido,
-        //                RedSocial = cont.RedSocial1,
-        //                DistanciaKm = 6371 * Math.Acos(
-        //                    Math.Cos(DegreeToRadian(referencia.Latitud)) *
-        //                    Math.Cos(DegreeToRadian(pc.Coordenada.Latitud)) *
-        //                    Math.Cos(DegreeToRadian(pc.Coordenada.Longitud) - DegreeToRadian(referencia.Longitud)) +
-        //                    Math.Sin(DegreeToRadian(referencia.Latitud)) *
-        //                    Math.Sin(DegreeToRadian(pc.Coordenada.Latitud))
-        //                )
-        //            })
-        //        .Where(result => result.DistanciaKm <= distanciaMax)
-        //        .OrderBy(result => result.DistanciaKm)
-        //        .ToListAsync();
+            var query =  _context.Personas
+     .Where(p => p.Buscando == true && p.IdRol == 2)
+     .Join(_context.Coordenadas,
+         p => p.Id,
+         c => c.IdPersona,
+         (p, c) => new { Persona = p, Coordenada = c })
+     .Join(_context.Contactos,
+         pc => pc.Persona.Id,
+         cont => cont.IdPersona,
+         (pc, cont) => new PersonaCercaDto
+         {
+             Id = pc.Persona.Id,
+             NombreCompleto = pc.Persona.Nombre + " " + pc.Persona.Apellido,
+             RedSocial = cont.RedSocial1,
+             Distancia = 6371 * Math.Acos(
+                 Math.Cos(referencia.Latitud * Math.PI / 180) *
+                 Math.Cos(pc.Coordenada.Latitud * Math.PI / 180) *
+                 Math.Cos(pc.Coordenada.Longitud * Math.PI / 180 - referencia.Longitud * Math.PI / 180) +
+                 Math.Sin(referencia.Latitud * Math.PI / 180) *
+                 Math.Sin(pc.Coordenada.Latitud * Math.PI / 180)
+             )
+         })
+     .AsEnumerable() // Cambia la evaluación a cliente después de la consulta inicial en SQL
+     .Where(result => result.Distancia <= distanciaMax)
+     .OrderBy(result => result.Distancia)
+     .ToList();
+            return query;
 
-        //}
+        }
         private static double DegreeToRadian(double angle)
         {
             return Math.PI * angle / 180.0;

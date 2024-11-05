@@ -17,6 +17,11 @@ class entrenamientoService extends Service {
     return await this.fetchWithAuth("GET","/" + id);
   }
 
+  async postEntrenamiento(data) {
+    return await this.fetchWithAuth("POST","", data);
+  }
+
+
 }
 
 export default new entrenamientoService();

@@ -49,7 +49,12 @@ namespace trackerApi.Controllers
         {
             return Ok(await _service.GetAllAsync());
         }
-
+        [HttpGet("GenteCerca/{km}")]
+        [Authorize]
+        public async Task<IActionResult> Get(int km)
+        {
+            return Ok(await _service.GetPersonasCerca(GetUserId(),km));
+        }
         [HttpGet("{id}")]
         [Authorize]
 
@@ -126,6 +131,12 @@ namespace trackerApi.Controllers
             }
 
             return Unauthorized();
+        }
+        private int GetUserId()
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+            return int.Parse(userId);
         }
     }
 }

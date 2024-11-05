@@ -1,6 +1,8 @@
 
 import ejercicioService from "../../services/ejercicioService.js";
 
+import entrenamientoService from "../../services/entrenamientoService.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
  
   async function getEjercicios() {
@@ -19,12 +21,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       bootstrap.ScrollSpy.getOrCreateInstance(scrollElem).refresh()
     })
   })
+
+  //COMENTARIO PARA TIRAR CONTROL z
   
 // Función para agregar ejercicio al DOM
 function addEjercicioToDOM(ejercicioId, ejercicioNombre, series = []) {
     const newEjercicio = `
-        <div class="container rounded-4 p-4" id="ejercicio-${ejercicioId}">
-          <h4>${ejercicioNombre}</h4>
+        <div class="container rounded-4 pl-4 mt-5" id="ejercicio-${ejercicioId}">
+          <div class="d-flex flex-row align-items-center mb-2 justify-content-between">
+            <h4 class="me-4">${ejercicioNombre}</h4>
+            <input type="text" placeholder="Nota:" class="notasEjercicio" id="nota-${ejercicioId}">
+          </div>
           <table class="table table-dark table-striped">
             <thead>
               <tr>
@@ -78,49 +85,54 @@ function addSerieToDOM(ejercicioId, serieId, kg = 0, reps = 0, tSerie = "1", che
 }
 
 // Función para guardar el estado en localStorage
+// Función para guardar el estado en localStorage
 function saveData() {
   let ejerciciosData = [];
   const ejercicios = document.getElementById('ejercicios').children;
 
   Array.from(ejercicios).forEach(ejercicio => {
       const ejercicioId = ejercicio.id.split('-')[1];
-      const ejercicioNombre = ejercicio.querySelector('h4').innerText; // Capturamos el nombre del ejercicio
       const table = ejercicio.querySelector('tbody');
-      const filas = table.querySelectorAll('tr');
+      const filas = table ? table.querySelectorAll('tr') : [];
+      const nota = document.getElementById(`nota-${ejercicioId}`).value
+      
 
       let series = [];
-      if (filas.length === 0) {
-          return;
-      }
-
+      
       filas.forEach(fila => {
-          const orden = fila.querySelector('td').innerText;
-          const kilo = document.getElementById(`kg-${ejercicioId}-${orden}`).value;
-          const repeticion = document.getElementById(`reps-${ejercicioId}-${orden}`).value;
-          const idTipoSerie = document.getElementById(`tipoSerie-${ejercicioId}-${orden}`).value;
-          const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${orden}`).checked;
+          const orden = fila.querySelector('td') ? fila.querySelector('td').innerText : null;
+          if (orden) {
+              const kilo = document.getElementById(`kg-${ejercicioId}-${orden}`)?.value || 0;
+              const repeticion = document.getElementById(`reps-${ejercicioId}-${orden}`)?.value || 0;
+              const idTipoSerie = document.getElementById(`tipoSerie-${ejercicioId}-${orden}`)?.value || "1";
+              const checked = document.getElementById(`btn-check-outlined-${ejercicioId}-${orden}`)?.checked || false;
 
-          if (checked) {
-              series.push({
-                  orden: orden,
-                  kilo: kilo,
-                  repeticion: repeticion,
-                  idTipoSerie: idTipoSerie,
-                  // checked: checked
-              });
+              // Solo guardar series que estén marcadas como `checked`
+              if (checked) {
+                  series.push({
+                      orden: orden,
+                      kilo: kilo,
+                      repeticion: repeticion,
+                      idTipoSerie: idTipoSerie
+                  });
+              }
           }
       });
 
-      ejerciciosData.push({
-          ejercicioId: ejercicioId,
-          ejercicioNombre: ejercicioNombre,  // Guardamos el nombre del ejercicio
-          series: series
-      });
+      // Agregar ejercicio solo si tiene series guardadas
+      if (series.length > 0) {
+          ejerciciosData.push({
+              ejercicioId: ejercicioId,
+              nota: nota,
+              series: series
+          });
+      }
   });
 
   localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
   dataGuardar = ejerciciosData;
 }
+
 
 
 // Función para cargar el estado desde localStorage
@@ -142,19 +154,18 @@ let guardarEntrenamiento = document.getElementById('guardarEntrenamiento')
 guardarEntrenamiento.addEventListener('click', function() {
 
   const fechaActual = new Date();
-
+  const nombreEntrenamiento = document.getElementById('nombreEntrenamiento').value
   saveData();
   localStorage.removeItem('ejerciciosData');
   // window.location.href = '../Historial/historial.html' //descomentar al terminar
   let data1 = {
-    idPersona: 1005,
     fecha: fechaActual.toISOString().split('T')[0],
-    nombre: "string",
+    nombre: nombreEntrenamiento,
     ejerciciosEntrenamientos: dataGuardar.map(data => ({
       idEjercicio: data.ejercicioId,
       idEntrenamiento: 0,
       nombreEjercicio: data.ejercicioNombre,
-      nota: "string",
+      nota: data.nota,
       series: data.series.map(serie => ({
         orden: serie.orden,
         kilo: serie.kilo,
@@ -167,37 +178,45 @@ guardarEntrenamiento.addEventListener('click', function() {
   };
 
   console.log(data1)
+   
+  async function postEntrenamiento(data1) {
+    return await entrenamientoService.postEntrenamiento(data1);
+  }
+
+  let respuesta = postEntrenamiento(data1);
 
 })
 
 
 // Detectar clicks en botones dinámicos
 document.getElementById('ejercicios').addEventListener('click', function (e) {
-    if (e.target && e.target.classList.contains('btn-add')) {
-        const ejercicioId = e.target.getAttribute('data-ejercicio-id');
-        const table = document.getElementById(`series-table-${ejercicioId}`);
-        const rowCount = table.rows.length + 1;
-        addSerieToDOM(ejercicioId, rowCount);
-        saveData();
-    }
+  if (e.target && e.target.classList.contains('btn-add')) {
+      const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+      const table = document.getElementById(`series-table-${ejercicioId}`);
+      const rowCount = table.rows.length + 1;
+      addSerieToDOM(ejercicioId, rowCount);
+      saveData();
+  }
 
-    if (e.target && e.target.classList.contains('btn-delete')) {
-        const ejercicioId = e.target.getAttribute('data-ejercicio-id');
-        const serieId = e.target.getAttribute('data-serie-id');
-        const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
+  if (e.target && e.target.classList.contains('btn-delete')) {
+      const ejercicioId = e.target.getAttribute('data-ejercicio-id');
+      const serieId = e.target.getAttribute('data-serie-id');
+      const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
 
-        if (fila) {
-             // Si no quedan filas, ocultar el contenedor de la tabla
-             if ((fila.id).charAt(13) == 1) {
-                 const container = document.getElementById(`ejercicio-${ejercicioId}`);
-                 container.innerHTML = '' // fijarse aca el borrado del cabezal
-             }
+      if (fila) {
+          fila.remove();
+          saveData();
 
-            fila.remove();
-            saveData();
-        }
-    }
+          // Verifica si el contenedor de series está vacío
+          const table = document.getElementById(`series-table-${ejercicioId}`);
+          if (table && table.rows.length === 0) {
+              const container = document.getElementById(`ejercicio-${ejercicioId}`);
+              container.remove();  // Elimina el contenedor completo del ejercicio si no tiene series
+          }
+      }
+  }
 });
+
 
   function cargarModal(){
     let padre = document.getElementById('modal-Body')

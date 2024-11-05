@@ -34,9 +34,9 @@ coverage/
 # Build directories
 dist/
 build/
-apiback/.vs
-apiback/trackerApi/bin/
-apiback/trackerApi/obj/
-apiback/trackerBack/bin/
-apiback/trackerBack/obj/
+.apiback/.vs/
+.apiback/trackerApi/bin/
+.apiback/trackerApi/obj/
+.apiback/trackerBack/bin/
+.apiback/trackerBack/obj/
 

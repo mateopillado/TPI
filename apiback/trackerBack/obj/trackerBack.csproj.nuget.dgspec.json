@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj": {}
+    "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\trackerBack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj": {
+    "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\trackerBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
+        "projectUniqueName": "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
         "projectName": "trackerBack",
-        "projectPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
-        "packagesPath": "C:\\Users\\dario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dario\\source\\repos\\utn\\tpi\\proyect\\TPI\\apiback\\trackerBack\\obj\\",
+        "projectPath": "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
+        "packagesPath": "C:\\Users\\mateo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mateo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -76,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
