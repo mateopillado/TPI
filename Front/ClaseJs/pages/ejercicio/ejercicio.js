@@ -14,7 +14,7 @@ async function initializePage() {
   setupTabNavigation();
   displayExercises(sortedEjercicios);
 
-  document.querySelector('[data-tab="history"]').addEventListener("click", loadHistory);
+  
 }
 
 
@@ -85,13 +85,16 @@ function addExerciseCard(exerciseList, ejercicio) {
   card.className = "card text-white";
   card.onclick = () => showModal(ejercicio);
 
-  card.innerHTML = `
-    <img src="${ejercicio.fotoPath}" class="rounded-top mb-3" alt="${ejercicio.nombre} Icon"> 
-    <div class="card-body d-flex flex-column align-items-center justify-content-center">
-        <h5 class="card-title">${ejercicio.nombre}</h5>
-        <p class="card-text text-muted">${ejercicio.musculo}</p>
-    </div>
-  `;
+  const imageSrc = (ejercicio.fotoPath && /\.(jpg|jpeg|png|gif)$/i.test(ejercicio.fotoPath))
+  ? ejercicio.fotoPath
+  : "../../assets/images/noImagen.png";
+
+card.innerHTML = `
+  <img src="${imageSrc}" class="rounded-top mb-3 default-image" alt="${ejercicio.nombre} Icon"> 
+  <div class="card-body d-flex flex-column align-items-center justify-content-center">
+      <h5 class="card-title">${ejercicio.nombre}</h5>
+  </div>
+`;
 
   const currentCardContainer = exerciseList.querySelector(
     `.letter-group:last-child .card-container`
@@ -145,16 +148,27 @@ function showModal(ejercicio) {
   const modalDescription = document.getElementById("modal-description");
   const exercisePhoto = document.getElementById("exercise-photo");
 
+  const imageSrc = (ejercicio.fotoPath && /\.(jpg|jpeg|png|gif)$/i.test(ejercicio.fotoPath))
+  ? ejercicio.fotoPath
+  : "../../assets/images/noImagen.png";
+
   modalTitle.innerText = ejercicio.nombre;
-  exercisePhoto.src = ejercicio.fotoPath;
+  exercisePhoto.src = imageSrc;
   modalDescription.innerText = ejercicio.instruccion;
   modalOverlay.style.display = "flex";
 
+  // Resetear tabs
   document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
-
   document.querySelector('[data-tab="about"]').classList.add('active');
   document.getElementById("about-content").style.display = 'flex';
+
+  // Cargar el historial del ejercicio seleccionado
+  if (ejercicio.id) {
+    loadHistory(ejercicio.id);
+  } else {
+    console.error("ID de ejercicio no encontrado.");
+  }
 }
 
 function closeModal() {
@@ -204,66 +218,68 @@ function setupTabNavigation() {
 
 
 // Función de historial
-function loadHistory() {
+async function loadHistory(exerciseId) {
   const historyList = document.getElementById("history-list");
-
-  
-  const historyData = [
-    {
-      nombre: "Lunes",
-      fecha: "Friday, June 7, 2024 at 15:16",
-      series: [
-          { kilo: "40 kg", repeticion: "15", metric: "1RM", value: "65" },
-          { kilo: "50 kg", repeticion: "8", metric: "1RM", value: "62" },
-          { kilo: "55 kg", repeticion: "8", metric: "1RM", value: "68" }
-      ]
-  },
-      {
-          nombre: "Lunes",
-          fecha: "Friday, June 7, 2024 at 15:16",
-          series: [
-              { kilo: "40 kg", repeticion: "15", metric: "1RM", value: "65" },
-              { kilo: "50 kg", repeticion: "8", metric: "1RM", value: "62" },
-              { kilo: "55 kg", repeticion: "8", metric: "1RM", value: "68" }
-          ]
-      },
-      {
-        nombre: "Lunes",
-        fecha: "Friday, June 7, 2024 at 15:16",
-        series: [
-            { kilo: "40 kg", repeticion: "15", metric: "1RM", value: "65" },
-            { kilo: "50 kg", repeticion: "8", metric: "1RM", value: "62" },
-            { kilo: "55 kg", repeticion: "8", metric: "1RM", value: "68" }
-        ]
-    },
-  ];
 
   // Vaciar historial previo
   historyList.innerHTML = "";
 
-  
-  historyData.forEach((entry) => {
+  if (!exerciseId) {
+    console.error("Exercise ID no proporcionado.");
+    historyList.innerHTML = `<p class="text-warning">No se ha seleccionado un ejercicio.</p>`;
+    return;
+  }
+
+  try {
+    // Llamada al endpoint para obtener el historial de entrenamientos
+    const responseData = await ejercicioService.getById(exerciseId);
+    console.log("Respuesta del backend:", responseData);
+    // Validar si la estructura contiene el historial
+    if (!responseData || !Array.isArray(responseData.historial) || responseData.historial.length === 0) {
+      historyList.innerHTML = `<p class="text-warning">No se encontraron entrenamientos para este ejercicio.</p>`;
+      return;
+    }
+
+    // Recorrer el historial recibido del backend
+    responseData.historial.forEach((entry) => {
       const historyItem = document.createElement("div");
       historyItem.className = "border border-white bg-dark text-white mb-3 p-2 rounded";
 
+      // Convertir la fecha a un formato legible
+      const fechaEntrenamiento = new Date(entry.fecha).toLocaleDateString("es-ES", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      const descripcionEntrenamiento = (entry.descripcion && entry.descripcion !== "string") 
+        ? entry.descripcion 
+        : "Sin nombre";
+
+      // Crear el contenido HTML para cada entrada de historial
       historyItem.innerHTML = `
-          <h5 class="mb-1">${entry.nombre}</h5>
-          <small>${entry.fecha}</small>
+          <h5 class="mb-1">${descripcionEntrenamiento}</h5>
+          <small>${fechaEntrenamiento}</small>
           <div class="mt-2">
               ${entry.series
-                  .map(
-                      (set, index) => `
-                      <div class="d-flex justify-content-between align-items-center">
-                          <span>${index + 1}. ${set.kilo} × ${set.repeticion}</span>
-                          <span>${set.metric} <strong>${set.value}</strong></span>
-                      </div>`
-                  )
-                  .join("")}
+                .map(
+                  (set, index) => `
+                  <div class="d-flex justify-content-between align-items-center">
+                      <span>${set.orden}. ${set.kilos} kg × ${set.repeticiones} reps</span>
+                      <span>${set.tipoSerie}</span>
+                  </div>`
+                )
+                .join("")}
           </div>
       `;
-      
+
+      // Agregar el elemento al contenedor del historial
       historyList.appendChild(historyItem);
-  });
+    });
+  } catch (error) {
+    console.error("Error al cargar el historial de entrenamientos:", error);
+    historyList.innerHTML = `<p class="text-danger">Error al cargar el historial de entrenamientos.</p>`;
+  }
 }
 
 
@@ -298,16 +314,16 @@ function displayRecords() {
   
   recordsContainer.innerHTML = `
     <div class="text-white">
-      <h5 class="text-uppercase">Personal Records</h5>
+      <h5 class="text-uppercase">Marcas Personales</h5>
       <div class="mb-3">
-        <p>Estimated 1RM: ${recordsData.estimated1RM}</p>
-        <p>Max volume: ${recordsData.maxVolume}</p>
-        <p>Max weight: ${recordsData.maxWeight}</p>
+        <p>1RM Estimado: ${recordsData.estimated1RM}</p>
+        <p>Volumen Max: ${recordsData.maxVolume}</p>
+        <p>Peso Max: ${recordsData.maxWeight}</p>
       </div>
       
       <div class="d-flex justify-content-between text-uppercase text-muted mb-2">
-        <div>Best Performance</div>
-        <div>Estimated</div>
+        <div>Mejor Rendimiento</div>
+        <div>Estimado</div>
       </div>
       <hr class="bg-secondary">
 
@@ -329,9 +345,9 @@ function displayRecords() {
           .join("")}
       </div>
       
-      <h6 class="text-uppercase mt-4">Lifetime Stats</h6>
+      <h6 class="text-uppercase mt-4">Estadisticas</h6>
       <p>Total reps: ${recordsData.totalReps}</p>
-      <p>Total volume: ${recordsData.totalVolume}</p>
+      <p>Total volumen: ${recordsData.totalVolume}</p>
     </div>
   `;
 }
