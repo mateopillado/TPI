@@ -28,6 +28,8 @@ function mostrarSesiones() {
             mostrarDetallesSesion(sesion.id); 
         };
 
+        console.log(sesion)
+
         tarjeta.innerHTML = `
             <h3>${sesion.nombre || 'Sin nombre'}</h3>
             <p>${formatearFecha(sesion.fecha)}</p>
