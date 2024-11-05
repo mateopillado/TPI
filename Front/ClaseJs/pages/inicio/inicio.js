@@ -1,5 +1,8 @@
 import usuarioService from "../../services/usuarioService.js";
+import ContactoService from "../../services/contactoService.js";
 
+let contacto = [];
+let contactoNull = true;
 document.addEventListener("DOMContentLoaded", async () => {
     // logIn();
 
@@ -25,9 +28,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await usuarioService.radar(km)
     }
 
-    // const  radarDatos = await getRadar(10)
-    // console.log(radarDatos)
-    
+
+    async function getContact(id) {
+        return await ContactoService.getById(id);
+    }
+
+    contacto = await getContact(15435);
+    if (contacto.id > 0) contactoNull = false
+    console.log(contacto)
+    console.log(contactoNull)
+
     let avg = await getAVG();
     let cantEntrenamientos = await getEntrenamientos();
     
@@ -58,7 +68,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("username").textContent = await getUsuarios();
     document.getElementById("numEntrenamientos").textContent = cantEntrenamientos === 1 ? "1 entrenamiento realizado" : `${cantEntrenamientos} entrenamientos realizados` ; 
 
-
     initTooltips();
     initializeChart();
     initializeHoverEffect();
@@ -73,10 +82,75 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("logOutBtn").addEventListener("click", logOut);
 });
 
+document.getElementById("editButtonContact").addEventListener('click', () => {
+    enableEditing()
+})
+
+document.getElementById("saveButtonContact").addEventListener('click', () => {
+    saveContactData()
+})
+
+// Función para cargar datos en el formulario
+async function loadContactData() {
+    document.getElementById('socialMedia1').value = contacto.redSocial1 || '';
+    document.getElementById('socialMedia2').value = contacto.redSocial2 || '';
+    document.getElementById('phoneNumber').value = contacto.telefono || '';
+    document.getElementById('email').value = contacto.email || '';
+    disableFields();
+}
+
+// Función para habilitar los campos de edición y el botón de guardar
+function enableEditing() {
+    document.getElementById('socialMedia1').disabled = false;
+    document.getElementById('socialMedia2').disabled = false;
+    document.getElementById('phoneNumber').disabled = false;
+    document.getElementById('email').disabled = false;
+    document.getElementById('saveButtonContact').disabled = false; // Habilita el botón de guardar
+    document.getElementById('editButtonContact').disabled = true;  // Deshabilita el botón de editar mientras se edita
+}
+
+// Función para deshabilitar los campos después de guardar o al cargar
+function disableFields() {
+    document.getElementById('socialMedia1').disabled = true;
+    document.getElementById('socialMedia2').disabled = true;
+    document.getElementById('phoneNumber').disabled = true;
+    document.getElementById('email').disabled = true;
+    document.getElementById('saveButtonContact').disabled = true; // Deshabilita el botón de guardar
+    document.getElementById('editButtonContact').disabled = false; // Habilita el botón de editar nuevamente
+}
+
+// Función para guardar los datos del formulario
+async function saveContactData() {
+    contacto.socialMedia = document.getElementById('socialMedia1').value;
+    contacto.socialMedia = document.getElementById('socialMedia2').value;
+    contacto.telefono = document.getElementById('phoneNumber').value;
+    contacto.email = document.getElementById('email').value;
+
+    if (contactoNull) {
+        await postContacto(contacto)
+        console.log('post');
+        
+    }
+    else{
+        await putContacto(contacto)
+        console.log('put');
+    }
+
+
+    const modalElement = document.getElementById('addContactsModal');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement); // Obtener la instancia del modal
+    modalInstance.hide(); // Cerrar el modal
+
+    disableFields();
+}
+
+// Cargar los datos cuando se abre el modal
+document.getElementById('addContactsModal').addEventListener('show.bs.modal', loadContactData);
+
+
 // Función para actualizar el valor del slider
 function updateSliderValue() {
     console.log(document.getElementById("slider-value").textContent = document.getElementById("customRange").value)
-    
     return document.getElementById("slider-value").textContent = document.getElementById("customRange").value;
 }
 
@@ -93,9 +167,6 @@ function getRandomColor() {
 
 // Inicializa los colores de fondo de los avatares
 function initializeAvatarColors() {
-    // document.getElementById("avatar1").style.backgroundColor = getRandomColor();
-    // document.getElementById("avatar2").style.backgroundColor = getRandomColor();
-    // document.getElementById("avatar3").style.backgroundColor = getRandomColor();
     document.getElementById("profile-pic").style.backgroundColor = getRandomColor();
 }
 
