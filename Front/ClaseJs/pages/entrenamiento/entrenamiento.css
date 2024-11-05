@@ -9,8 +9,8 @@ body {
  position: fixed;
     top: 0;
     left: 0;
-    height: 100vh; /* Toma el 100% de la altura de la ventana */
-    width: 222px; /* Ancho del sidebar */
+    height: 100vh; 
+    width: 222px; 
 }
 
 .notasEjercicio{
@@ -45,7 +45,7 @@ body {
 }
 
 .scrolleable-section {
-    height: 98vh; /* Ajusta la altura según necesites */
+    height: 98vh; 
     overflow-y: auto;
     padding: 15px;
   }
@@ -87,16 +87,15 @@ body {
         left: 0;
         width: 75%;
         height: 100vh;
-        z-index: 1045; /* Para asegurar que esté encima de otros elementos */
-        transform: translateX(-100%); /* Oculto fuera de la pantalla */
+        z-index: 1045; 
+        transform: translateX(-100%); 
         transition: transform 0.3s ease;
     }
 
     #sidebarMenu.collapse.show {
-        transform: translateX(0); /* Muestra el menú */
+        transform: translateX(0); 
     }
 
-    /* Fondo semitransparente para la pantalla cuando el menú está abierto */
     .collapse.show ~ .content-overlay {
         display: block;
     }
@@ -109,7 +108,7 @@ body {
         width: 100%;
         height: 100vh;
         background: rgba(0, 0, 0, 0.5);
-        z-index: 1044; /* Justo debajo del menú */
+        z-index: 1044; 
     }
 
     #sidebarMenu .btn-dark[data-bs-toggle="collapse"] {
