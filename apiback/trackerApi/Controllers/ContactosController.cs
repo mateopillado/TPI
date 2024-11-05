@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using trackerBack.Models;
 using trackerBack.Services.Common;
@@ -16,12 +17,16 @@ namespace trackerApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+
         public async Task<IActionResult> Get()
         {
-            return Ok(await _service.GetAllAsync());
+            return Ok(await _service.FindAsync(e => e.IdPersona == GetUserId()));
         }
 
         [HttpGet("{id}")]
+        [Authorize]
+
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -38,10 +43,12 @@ namespace trackerApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] Contacto contacto)
         {
             try
             {
+                contacto.IdPersona = GetUserId();
                 await _service.AddAsync(contacto);
                 return Ok();
             }
@@ -52,6 +59,7 @@ namespace trackerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Put(int id, [FromBody] Contacto contacto)
         {
             try
@@ -77,6 +85,12 @@ namespace trackerApi.Controllers
             {
                 throw new Exception(e.Message);
             }
+        }
+        private int GetUserId()
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+            return int.Parse(userId);
         }
     }
 }

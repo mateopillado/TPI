@@ -225,7 +225,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.IdEntrenamientoNavigation).WithMany(p => p.EjerciciosEntrenamientos)
                 .HasForeignKey(d => d.IdEntrenamiento)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fk_entrenamiento");
         });
 
@@ -517,7 +517,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasOne(d => d.IdEjercicioEntrenamientoNavigation).WithMany(p => p.Series)
                 .HasForeignKey(d => d.IdEjercicioEntrenamiento)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fk_ejercicio_entrenamiento");
 
             entity.HasOne(d => d.IdTipoSerieNavigation).WithMany(p => p.Series)

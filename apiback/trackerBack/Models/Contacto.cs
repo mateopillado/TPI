@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace trackerBack.Models;
 
@@ -16,6 +17,6 @@ public partial class Contacto
     public string? RedSocial2 { get; set; }
 
     public int IdPersona { get; set; }
-
-    public virtual Persona IdPersonaNavigation { get; set; } = null!;
+    [JsonIgnore]
+    public virtual Persona? IdPersonaNavigation { get; set; } = null!;
 }

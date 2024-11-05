@@ -51,14 +51,14 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    options.RequireHttpsMetadata = false; // Cambia a false para HTTP en producción
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = jwtSettings["Audience"],
+        ValidateIssuer = false,            // Configura según sea necesario
+        ValidateAudience = false,          // Configura según sea necesario
+        ValidateLifetime = true,           // Recomendado para asegurar que los tokens expiren
+        ValidateIssuerSigningKey = true,   // Importante para validar la clave de firma del token
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
     options.SaveToken = true;  
