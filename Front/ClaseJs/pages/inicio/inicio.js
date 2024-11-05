@@ -1,7 +1,7 @@
 import usuarioService from "../../services/usuarioService.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    logIn();
+    // logIn();
 
     async function getUsuarios() {
         return await usuarioService.getUser().then(usuario => {
