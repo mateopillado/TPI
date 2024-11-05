@@ -4,7 +4,7 @@ import ContactoService from "../../services/contactoService.js";
 let contacto = [];
 let contactoNull = true;
 document.addEventListener("DOMContentLoaded", async () => {
-    // logIn();
+    logIn();
 
     async function getUsuarios() {
         return await usuarioService.getUser().then(usuario => {
@@ -255,9 +255,16 @@ function getLast5WeeksLabels() {
     for (let i = 0; i < 5; i++) {
         const firstDayOfWeek = new Date(currentDate);
         firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1 - (i * 7));
-        const day = firstDayOfWeek.getDate();
-        const month = firstDayOfWeek.getMonth() + 1; // Months are zero-based
-        labels.unshift(`${day}/${month}`);
+        
+        const lastDayOfWeek = new Date(firstDayOfWeek);
+        lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6); // Añadir 6 días para obtener el último día de la semana
+
+        const startDay = firstDayOfWeek.getDate();
+        const startMonth = firstDayOfWeek.getMonth() + 1; // Los meses son 0-indexados
+        const endDay = lastDayOfWeek.getDate();
+        const endMonth = lastDayOfWeek.getMonth() + 1;
+
+        labels.unshift(`${startDay}/${startMonth} - ${endDay}/${endMonth}`);
     }
     return labels;
 }
@@ -271,12 +278,18 @@ function getTrainingDataForLast5Weeks(entrenamientos, labels) {
         const endDate = new Date(item.hasta);
 
         labels.forEach((label, index) => {
-            const [day, month] = label.split('/').map(Number);
-            const labelDate = new Date(startDate.getFullYear(), month - 1, day);
+            const [startLabel, endLabel] = label.split(' - ');
+            const [startDay, startMonth] = startLabel.split('/').map(Number);
+            const [endDay, endMonth] = endLabel.split('/').map(Number);
 
-            // Comparar las fechas para encontrar la semana correspondiente
-            if (labelDate >= startDate && labelDate <= endDate) {
-                data[index] = item.cantidad;
+            const labelStartDate = new Date(startDate.getFullYear(), startMonth - 1, startDay);
+            const labelEndDate = new Date(startDate.getFullYear(), endMonth - 1, endDay);
+
+            // Comparar si el rango del entrenamiento cae dentro del rango de la semana
+            if ((startDate >= labelStartDate && startDate <= labelEndDate) ||
+                (endDate >= labelStartDate && endDate <= labelEndDate) ||
+                (startDate <= labelStartDate && endDate >= labelEndDate)) {
+                data[index] += item.cantidad;
             }
         });
     });

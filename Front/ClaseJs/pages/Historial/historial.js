@@ -94,15 +94,16 @@ async function mostrarDetallesSesion(idSesion) {
     }
 }
 
+async function repetirEntrenamiento(idSesion) {
+    // Buscar la sesión seleccionada
+    const sesionSeleccionada = await entrenamientoService.getById(idSesion);
 
-function repetirEntrenamiento(sesion) {
-    // Guardar el objeto de la sesión en el localStorage
-    localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesion));
-    // console.log(sesion)
+    // Guardar el objeto de la sesión completa en el localStorage para usarlo en la página de entrenamiento
+    localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesionSeleccionada));
+
     // Redirigir a la página de entrenamiento
     window.location.href = "../entrenamiento/entrenamiento.html";
 }
-
 
 
 
