@@ -87,6 +87,13 @@ body {
     flex-direction: column;
 }
 
+.default-image {
+    width: 100%;
+    height: auto;
+    max-height: 100px; 
+}
+
+
 .modal-content img {
     width: 100%;         
     height: auto;       

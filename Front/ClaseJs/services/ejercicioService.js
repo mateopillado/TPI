@@ -10,6 +10,10 @@ class ejercicioService extends Service {
     return await this.fetchWithAuth("GET");
   }
 
+  async getById(id) {
+    return await this.fetchWithAuth("GET","/" + id);
+  }
+
 }
 
 export default new ejercicioService();
