@@ -6,8 +6,8 @@ class ejercicioService extends Service {
     super("contactos");
   }
 
-  async getById(id) {
-    return await this.fetchWithAuth("GET","/" + id);
+  async getById() {
+    return await this.fetchWithAuth("GET");
   }
 
   async postContacto(data) {
@@ -15,13 +15,8 @@ class ejercicioService extends Service {
   }
   
   async putContacto(data) {
-    return await this.fetchWithAuth("PUT","", data);
+    return await this.fetchWithAuth("PUT","/" + data.id, data);
   }
-
-  
-
-
-
 }
 
 export default new ejercicioService();

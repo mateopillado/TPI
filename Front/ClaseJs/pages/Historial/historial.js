@@ -28,8 +28,10 @@ function mostrarSesiones() {
         
         tarjeta.onclick = function() {
             mostrarDetallesSesion(sesion.id); 
-        };
-
+        };  
+        
+        
+        
         tarjeta.innerHTML = `
             <h3>${descripcionEntrenamiento}</h3>
             <p>${formatearFecha(sesion.fecha)}</p>

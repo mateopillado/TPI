@@ -1,8 +1,27 @@
 import usuarioService from "../../services/usuarioService.js";
 import ContactoService from "../../services/contactoService.js";
 
-let contacto = [];
+let contacto = {};
 let contactoNull = true;
+
+ 
+async function postContacto(data) {
+    return await ContactoService.postContacto(data);
+}
+
+
+async function putContacto(data) {
+    return await ContactoService.putContacto(data);
+}
+
+
+async function getContact() {
+    return await ContactoService.getById();
+}
+
+
+
+
 document.addEventListener("DOMContentLoaded", async () => {
     // logIn();
 
@@ -28,16 +47,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await usuarioService.radar(km)
     }
 
-
-    async function getContact(id) {
-        return await ContactoService.getById(id);
+    contacto = await getContact();
+    if (contacto.length > 0) {
+        contacto = contacto[0]
+        console.log('id',contacto.id)
+        if (contacto.id > 0) contactoNull = false
+        console.log('contacto' ,contacto)
+        console.log(contactoNull)
     }
-
-    contacto = await getContact(15435);
-    if (contacto.id > 0) contactoNull = false
-    console.log(contacto)
-    console.log(contactoNull)
-
+   
     async function getDataChart() {
         return await usuarioService.getUser().then(entrenamientos => {
             return entrenamientos.entrenamientos;
@@ -130,18 +148,26 @@ function disableFields() {
 
 // Función para guardar los datos del formulario
 async function saveContactData() {
-    contacto.socialMedia = document.getElementById('socialMedia1').value;
-    contacto.socialMedia = document.getElementById('socialMedia2').value;
-    contacto.telefono = document.getElementById('phoneNumber').value;
-    contacto.email = document.getElementById('email').value;
+
+    let newContacto = {}
+
+    newContacto.redSocial1 = document.getElementById('socialMedia1').value;
+    newContacto.redSocial2 = document.getElementById('socialMedia2').value;
+    newContacto.telefono = document.getElementById('phoneNumber').value;
+    newContacto.email = document.getElementById('email').value;
+
+    console.log(newContacto)
 
     if (contactoNull) {
-        await postContacto(contacto)
+        await postContacto(newContacto)
         console.log('post');
+        contacto = await getContact();
+        window.location.href = '../inicio/inicio.html'
         
     }
     else{
-        await putContacto(contacto)
+        newContacto.id = contacto.id
+        await putContacto(newContacto)
         console.log('put');
     }
 
@@ -307,6 +333,10 @@ function initializeRadar(radarDatos, km) {
         return { x, y };
     }
 
+    const container = document.getElementById('resultadosRadar');
+    container.innerHTML = '';
+    
+
     radarDatos.forEach(point => {
         const pointElement = document.createElement("div");
         pointElement.classList.add("point");
@@ -317,9 +347,6 @@ function initializeRadar(radarDatos, km) {
         radar.appendChild(pointElement);
     });
 
-    const container = document.getElementById('resultadosRadar');
-    container.innerHTML = '';
-    
     radarDatos.forEach((contact, index) => {
         const card = document.createElement('div');
         card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
@@ -329,7 +356,7 @@ function initializeRadar(radarDatos, km) {
                 <h5 class="mb-0 text-start">${contact.nombreCompleto}</h5>
                 <div class="text-start">
                     <p class="m-0">Contacto: ${contact.redSocial}</p>
-                    <small class="text-dark">Distancia: ${Math.round(contact.distancia,2)} Km</small>
+                    <small class="text-dark">Distancia: ${Math.trunc(contact.distancia)} Km</small>
                 </div>
             </div>
         `;
