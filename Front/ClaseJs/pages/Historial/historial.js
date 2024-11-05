@@ -23,14 +23,13 @@ function mostrarSesiones() {
     
     sesiones.forEach(sesion => {
         const tarjeta = document.createElement("div");
-        const descripcionEntrenamiento = (sesion.descripcion && sesion.descripcion !== "string") ?sesion.descripcion : "Sin Nombre";
+        const descripcionEntrenamiento = (sesion.descripcion && sesion.descripcion !== "") ? sesion.descripcion : "Sin Nombre";
         tarjeta.classList.add("session-card");
+        
         tarjeta.onclick = function() {
             mostrarDetallesSesion(sesion.id); 
-        };  
-        
-        
-        
+        };
+
         tarjeta.innerHTML = `
             <h3>${descripcionEntrenamiento}</h3>
             <p>${formatearFecha(sesion.fecha)}</p>
@@ -44,30 +43,6 @@ function mostrarSesiones() {
     });
 }
 
-// async function mostrarDetallesSesion(idSesion) {
-//     try {
-//         // Llama al servicio para obtener detalles de la sesión por ID
-//         const detallesSesion = await entrenamientoService.getById(idSesion);
-
-//         // Llena el modal con los datos detallados
-//         const modalContenido = document.getElementById("sessionDetails");
-//         modalContenido.innerHTML = `
-//             <h2>${detallesSesion.nombre}</h2>
-//             <p><strong>Fecha:</strong> ${formatearFecha(detallesSesion.fecha)}</p>
-//             <p><strong>Entrenador:</strong> ${detallesSesion.idPersona}</p>
-//             <div>
-//                 ${detallesSesion.ejerciciosEntrenamientos.map(ejercicio => formatearEjercicioEnModal(ejercicio)).join("")}
-//             </div>
-//         `;
-
-//         // Mostrar el modal
-//         const modal = new bootstrap.Modal(document.getElementById('sessionModal'));
-//         modal.show();
-//     } catch (error) {
-//         console.error("Error al obtener detalles de la sesión:", error);
-//     }
-// }
-
 async function mostrarDetallesSesion(idSesion) {
     try {
         const detallesSesion = await entrenamientoService.getById(idSesion);
@@ -77,7 +52,6 @@ async function mostrarDetallesSesion(idSesion) {
         modalContenido.innerHTML = `
             <h2>${detallesSesion.nombre}</h2>
             <p><strong>Fecha:</strong> ${formatearFecha(detallesSesion.fecha)}</p>
-        
             <div>
                 ${detallesSesion.ejerciciosEntrenamientos.map(ejercicio => formatearEjercicioEnModal(ejercicio)).join("")}
             </div>
@@ -87,33 +61,35 @@ async function mostrarDetallesSesion(idSesion) {
         const modal = new bootstrap.Modal(document.getElementById('sessionModal'));
         modal.show();
 
+        // Agregar eventos a los botones
+        document.getElementById("repetirEntrenamientoBtn").addEventListener("click", () => repetirEntrenamiento(idSesion));
+        document.getElementById("borrarEntrenamiento").addEventListener("click", () => eliminarSesion(idSesion, modal));
         
-        // Agregar evento click al botón de repetir solo si el modal se abre correctamente
-        document.getElementById("repetirEntrenamientoBtn").addEventListener("click",()=>{repetirEntrenamiento(idSesion)});
-        
-
     } catch (error) {
         console.error("Error al obtener detalles de la sesión o al mostrar el modal:", error);
     }
 }
 
-
-function repetirEntrenamiento(sesion) {
-    // Guardar el objeto de la sesión en el localStorage
-    localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesion));
-    // console.log(sesion)
-    // Redirigir a la página de entrenamiento
-    window.location.href = "../entrenamiento/entrenamiento.html";
+async function eliminarSesion(idSesion, modal) {
+    try {
+        await entrenamientoService.deleteById(idSesion);
+        sesiones = sesiones.filter(s => s.id !== idSesion); 
+        mostrarSesiones(); 
+        modal.hide(); 
+    } catch (error) {
+        console.error("Error al eliminar la sesión:", error);
+    }
 }
 
-
-
+function repetirEntrenamiento(idSesion) {
+    localStorage.setItem("entrenamientoARepetir", JSON.stringify(idSesion));
+    window.location.href = "../entrenamiento/entrenamiento.html";
+}
 
 function formatearEjercicioEnModal(ejercicio) {
     return `
         <div>
-            <h3  style="color: orange;">${ejercicio.idEjercicioNavigation.nombre}</h3>
-            
+            <h3 style="color: orange;">${ejercicio.idEjercicioNavigation.nombre}</h3>
             ${ejercicio.series.map(serie => `
                 <p>Serie ${serie.orden}: ${serie.repeticion} reps x ${serie.kilo} kg</p>
             `).join("")}
@@ -129,7 +105,7 @@ function formatearFecha(fechaStr) {
 // Inicializa la aplicación
 init();
 
-function logIn(){
+function logIn() {
     const token = localStorage.getItem("token");
     if (!token) {
         window.location.href = "../login/login.html";

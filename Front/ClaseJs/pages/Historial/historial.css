@@ -224,4 +224,13 @@ h1 {
     }
 }
 
+.btn-delete {
+    background-color: red;
+    color: white;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: darkred;
+}
 
