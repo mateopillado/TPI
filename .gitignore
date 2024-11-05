@@ -37,6 +37,4 @@ build/
 .apiback/.vs/
 .apiback/trackerApi/bin/
 .apiback/trackerApi/obj/
-.apiback/trackerBack/bin/
-.apiback/trackerBack/obj/
 

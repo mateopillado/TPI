@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   errorMsg.style.display = "none";
   form.appendChild(errorMsg);
 
+  const today = new Date();
+  const maxDate = new Date(today.setFullYear(today.getFullYear() - 4)).toISOString().split("T")[0];
+  document.getElementById("fecha_nacimiento").max = maxDate;
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -15,10 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
       nombre: document.getElementById("nombre").value,
       apellido: document.getElementById("apellido").value,
       fechaNacimiento: document.getElementById("fecha_nacimiento").value,
-      genero: document.getElementById("id_genero").value,
-      nombreUsuario: document.getElementById("username").value,
-      password: document.getElementById("password").value,
-      rol: document.getElementById("id_rol").value,
+      idGenero: document.getElementById("id_genero").value,
+      idRol: document.getElementById("id_rol").value,
+      username: document.getElementById("username").value,
+      contrasena: document.getElementById("password").value,
     };
 
     try {
@@ -26,9 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
       
       if (response.success) {
         window.location.href = "../login/login.html";
-      } else {
+      } 
+      else {
         errorMsg.style.display = "block";
-        errorMsg.textContent = "Error al registrarse: " + (response.message || "Datos inválidos.");
+        if (response.errors[0].message[0]){
+          errorMsg.textContent = "Error al registrarse: " + response.errors[0].message ;
+        }
+        if (response.errors[0].message[1]){
+          errorMsg.textContent = "Error al registrarse: " + response.errors[0].message;
+        }
       }
     } catch (error) {
       errorMsg.style.display = "block";

@@ -4040,19 +4040,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mateo\\.nuget\\packages\\": {}
+    "C:\\Users\\Fede\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
+      "projectUniqueName": "C:\\Users\\Fede\\Documents\\TUP\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
       "projectName": "trackerBack",
-      "projectPath": "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
-      "packagesPath": "C:\\Users\\mateo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mateo\\Desktop\\Facultad\\Prog II\\TPI\\TPI\\apiback\\trackerBack\\obj\\",
+      "projectPath": "C:\\Users\\Fede\\Documents\\TUP\\TPI\\apiback\\trackerBack\\trackerBack.csproj",
+      "packagesPath": "C:\\Users\\Fede\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Fede\\Documents\\TUP\\TPI\\apiback\\trackerBack\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mateo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Fede\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4115,7 +4115,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

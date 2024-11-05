@@ -6,6 +6,12 @@ async function init() {
     try {
         sesiones = await entrenamientoService.getHistorial();
         mostrarSesiones();
+
+        if (sesiones.length === 0) {
+            const mensaje = document.createElement("p");
+            mensaje.textContent = "No hay sesiones de entrenamiento registradas.";
+            document.getElementById("sessionList").appendChild(mensaje);
+        }
     } catch (error) {
         console.error("Error al cargar sesiones:", error);
     }

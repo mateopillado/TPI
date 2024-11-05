@@ -22,14 +22,13 @@
         aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         &#9776; Menú
       </button>
-      <!-- Sidebar -->
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
         <div class="position-sticky d-flex flex-column vh-100">
 
           <div class="d-md-none text-end p-2">
             <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
               aria-controls="sidebarMenu" aria-expanded="false" aria-label="Close menu">
-              &times; <!-- Símbolo de "X" para cerrar -->
+              &times; 
             </button>
           </div>
 
@@ -38,7 +37,7 @@
           </div>
           <ul class="nav flex-column flex-grow-1">
             <li class="nav-item">
-              <a class="nav-link text-white" href="/Front/ClaseJs/pages/inicio/inicio.html" onclick="router()">
+              <a class="nav-link text-white" href="/Front/ClaseJs/pages/inicio/inicio.html">
                 Inicio
               </a>
             </li>
@@ -48,24 +47,23 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/Front/ClaseJs/pages/historial/historial.html" onclick="router()">
+              <a class="nav-link text-white" href="/Front/ClaseJs/pages/historial/historial.html">
                 Historial
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="/Front/ClaseJs/pages/ejercicio/ejercicio.html" onclick="router()">
+              <a class="nav-link text-white" href="/Front/ClaseJs/pages/ejercicio/ejercicio.html">
                 Ejercicios
               </a>
             </li>
             <li class="nav-item mt-auto">
               <a class="nav-link text-warning " id="logout" href="#">
-                Log Out
+                Cerrar sesión
               </a>
             </li>
           </ul>
         </div>
       </nav>
-      <!-- Main -->
       <main id="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
 
         <div class="d-flex align-items-center m-3">
@@ -74,7 +72,6 @@
         </div>
        
         <div id="ejercicios">
-          <!-- Aquí se insertarán los ejercicios dinámicamente -->
         </div>
 
     
@@ -82,16 +79,12 @@
           <button id="guardarEntrenamiento" class="btn btn-warning m-1">Guardar
             Entrenamiento</button>
 
-          <!-- Button trigger modal -->
           <button id="add-ejercicio-btn" type="button" class="btn btn-warning m-1" data-bs-toggle="modal" 
             data-bs-target="#staticBackdrop">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </div>
 
-
-
-        <!-- Modal -->
         <div class="modal fade modal-xl" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
           aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -116,7 +109,7 @@
     </div>
   </div>
 
-  <script type="module" src="./entrenamiento.js"></script>
+  <script type="module" src="./script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>

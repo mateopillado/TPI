@@ -38,6 +38,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(contacto)
     console.log(contactoNull)
 
+    async function getDataChart() {
+        return await usuarioService.getUser().then(entrenamientos => {
+            return entrenamientos.entrenamientos;
+        });
+    }
+
+    // const  radarDatos = await getRadar(10)
+    // console.log(radarDatos)
+    
     let avg = await getAVG();
     let cantEntrenamientos = await getEntrenamientos();
     
@@ -69,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("numEntrenamientos").textContent = cantEntrenamientos === 1 ? "1 entrenamiento realizado" : `${cantEntrenamientos} entrenamientos realizados` ; 
 
     initTooltips();
-    initializeChart();
+    initializeChart( await getDataChart());
     initializeHoverEffect();
     initializeAvatarColors();
     document.getElementById("buscarProfesor").addEventListener("click", async () => {
@@ -197,16 +206,18 @@ function initializeTooltip() {
 }
 
 // Configura el gráfico de entrenamientos
-function initializeChart() {
+function initializeChart(entrenamientos) {
     const ctx = document.getElementById('trainingChart').getContext('2d');
-    const labels = getLast7WeeksLabels();
+    const labels = getLast5WeeksLabels();
+    const data = getTrainingDataForLast5Weeks(entrenamientos, labels);
+
     new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 label: 'Entrenamientos',
-                data: [2, 4, 1, 0, 0, 3, 5],
+                data: data,
                 backgroundColor: '#ff9900',
                 borderColor: '#ff9900',
                 borderWidth: 1,
@@ -237,11 +248,11 @@ function initializeChart() {
     });
 }
 
-function getLast7WeeksLabels() {
+function getLast5WeeksLabels() {
     const labels = [];
     const currentDate = new Date();
     
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 5; i++) {
         const firstDayOfWeek = new Date(currentDate);
         firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1 - (i * 7));
         const day = firstDayOfWeek.getDate();
@@ -251,6 +262,27 @@ function getLast7WeeksLabels() {
     return labels;
 }
 
+function getTrainingDataForLast5Weeks(entrenamientos, labels) {
+    // Inicializar el array con ceros para cada semana
+    const data = Array(labels.length).fill(0);
+    
+    entrenamientos.forEach(item => {
+        const startDate = new Date(item.desde);
+        const endDate = new Date(item.hasta);
+
+        labels.forEach((label, index) => {
+            const [day, month] = label.split('/').map(Number);
+            const labelDate = new Date(startDate.getFullYear(), month - 1, day);
+
+            // Comparar las fechas para encontrar la semana correspondiente
+            if (labelDate >= startDate && labelDate <= endDate) {
+                data[index] = item.cantidad;
+            }
+        });
+    });
+    
+    return data;
+}
 
 
 
