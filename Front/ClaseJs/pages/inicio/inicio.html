@@ -55,7 +55,7 @@
                         </li>
                         <li class="nav-item mt-auto">
                             <a class="nav-link text-warning " id="logOutBtn" href="../login/login.html">
-                                Log Out
+                                Cerrar sesión
                             </a>
                         </li>
                     </ul>
@@ -65,7 +65,7 @@
             <!-- Main -->
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="dashboard py-4">
+                <div class="dashboard py-4 col-xs-1">
 
                     <!-- User Information -->
                     <div class="container-fluid">
@@ -76,15 +76,54 @@
                                 <div class="user-details">
                                     <h2 id="username" class="mb-1"></h2>
                                     <p id="numEntrenamientos"></p>
+                                    <!-- Botón para agregar contactos -->
+                                    <button class="btn btn-primary btn-sm mt-3 btn-warning" data-bs-toggle="modal" data-bs-target="#addContactsModal">Contactos</button>
                                 </div>
                             </div>
-                            
+                    
                             <!-- Columna para el gráfico -->
                             <div class="col-lg-8 col-md-12 chart-container mb-4">
                                 <h3 class="text-center text-md-start">Entrenamientos por semana</h3>
                                 <canvas id="trainingChart"></canvas>
                             </div>
                         </div>
+                    
+                        <!-- Modal para agregar contactos -->
+                        <div class="modal fade" id="addContactsModal" tabindex="-1" aria-labelledby="addContactsModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content bg-dark text-white">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addContactsModalLabel">Contactos</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="contactForm">
+                                            <div class="mb-3">
+                                                <label for="socialMedia" class="form-label">Redes Sociales</label>
+                                                <input type="text" class="form-control" id="socialMedia1" placeholder="Ej. @usuario" disabled>
+                                                <input type="text" class="form-control mt-2" id="socialMedia2" placeholder="Ej. @usuario" disabled>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phoneNumber" class="form-label">Número de Teléfono</label>
+                                                <input type="tel" class="form-control" id="phoneNumber" placeholder="Ej. 3517504288" disabled>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Correo Electrónico</label>
+                                                <input type="email" class="form-control" id="email" placeholder="Ej. usuario@email.com" disabled>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <button type="button" class="btn btn-warning w-100 m-2" id="editButtonContact">Editar</button>
+                                                <button type="button" class="btn btn-success w-100 m-2" id="saveButtonContact" disabled>Guardar Cambios</button>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
 
                     <div class="body-map flex-row container-fluid justify-content-center align-items-center d-flex rounded p-2 flex-wrap">
@@ -480,7 +519,7 @@
                                     </radialGradient>
                                 </defs>
 
-                                <g data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" id="piernas" title="Piernas">
+                                <g data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" id="piernas-back" title="Piernas">
 
                                     <g id="calves"
                                         class="bodymap text-mw-gray active:text-mw-red-700 lg:hover:text-mw-red-100">
@@ -806,7 +845,7 @@
                                 <h3 class="text-center mb-3">Distancia en Km</h3>
                                 <div class="slider-container mt-3">
                                     <div class="slider-value text-center mb-2" id="slider-value">5</div>
-                                    <input type="range" class="form-range" min="1" max="15" value="5" id="customRange">
+                                    <input type="range" class="form-range" min="1" max="25" value="5" id="customRange">
                                 </div>
                             </div>
                             <button class="btn mb-3 m-3 btn-warning" id="buscarProfesor">Buscar Profesor</button>

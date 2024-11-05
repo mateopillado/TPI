@@ -1,4 +1,26 @@
 import usuarioService from "../../services/usuarioService.js";
+import ContactoService from "../../services/contactoService.js";
+
+let contacto = {};
+let contactoNull = true;
+
+ 
+async function postContacto(data) {
+    return await ContactoService.postContacto(data);
+}
+
+
+async function putContacto(data) {
+    return await ContactoService.putContacto(data);
+}
+
+
+async function getContact() {
+    return await ContactoService.getById();
+}
+
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     logIn();
@@ -25,8 +47,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await usuarioService.radar(km)
     }
 
-    const  radarDatos = await getRadar(10)
-    console.log(radarDatos)
+    contacto = await getContact();
+    if (contacto.length > 0) {
+        contacto = contacto[0]
+        console.log('id',contacto.id)
+        if (contacto.id > 0) contactoNull = false
+        console.log('contacto' ,contacto)
+        console.log(contactoNull)
+    }
+   
+    async function getDataChart() {
+        return await usuarioService.getUser().then(entrenamientos => {
+            return entrenamientos.entrenamientos;
+        });
+    }
+
+    // const  radarDatos = await getRadar(10)
+    // console.log(radarDatos)
     
     let avg = await getAVG();
     let cantEntrenamientos = await getEntrenamientos();
@@ -58,18 +95,97 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("username").textContent = await getUsuarios();
     document.getElementById("numEntrenamientos").textContent = cantEntrenamientos === 1 ? "1 entrenamiento realizado" : `${cantEntrenamientos} entrenamientos realizados` ; 
 
-
     initTooltips();
-    initializeChart();
+    initializeChart( await getDataChart());
     initializeHoverEffect();
     initializeAvatarColors();
-    initializeRadar();
+    document.getElementById("buscarProfesor").addEventListener("click", async () => {
+        const km = document.getElementById("customRange").value;
+        document.getElementById("slider-value").textContent = km;
+        const radarDatos = await getRadar(km);
+        initializeRadar(radarDatos, km);
+    });
     document.getElementById("customRange").addEventListener("mouseup", updateSliderValue);
     document.getElementById("logOutBtn").addEventListener("click", logOut);
 });
 
+document.getElementById("editButtonContact").addEventListener('click', () => {
+    enableEditing()
+})
+
+document.getElementById("saveButtonContact").addEventListener('click', () => {
+    saveContactData()
+})
+
+// Función para cargar datos en el formulario
+async function loadContactData() {
+    document.getElementById('socialMedia1').value = contacto.redSocial1 || '';
+    document.getElementById('socialMedia2').value = contacto.redSocial2 || '';
+    document.getElementById('phoneNumber').value = contacto.telefono || '';
+    document.getElementById('email').value = contacto.email || '';
+    disableFields();
+}
+
+// Función para habilitar los campos de edición y el botón de guardar
+function enableEditing() {
+    document.getElementById('socialMedia1').disabled = false;
+    document.getElementById('socialMedia2').disabled = false;
+    document.getElementById('phoneNumber').disabled = false;
+    document.getElementById('email').disabled = false;
+    document.getElementById('saveButtonContact').disabled = false; // Habilita el botón de guardar
+    document.getElementById('editButtonContact').disabled = true;  // Deshabilita el botón de editar mientras se edita
+}
+
+// Función para deshabilitar los campos después de guardar o al cargar
+function disableFields() {
+    document.getElementById('socialMedia1').disabled = true;
+    document.getElementById('socialMedia2').disabled = true;
+    document.getElementById('phoneNumber').disabled = true;
+    document.getElementById('email').disabled = true;
+    document.getElementById('saveButtonContact').disabled = true; // Deshabilita el botón de guardar
+    document.getElementById('editButtonContact').disabled = false; // Habilita el botón de editar nuevamente
+}
+
+// Función para guardar los datos del formulario
+async function saveContactData() {
+
+    let newContacto = {}
+
+    newContacto.redSocial1 = document.getElementById('socialMedia1').value;
+    newContacto.redSocial2 = document.getElementById('socialMedia2').value;
+    newContacto.telefono = document.getElementById('phoneNumber').value;
+    newContacto.email = document.getElementById('email').value;
+
+    console.log(newContacto)
+
+    if (contactoNull) {
+        await postContacto(newContacto)
+        console.log('post');
+        contacto = await getContact();
+        window.location.href = '../inicio/inicio.html'
+        
+    }
+    else{
+        newContacto.id = contacto.id
+        await putContacto(newContacto)
+        console.log('put');
+    }
+
+
+    const modalElement = document.getElementById('addContactsModal');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement); // Obtener la instancia del modal
+    modalInstance.hide(); // Cerrar el modal
+
+    disableFields();
+}
+
+// Cargar los datos cuando se abre el modal
+document.getElementById('addContactsModal').addEventListener('show.bs.modal', loadContactData);
+
+
 // Función para actualizar el valor del slider
 function updateSliderValue() {
+    console.log(document.getElementById("slider-value").textContent = document.getElementById("customRange").value)
     return document.getElementById("slider-value").textContent = document.getElementById("customRange").value;
 }
 
@@ -86,9 +202,6 @@ function getRandomColor() {
 
 // Inicializa los colores de fondo de los avatares
 function initializeAvatarColors() {
-    // document.getElementById("avatar1").style.backgroundColor = getRandomColor();
-    // document.getElementById("avatar2").style.backgroundColor = getRandomColor();
-    // document.getElementById("avatar3").style.backgroundColor = getRandomColor();
     document.getElementById("profile-pic").style.backgroundColor = getRandomColor();
 }
 
@@ -119,16 +232,18 @@ function initializeTooltip() {
 }
 
 // Configura el gráfico de entrenamientos
-function initializeChart() {
+function initializeChart(entrenamientos) {
     const ctx = document.getElementById('trainingChart').getContext('2d');
-    const labels = getLast7WeeksLabels();
+    const labels = getLast5WeeksLabels();
+    const data = getTrainingDataForLast5Weeks(entrenamientos, labels);
+
     new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 label: 'Entrenamientos',
-                data: [2, 4, 1, 0, 0, 3, 5],
+                data: data,
                 backgroundColor: '#ff9900',
                 borderColor: '#ff9900',
                 borderWidth: 1,
@@ -159,81 +274,106 @@ function initializeChart() {
     });
 }
 
-function getLast7WeeksLabels() {
+function getLast5WeeksLabels() {
     const labels = [];
     const currentDate = new Date();
     
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 5; i++) {
         const firstDayOfWeek = new Date(currentDate);
         firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1 - (i * 7));
-        const day = firstDayOfWeek.getDate();
-        const month = firstDayOfWeek.getMonth() + 1; // Months are zero-based
-        labels.unshift(`${day}/${month}`);
+        
+        const lastDayOfWeek = new Date(firstDayOfWeek);
+        lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6); // Añadir 6 días para obtener el último día de la semana
+
+        const startDay = firstDayOfWeek.getDate();
+        const startMonth = firstDayOfWeek.getMonth() + 1; // Los meses son 0-indexados
+        const endDay = lastDayOfWeek.getDate();
+        const endMonth = lastDayOfWeek.getMonth() + 1;
+
+        labels.unshift(`${startDay}/${startMonth} - ${endDay}/${endMonth}`);
     }
     return labels;
 }
 
+function getTrainingDataForLast5Weeks(entrenamientos, labels) {
+    // Inicializar el array con ceros para cada semana
+    const data = Array(labels.length).fill(0);
+    
+    entrenamientos.forEach(item => {
+        const startDate = new Date(item.desde);
+        const endDate = new Date(item.hasta);
+
+        labels.forEach((label, index) => {
+            const [startLabel, endLabel] = label.split(' - ');
+            const [startDay, startMonth] = startLabel.split('/').map(Number);
+            const [endDay, endMonth] = endLabel.split('/').map(Number);
+
+            const labelStartDate = new Date(startDate.getFullYear(), startMonth - 1, startDay);
+            const labelEndDate = new Date(startDate.getFullYear(), endMonth - 1, endDay);
+
+            // Comparar si el rango del entrenamiento cae dentro del rango de la semana
+            if ((startDate >= labelStartDate && startDate <= labelEndDate) ||
+                (endDate >= labelStartDate && endDate <= labelEndDate) ||
+                (startDate <= labelStartDate && endDate >= labelEndDate)) {
+                data[index] += item.cantidad;
+            }
+        });
+    });
+    
+    return data;
+}
 
 
 
 // RADAAAAAR
-function initializeRadar() {
+
+function initializeRadar(radarDatos, km) {
     const radar = document.getElementById("radar");
 
-    // Crear puntos en el radar al hacer clic en "buscar profesor"
-    let buscarProfesor = document.getElementById("buscarProfesor");
-    buscarProfesor.addEventListener("click", async () => {
-        // Obtener el valor del slider
-        let km = document.getElementById("customRange").value;
-        
-        // Limpiar radar antes de agregar nuevos puntos
-        while (radar.firstChild) {
-            radar.removeChild(radar.firstChild);
-        }
+    // Limpiar radar antes de agregar nuevos puntos
+    while (radar.firstChild) {
+        radar.removeChild(radar.firstChild);
+    }
 
-        // Tamaño del radar y ajuste de distancia máxima
-        const radarRadius = 180; // El radio del círculo
-        const maxDistance = km;  // La distancia máxima basada en el valor del slider
+    const radarRadius = 180;
+    const maxDistance = km;
 
-        // Función para generar posición según la distancia
-        function getPositionByDistance(distance) {
-            let angle = Math.random() * 2 * Math.PI; // Ángulo aleatorio en radianes
-            let r = (distance / maxDistance) * radarRadius; // Escala la distancia en base al radio
-            let x = r * Math.cos(angle);
-            let y = r * Math.sin(angle);
-            return { x, y };
-        }
+    function getPositionByDistance(distance) {
+        let angle = Math.random() * 2 * Math.PI;
+        let r = (distance / maxDistance) * radarRadius;
+        let x = r * Math.cos(angle);
+        let y = r * Math.sin(angle);
+        return { x, y };
+    }
 
-        // Crear puntos en el radar
-        radarDatos.forEach(point => {
-            const pointElement = document.createElement("div");
-            pointElement.classList.add("point");
-            pointElement.setAttribute('data-label', point.nombreCompleto.substring(0, point.nombreCompleto.indexOf(' ')));
-            const position = getPositionByDistance(point.distancia);
-            pointElement.style.left = 200 + position.x + "px"; // 200px es el centro del radar
-            pointElement.style.top = 200 + position.y + "px";
-            radar.appendChild(pointElement);
-        });
+    const container = document.getElementById('resultadosRadar');
+    container.innerHTML = '';
+    
 
-        // Generar tarjetas en `resultadosRadar`
-        const container = document.getElementById('resultadosRadar');
-        container.innerHTML = '';
-        
-        radarDatos.forEach((contact, index) => {
-            const card = document.createElement('div');
-            card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
-            card.innerHTML = `
-                <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.nombreCompleto.charAt(0).toUpperCase()}</div>
-                <div>
-                    <h5 class="mb-0 text-start">${contact.nombreCompleto}</h5>
-                    <div class="text-start">
-                        <p class="m-0">Contacto: ${contact.redSocial}</p>
-                        <small class="text-dark">Distancia: ${contact.distancia}</small>
-                    </div>
+    radarDatos.forEach(point => {
+        const pointElement = document.createElement("div");
+        pointElement.classList.add("point");
+        pointElement.setAttribute('data-label', point.nombreCompleto.substring(0, point.nombreCompleto.indexOf(' ')));
+        const position = getPositionByDistance(point.distancia);
+        pointElement.style.left = 200 + position.x + "px";
+        pointElement.style.top = 200 + position.y + "px";
+        radar.appendChild(pointElement);
+    });
+
+    radarDatos.forEach((contact, index) => {
+        const card = document.createElement('div');
+        card.className = "card col-lg-10 bg-light text-dark mb-3 p-3 d-flex flex-row align-items-center";
+        card.innerHTML = `
+            <div class="avatar" id="avatar${index + 1}" style="background-color: ${getRandomColor()};">${contact.nombreCompleto.charAt(0).toUpperCase()}</div>
+            <div>
+                <h5 class="mb-0 text-start">${contact.nombreCompleto}</h5>
+                <div class="text-start">
+                    <p class="m-0">Contacto: ${contact.redSocial}</p>
+                    <small class="text-dark">Distancia: ${Math.trunc(contact.distancia)} Km</small>
                 </div>
-            `;
-            container.appendChild(card);
-        });
+            </div>
+        `;
+        container.appendChild(card);
     });
 }
 

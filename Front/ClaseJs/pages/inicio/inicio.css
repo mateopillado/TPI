@@ -172,8 +172,7 @@ body {
 @media (max-width: 1200px){
 
     .dashboard {
-        grid-template-columns: 1fr; 
-        margin-left: 40px;
+        grid-template-columns: 100%; 
     }
     .front-view, .back-view {
         width: 90%;
@@ -196,6 +195,11 @@ body {
     .trainers-section{
         grid-column: 1 /  2; /* Segunda columna */
     grid-row: 2 / span 2;
+    }
+
+    .dashboard {
+        grid-column: 1 / span 1;
+        grid-template-columns:100%;
     }
     
     #sidebarMenu {
@@ -406,4 +410,8 @@ input[type="range"] {
     border-radius: 3px;
     white-space: nowrap;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
 }

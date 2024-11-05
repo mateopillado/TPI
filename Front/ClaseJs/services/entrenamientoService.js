@@ -20,6 +20,10 @@ class entrenamientoService extends Service {
   async postEntrenamiento(data) {
     return await this.fetchWithAuth("POST","", data);
   }
+  async  deleteById(id) {
+    return await this.fetchWithAuth("DELETE","/" + id);
+}
+
 
 
 }

@@ -6,6 +6,12 @@ async function init() {
     try {
         sesiones = await entrenamientoService.getHistorial();
         mostrarSesiones();
+
+        if (sesiones.length === 0) {
+            const mensaje = document.createElement("p");
+            mensaje.textContent = "No hay sesiones de entrenamiento registradas.";
+            document.getElementById("sessionList").appendChild(mensaje);
+        }
     } catch (error) {
         console.error("Error al cargar sesiones:", error);
     }
@@ -14,16 +20,20 @@ async function init() {
 function mostrarSesiones() {
     const listaSesiones = document.getElementById("sessionList");
     listaSesiones.innerHTML = "";
-
+    
     sesiones.forEach(sesion => {
         const tarjeta = document.createElement("div");
+        const descripcionEntrenamiento = (sesion.descripcion && sesion.descripcion !== "") ? sesion.descripcion : "Sin Nombre";
         tarjeta.classList.add("session-card");
+        
         tarjeta.onclick = function() {
             mostrarDetallesSesion(sesion.id); 
-        };
-
+        };  
+        
+        
+        
         tarjeta.innerHTML = `
-            <h3>${sesion.nombre || 'Sin nombre'}</h3>
+            <h3>${descripcionEntrenamiento}</h3>
             <p>${formatearFecha(sesion.fecha)}</p>
             <p><strong>Peso Total Levantado:</strong> ${sesion.tonelaje} kg</p>
             <h4>Ejercicios:</h4>
@@ -35,30 +45,6 @@ function mostrarSesiones() {
     });
 }
 
-// async function mostrarDetallesSesion(idSesion) {
-//     try {
-//         // Llama al servicio para obtener detalles de la sesión por ID
-//         const detallesSesion = await entrenamientoService.getById(idSesion);
-
-//         // Llena el modal con los datos detallados
-//         const modalContenido = document.getElementById("sessionDetails");
-//         modalContenido.innerHTML = `
-//             <h2>${detallesSesion.nombre}</h2>
-//             <p><strong>Fecha:</strong> ${formatearFecha(detallesSesion.fecha)}</p>
-//             <p><strong>Entrenador:</strong> ${detallesSesion.idPersona}</p>
-//             <div>
-//                 ${detallesSesion.ejerciciosEntrenamientos.map(ejercicio => formatearEjercicioEnModal(ejercicio)).join("")}
-//             </div>
-//         `;
-
-//         // Mostrar el modal
-//         const modal = new bootstrap.Modal(document.getElementById('sessionModal'));
-//         modal.show();
-//     } catch (error) {
-//         console.error("Error al obtener detalles de la sesión:", error);
-//     }
-// }
-
 async function mostrarDetallesSesion(idSesion) {
     try {
         const detallesSesion = await entrenamientoService.getById(idSesion);
@@ -68,7 +54,6 @@ async function mostrarDetallesSesion(idSesion) {
         modalContenido.innerHTML = `
             <h2>${detallesSesion.nombre}</h2>
             <p><strong>Fecha:</strong> ${formatearFecha(detallesSesion.fecha)}</p>
-            <p><strong>Entrenador:</strong> ${detallesSesion.idPersona}</p>
             <div>
                 ${detallesSesion.ejerciciosEntrenamientos.map(ejercicio => formatearEjercicioEnModal(ejercicio)).join("")}
             </div>
@@ -78,33 +63,42 @@ async function mostrarDetallesSesion(idSesion) {
         const modal = new bootstrap.Modal(document.getElementById('sessionModal'));
         modal.show();
 
+        // Agregar eventos a los botones
+        document.getElementById("repetirEntrenamientoBtn").addEventListener("click", () => repetirEntrenamiento(idSesion));
+        document.getElementById("borrarEntrenamiento").addEventListener("click", () => eliminarSesion(idSesion, modal));
         
-        // Agregar evento click al botón de repetir solo si el modal se abre correctamente
-        document.getElementById("repetirEntrenamientoBtn").addEventListener("click",()=>{repetirEntrenamiento(idSesion)});
-        
-
     } catch (error) {
         console.error("Error al obtener detalles de la sesión o al mostrar el modal:", error);
     }
 }
 
+async function repetirEntrenamiento(idSesion) {
+    // Buscar la sesión seleccionada
+    const sesionSeleccionada = await entrenamientoService.getById(idSesion);
 
-function repetirEntrenamiento(sesion) {
-    // Guardar el objeto de la sesión en el localStorage
-    localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesion));
-    // console.log(sesion)
+    // Guardar el objeto de la sesión completa en el localStorage para usarlo en la página de entrenamiento
+    localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesionSeleccionada));
+
     // Redirigir a la página de entrenamiento
     window.location.href = "../entrenamiento/entrenamiento.html";
 }
 
 
-
+async function eliminarSesion(idSesion, modal) {
+    try {
+        await entrenamientoService.deleteById(idSesion);
+        sesiones = sesiones.filter(s => s.id !== idSesion); 
+        mostrarSesiones(); 
+        modal.hide(); 
+    } catch (error) {
+        console.error("Error al eliminar la sesión:", error);
+    }
+}
 
 function formatearEjercicioEnModal(ejercicio) {
     return `
         <div>
-            <h3  style="color: orange;">${ejercicio.idEjercicioNavigation.nombre}</h3>
-            
+            <h3 style="color: orange;">${ejercicio.idEjercicioNavigation.nombre}</h3>
             ${ejercicio.series.map(serie => `
                 <p>Serie ${serie.orden}: ${serie.repeticion} reps x ${serie.kilo} kg</p>
             `).join("")}
@@ -120,7 +114,7 @@ function formatearFecha(fechaStr) {
 // Inicializa la aplicación
 init();
 
-function logIn(){
+function logIn() {
     const token = localStorage.getItem("token");
     if (!token) {
         window.location.href = "../login/login.html";

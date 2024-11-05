@@ -1,19 +1,19 @@
 /* Estilos generales */
 body {
     display: flex;
-    background-color: #282828;
+    background-color: #302f2f;
     color: white;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
     margin: 0;
     padding: 0;
 }
 
 h1 {
     text-align: center;
-    color: #ffbe46;
+    /* color: #ffbe46; */
 }
 
-button {
+/* button {
     background-color: #ffbe46;
     border: none;
     padding: 10px 15px;
@@ -21,23 +21,23 @@ button {
     margin-top: 10px;
     color: black;
     font-weight: bold;
-}
+} */
 
 /* Sidebar */
 .sidebar {
-    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), 
-                linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.25) 200%);
     background-blend-mode: multiply;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
+    /* Toma el 100% de la altura de la ventana */
     width: 222px;
+    /* Ancho del sidebar */
 }
 
 .sidebar-header h2 {
     font-size: 1.5rem;
-    color: black; 
 }
 
 .nav-link {
@@ -224,4 +224,13 @@ button {
     }
 }
 
+.btn-delete {
+    background-color: red;
+    color: white;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: darkred;
+}
 

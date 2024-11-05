@@ -47,7 +47,7 @@
 
 
 body {
-    background-color: #302f2f;;
+    background-color: #302f2f;
     color: white;
 }
 
@@ -86,6 +86,13 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.default-image {
+    width: 100%;
+    height: auto;
+    max-height: 100px; 
+}
+
 
 .modal-content img {
     width: 100%;         
@@ -139,6 +146,7 @@ body {
     overflow-y: auto;
     padding-right: 10px; /* Evitar que el scroll tape el contenido */
 }
+
 
 
 #history-list-container {
