@@ -16,10 +16,10 @@ async function putContacto(data) {
 
 
 async function getContact() {
-    return await ContactoService.getById();
+    let a = await ContactoService.getById();
+    a.id = 0
+    return a[0]
 }
-
-
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -47,13 +47,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await usuarioService.radar(km)
     }
 
+    
     contacto = await getContact();
-    if (contacto.length > 0) {
-        contacto = contacto[0]
-        console.log('id',contacto.id)
-        if (contacto.id > 0) contactoNull = false
-        console.log('contacto' ,contacto)
-        console.log(contactoNull)
+    console.log(contacto);
+    
+    if (contacto.id > 0) {
+        contactoNull = false
     }
    
     async function getDataChart() {
@@ -159,16 +158,19 @@ async function saveContactData() {
     console.log(newContacto)
 
     if (contactoNull) {
-        await postContacto(newContacto)
-        console.log('post');
-        contacto = await getContact();
-        window.location.href = '../inicio/inicio.html'
         
+        console.log('new', newContacto);
+        
+        await postContacto(newContacto)
+        contacto = await getContact();
+        console.log('post');
+        loadContactData();  
     }
     else{
         newContacto.id = contacto.id
         await putContacto(newContacto)
         console.log('put');
+        loadContactData();
     }
 
 

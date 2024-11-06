@@ -27,17 +27,10 @@ function mostrarSesiones() {
         tarjeta.classList.add("session-card");
         tarjeta.onclick = function() {
             mostrarDetallesSesion(sesion.id); 
-<<<<<<< HEAD
         };
 
         console.log(sesion)
 
-=======
-        };  
-        
-        
-        
->>>>>>> 97b9996108967cfc860e7ed53462e2846eabda20
         tarjeta.innerHTML = `
             <h3>${descripcionEntrenamiento}</h3>
             <p>${formatearFecha(sesion.fecha)}</p>
