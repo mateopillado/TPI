@@ -172,8 +172,7 @@ body {
 @media (max-width: 1200px){
 
     .dashboard {
-        grid-template-columns: 1fr; 
-        margin-left: 40px;
+        grid-template-columns: 100%; 
     }
     .front-view, .back-view {
         width: 90%;
@@ -196,6 +195,11 @@ body {
     .trainers-section{
         grid-column: 1 /  2; /* Segunda columna */
     grid-row: 2 / span 2;
+    }
+
+    .dashboard {
+        grid-column: 1 / span 1;
+        grid-template-columns:100%;
     }
     
     #sidebarMenu {
@@ -411,3 +415,4 @@ input[type="range"] {
 .modal-header .btn-close {
     filter: invert(1);
 }
+

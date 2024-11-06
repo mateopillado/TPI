@@ -15,6 +15,7 @@ class ejercicioService extends Service {
   }
   
   async putContacto(data) {
+    data.idPersona = 0
     return await this.fetchWithAuth("PUT","/" + data.id, data);
   }
 }

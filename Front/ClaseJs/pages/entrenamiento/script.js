@@ -1,13 +1,26 @@
 import ejercicioService from "../../services/ejercicioService.js";
 import entrenamientoService from "../../services/entrenamientoService.js";
+import tipoSerieService from "../../services/tipoSerieService.js";
+
+let tiposSerie = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+  logIn();
+
   async function getEjercicios() {
     return await ejercicioService.getAll();
   }
 
+  async function getTipoSerie() {
+    return await tipoSerieService.getAll();
+  }
+
+  tiposSerie = await getTipoSerie();
   const ejercicios = await getEjercicios();
   let ejercicioCounter = 0;
+
+  window.addEventListener("load", cargarEntrenamientoGuardado());
 
   // Configuración de los tabs de navegación
   document.querySelectorAll('#nav-tab>[data-bs-toggle="tab"]').forEach(el => {
@@ -52,28 +65,36 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Función para agregar una serie al DOM
   function addSerieToDOM(ejercicioId, serieId, kg = 0, reps = 0, tSerie = "1", checked = false) {
     const table = document.getElementById(`series-table-${ejercicioId}`);
-    const newRowHTML = `
-      <tr id="fila-serie-${ejercicioId}-${serieId}">
-        <td>${serieId}</td>
-        <td><input type="number" id="kg-${ejercicioId}-${serieId}" class="form-control" value="${kg}"></td>
-        <td><input type="number" id="reps-${ejercicioId}-${serieId}" class="form-control" value="${reps}"></td>
-        <td>
-          <select id="tipoSerie-${ejercicioId}-${serieId}" class="form-select">
-            <option value="1" ${tSerie == "1" ? "selected" : ""}>Tipo Serie</option>
-            <option value="2" ${tSerie == "2" ? "selected" : ""}>Fuerza</option>
-            <option value="3" ${tSerie == "3" ? "selected" : ""}>Lineal</option>
-            <option value="4" ${tSerie == "4" ? "selected" : ""}>Piramidal</option>
-          </select>
-        </td>
-        <td>
-          <input type="checkbox" class="btn-check" id="btn-check-outlined-${ejercicioId}-${serieId}" ${checked ? "checked" : ""} autocomplete="off">
-          <label class="btn btn-outline-success" for="btn-check-outlined-${ejercicioId}-${serieId}"><i class="fa fa-check" aria-hidden="true"></i></label>
-        </td>
-        <td><button class="btn-delete btn btn-danger" data-ejercicio-id="${ejercicioId}" data-serie-id="${serieId}">Eliminar</button></td>
-      </tr>
+    const newRow = document.createElement("tr");
+    newRow.id = `fila-serie-${ejercicioId}-${serieId}`;
+  
+    // Generar opciones de `<select>` dinámicamente
+    const opcionesTipoSerie = tiposSerie.map(tipo => `
+      <option value="${tipo.id}" ${tSerie == tipo.id ? "selected" : ""}>${tipo.tipo}</option>
+    `).join("");
+  
+    // Estructura de la nueva fila
+    newRow.innerHTML = `
+      <td>${serieId}</td>
+      <td><input type="number" id="kg-${ejercicioId}-${serieId}" class="form-control" value="${kg}"></td>
+      <td><input type="number" id="reps-${ejercicioId}-${serieId}" class="form-control" value="${reps}"></td>
+      <td>
+        <select id="tipoSerie-${ejercicioId}-${serieId}" class="form-select">
+          ${opcionesTipoSerie}
+        </select>
+      </td>
+      <td>
+        <input type="checkbox" class="btn-check" id="btn-check-outlined-${ejercicioId}-${serieId}" ${checked ? "checked" : ""} autocomplete="off">
+        <label class="btn btn-outline-success" for="btn-check-outlined-${ejercicioId}-${serieId}"><i class="fa fa-check" aria-hidden="true"></i></label>
+      </td>
+      <td><button class="btn-delete btn btn-danger" data-ejercicio-id="${ejercicioId}" data-serie-id="${serieId}">Eliminar</button></td>
     `;
-    table.insertAdjacentHTML('beforeend', newRowHTML);
+  
+    // Añadir la nueva fila a la tabla
+    table.appendChild(newRow);
   }
+  
+
 
   // Nueva función para guardar el estado en localStorage
   function saveData() {
@@ -86,44 +107,34 @@ document.addEventListener("DOMContentLoaded", async () => {
       const nota = document.getElementById(`nota-${ejercicioId}`).value;
       const series = [];
   
-      // Iterar sobre cada fila de serie para capturar sus valores
       ejercicio.querySelectorAll('tbody tr').forEach((fila, index) => {
-        const serieId = index + 1; // Generar el ID de la serie para evitar duplicaciones
-        const kgInput = fila.querySelector(`#kg-${ejercicioId}-${serieId}`);
-        const repsInput = fila.querySelector(`#reps-${ejercicioId}-${serieId}`);
-        const tSerieSelect = fila.querySelector(`#tipoSerie-${ejercicioId}-${serieId}`);
-        const checkedInput = fila.querySelector(`#btn-check-outlined-${ejercicioId}-${serieId}`);
+        const serieId = index + 1;
+        const kg = parseFloat(fila.querySelector(`#kg-${ejercicioId}-${serieId}`).value) || 0;
+        const reps = parseInt(fila.querySelector(`#reps-${ejercicioId}-${serieId}`).value, 10) || 0;
+        const tSerie = fila.querySelector(`#tipoSerie-${ejercicioId}-${serieId}`).value || "1";
+        const checked = fila.querySelector(`#btn-check-outlined-${ejercicioId}-${serieId}`).checked;
   
-        // Asegurarnos de que estamos obteniendo el valor de cada input
-        const kg = kgInput ? parseFloat(kgInput.value) || 0 : 0;
-        const reps = repsInput ? parseInt(repsInput.value, 10) || 0 : 0;
-        const tSerie = tSerieSelect ? tSerieSelect.value || "1" : "1";
-        const checked = checkedInput ? checkedInput.checked : false;
-  
-        // Añadir la serie al array de series
-        if (checked) {
+        if(checked){
             series.push({ serieId, kg, reps, tSerie, checked });
         }
       });
-  
-      // Añadir el ejercicio con sus series al array de ejerciciosData
-      ejerciciosData.push({ ejercicioId, nombreEjercicio, nota, series });
+      if (series.length > 0) {
+          ejerciciosData.push({ ejercicioId, nombreEjercicio, nota, series });
+      }
     });
   
-    // Guardar el array ejerciciosData en localStorage como JSON
     localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
   }
-
-  // Cargar datos al inicio desde localStorage
+  
   function loadData() {
     const ejerciciosData = JSON.parse(localStorage.getItem('ejerciciosData'));
     if (!ejerciciosData) return;
-
+  
     ejerciciosData.forEach(ejercicioData => {
-      ejercicioCounter = Math.max(ejercicioCounter, parseInt(ejercicioData.ejercicioId, 10));
       addEjercicioToDOM(ejercicioData.ejercicioId, ejercicioData.nombreEjercicio, ejercicioData.series);
     });
   }
+  
 
   loadData();
 
@@ -153,16 +164,44 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     
     
-    await entrenamientoService.postEntrenamiento(data1);
-    localStorage.removeItem('ejerciciosData');
     
     if(dataGuardar.length > 0){
-        // window.location.href = "../historial/historial.html";
-        console.log(data1);
+        await entrenamientoService.postEntrenamiento(data1);
+        window.location.href = "../historial/historial.html";
+        localStorage.removeItem('ejerciciosData');
     }
     else{
-        alert("no hay ejercicios para guardar");
+        showTemporaryMessage("No hay ejercicios para guardar");
     }
+
+    function showTemporaryMessage(message) {
+        // Crear un contenedor de mensaje si no existe
+        let messageContainer = document.getElementById("temp-message");
+        if (!messageContainer) {
+            messageContainer = document.createElement("div");
+            messageContainer.id = "temp-message";
+            messageContainer.style.position = "fixed";
+            messageContainer.style.bottom = "20px";
+            messageContainer.style.left = "50%";
+            messageContainer.style.transform = "translateX(-50%)";
+            messageContainer.style.padding = "10px 20px";
+            messageContainer.style.backgroundColor = "rgba(255, 0, 0, 0.8)";
+            messageContainer.style.color = "#fff";
+            messageContainer.style.borderRadius = "5px";
+            messageContainer.style.fontSize = "16px";
+            document.body.appendChild(messageContainer);
+        }
+    
+        // Mostrar el mensaje en el contenedor
+        messageContainer.textContent = message;
+        messageContainer.style.display = "block";
+    
+        // Ocultar el mensaje después de 3 segundos
+        setTimeout(() => {
+            messageContainer.style.display = "none";
+        }, 3000);
+    }
+
   });
 
   document.getElementById('ejercicios').addEventListener('click', function (e) {
@@ -216,6 +255,54 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   cargarModal();
 
+  // Función para cargar entrenamiento guardado en localStorage al abrir la página de entrenamiento
+// Función para cargar entrenamiento guardado en localStorage al abrir la página de entrenamiento
+function cargarEntrenamientoGuardado() {
+    const entrenamientoGuardado = localStorage.getItem("entrenamientoARepetir");
+
+    if (entrenamientoGuardado) {
+        // Parsear los datos del entrenamiento
+        console.log("hola");
+        
+        const sesion = JSON.parse(entrenamientoGuardado);
+
+        // Limpiar los datos guardados en localStorage
+        localStorage.removeItem("entrenamientoARepetir");
+
+        // // Actualizar el título u otros datos de la sesión en la interfaz
+        // document.getElementById("tituloEntrenamiento").textContent = sesion.nombre || "Entrenamiento Sin Nombre";
+
+        // Llenar la tabla con los ejercicios de la sesión
+        sesion.ejerciciosEntrenamientos.forEach(ejercicio => {
+            // Extraer los datos del ejercicio
+            const ejercicioId = ejercicio.idEjercicio;
+            const ejercicioNombre = ejercicio.idEjercicioNavigation.nombre;
+            
+            // Formatear la serie del ejercicio según los parámetros esperados
+            const series = ejercicio.series.map(serie => ({
+                serieId: serie.orden,
+                kg: serie.kilo,
+                reps: serie.repeticion,
+                tSerie: '1', // Modificar si tienes un mapeo para idTipoSerie a un texto representativo
+                checked: false    // Suposición inicial; cambiar según lógica de aplicación si es necesario
+            }));
+            addEjercicioToDOM(ejercicioId, ejercicioNombre, series);
+
+            // series.forEach(serie => {
+            //     addSerieToDOM(ejercicioId, serie.serieId, serie.kg, serie.reps, serie.tSerie, serie.checked);
+            // });
+        });
+
+        saveData();       
+
+    }
+}
+
+
+// Llamar a la función al cargar la página
+
+
+
   function logIn() {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -228,6 +315,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "../login/login.html";
   }
 
-  logIn();
   document.getElementById("logout").addEventListener("click", logOut);
 });
