@@ -21,10 +21,6 @@ async function getContact() {
     return a[0]
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 666947da360fc08af8e77a0a144c7a59c8af15b1
 document.addEventListener("DOMContentLoaded", async () => {
     logIn();
 
@@ -54,9 +50,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     contacto = await getContact();
     console.log(contacto);
     
-    if (contacto.id > 0) {
-        contactoNull = false
+    if (contacto != undefined){
+
+        if (contacto.id > 0 && contacto) {
+            contactoNull = false
+        }
     }
+    
    
     async function getDataChart() {
         return await usuarioService.getUser().then(entrenamientos => {
@@ -102,10 +102,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializeHoverEffect();
     initializeAvatarColors();
     document.getElementById("buscarProfesor").addEventListener("click", async () => {
+        let listRadar = document.getElementById('resultadosRadar')
+        listRadar.innerHTML = ''
         const km = document.getElementById("customRange").value;
         document.getElementById("slider-value").textContent = km;
         const radarDatos = await getRadar(km);
         initializeRadar(radarDatos, km);
+        if (radarDatos.length == 0) {
+            const sinNadie = document.createElement("p");
+            sinNadie.classList.add("sinNadie");
+            sinNadie.innerHTML = 'No hay nadie cerca 😭'
+            listRadar = document.getElementById('resultadosRadar')
+            listRadar.appendChild(sinNadie)
+        } else {
+            initializeRadar(radarDatos, km);
+        }
+       
     });
     document.getElementById("customRange").addEventListener("mouseup", updateSliderValue);
     document.getElementById("logOutBtn").addEventListener("click", logOut);
@@ -161,15 +173,12 @@ async function saveContactData() {
     console.log(newContacto)
 
     if (contactoNull) {
-<<<<<<< HEAD
-=======
         await postContacto(newContacto)
         console.log('post');
         contacto = await getContact();
         console.log(contacto.email)
         // window.location.href = '../inicio/inicio.html'
         loadContactData()
->>>>>>> 666947da360fc08af8e77a0a144c7a59c8af15b1
         
         console.log('new', newContacto);
         
@@ -185,12 +194,8 @@ async function saveContactData() {
         console.log(contacto.email)
 
         console.log('put');
-<<<<<<< HEAD
-        loadContactData();
-=======
             //    window.location.href = '../inicio/inicio.html'
         loadContactData()
->>>>>>> 666947da360fc08af8e77a0a144c7a59c8af15b1
     }
 
 
