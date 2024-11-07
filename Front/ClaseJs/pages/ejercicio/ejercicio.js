@@ -345,7 +345,7 @@ async function displayRecords() {
                 x: {
                     title: {
                         display: true,
-                        text: 'Número de Serie'
+                        text: 'Entrenamiento'
                     },
                     ticks: {
                         stepSize: 1

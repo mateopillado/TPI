@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   function loadData() {
     if (!localStorage.getItem("entrenamientoARepetir")) {
       const ejerciciosData = JSON.parse(localStorage.getItem('ejerciciosData'));
-      if (!ejerciciosData) return;
+      if (!ejerciciosData || !ejerciciosData[0]) return;
       document.getElementById('nombreEntrenamiento').value = ejerciciosData[0].nombreEntrenamiento;
       ejerciciosData.forEach(ejercicioData => {
         addEjercicioToDOM(ejercicioData.ejercicioId, ejercicioData.nombreEjercicio, ejercicioData.series);
