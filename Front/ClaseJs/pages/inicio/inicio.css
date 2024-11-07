@@ -415,3 +415,9 @@ input[type="range"] {
 .modal-header .btn-close {
     filter: invert(1);
 }
+
+.sinNadie{
+    font-size: 1.3rem;
+    font-weight: 600;
+
+}

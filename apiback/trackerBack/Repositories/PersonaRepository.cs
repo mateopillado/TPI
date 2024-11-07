@@ -161,23 +161,19 @@ namespace trackerBack.Repositories
             var jwtSettings = configuration.GetSection("Jwt");
 
             var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
-            var issuer = jwtSettings["Issuer"];
-            var audience = jwtSettings["Audience"];
-
             var securityKey = new SymmetricSecurityKey(key);
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var identificadorUnico = Guid.NewGuid().ToString();
 
-            var claims = new[] {
+            var claims = new[]
+            {
         new Claim(JwtRegisteredClaimNames.Sub, username),
-        new Claim("userId", userId.ToString()),  // Agrega el ID del usuario como un claim
+        new Claim("userId", userId.ToString()),
         new Claim(JwtRegisteredClaimNames.Jti, identificadorUnico)
     };
 
             var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience,
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(240),
                 signingCredentials: credentials
@@ -185,6 +181,7 @@ namespace trackerBack.Repositories
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
 
         public async Task<List<GrupoMuscularDto>> GetTrabajdoGrupoMuscular(int userId)
         {

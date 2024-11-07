@@ -16,11 +16,10 @@ async function putContacto(data) {
 
 
 async function getContact() {
-    return await ContactoService.getById();
+    let a = await ContactoService.getById();
+    a.id = 0
+    return a[0]
 }
-
-
-
 
 document.addEventListener("DOMContentLoaded", async () => {
     logIn();
@@ -47,14 +46,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         return await usuarioService.radar(km)
     }
 
+    
     contacto = await getContact();
-    if (contacto.length > 0) {
-        contacto = contacto[0]
-        console.log('id',contacto.id)
-        if (contacto.id > 0) contactoNull = false
-        console.log('contacto' ,contacto)
-        console.log(contactoNull)
+    console.log(contacto);
+    
+    if (contacto != undefined){
+
+        if (contacto.id > 0 && contacto) {
+            contactoNull = false
+        }
     }
+    
    
     async function getDataChart() {
         return await usuarioService.getUser().then(entrenamientos => {
@@ -100,10 +102,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     initializeHoverEffect();
     initializeAvatarColors();
     document.getElementById("buscarProfesor").addEventListener("click", async () => {
+        let listRadar = document.getElementById('resultadosRadar')
+        listRadar.innerHTML = ''
         const km = document.getElementById("customRange").value;
         document.getElementById("slider-value").textContent = km;
         const radarDatos = await getRadar(km);
         initializeRadar(radarDatos, km);
+        if (radarDatos.length == 0) {
+            const sinNadie = document.createElement("p");
+            sinNadie.classList.add("sinNadie");
+            sinNadie.innerHTML = 'No hay nadie cerca 😭'
+            listRadar = document.getElementById('resultadosRadar')
+            listRadar.appendChild(sinNadie)
+        } else {
+            initializeRadar(radarDatos, km);
+        }
+       
     });
     document.getElementById("customRange").addEventListener("mouseup", updateSliderValue);
     document.getElementById("logOutBtn").addEventListener("click", logOut);
@@ -162,13 +176,26 @@ async function saveContactData() {
         await postContacto(newContacto)
         console.log('post');
         contacto = await getContact();
-        window.location.href = '../inicio/inicio.html'
+        console.log(contacto.email)
+        // window.location.href = '../inicio/inicio.html'
+        loadContactData()
         
+        console.log('new', newContacto);
+        
+        await postContacto(newContacto)
+        contacto = await getContact();
+        console.log('post');
+        loadContactData();  
     }
     else{
         newContacto.id = contacto.id
         await putContacto(newContacto)
+        contacto = await getContact();
+        console.log(contacto.email)
+
         console.log('put');
+            //    window.location.href = '../inicio/inicio.html'
+        loadContactData()
     }
 
 

@@ -50,6 +50,7 @@ namespace trackerBack.Repositories
              .Select(e => new EntrenamientoHistorialDto
              {
                  Id = e.Id,
+                 Descripcion = e.Nombre,
                  Fecha = e.Fecha,
                  Tonelaje = (int)e.EjerciciosEntrenamientos
                      .SelectMany(ee => ee.Series)
