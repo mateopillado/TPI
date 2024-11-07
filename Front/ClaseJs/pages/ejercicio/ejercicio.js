@@ -327,7 +327,7 @@ async function displayRecords() {
 
     // Crear el gráfico con tipo 'line' para conectar los puntos
     miGrafico = new Chart(ctx, {
-        type: 'line',
+        type: 'scatter',
         data: {
             datasets: [{
                 data: puntos,
@@ -340,6 +340,7 @@ async function displayRecords() {
             }]
         },
         options: {
+          showLine: true,
             scales: {
                 x: {
                     title: {
