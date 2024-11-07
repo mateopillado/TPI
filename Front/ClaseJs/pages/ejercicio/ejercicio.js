@@ -6,15 +6,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function initializePage() {
-  const ejercicios = await loadEjercicios();
-  const sortedEjercicios = sortEjercicios(ejercicios);
+  // Mostrar el loader y ocultar el contenido principal
+  document.getElementById("loader").style.display = "flex";
+  document.getElementById("contentLoader").style.display = "none";
 
-  setupSearchFeature(sortedEjercicios);
-  setupModalControls();
-  setupTabNavigation();
-  displayExercises(sortedEjercicios);
+  try {
+      const ejercicios = await loadEjercicios();
+      const sortedEjercicios = sortEjercicios(ejercicios);
 
-  
+      setupSearchFeature(sortedEjercicios);
+      setupModalControls();
+      setupTabNavigation();
+      displayExercises(sortedEjercicios);
+  } catch (error) {
+      console.error("Error al inicializar la página:", error);
+  }
+
+  // Ocultar el loader y mostrar el contenido después de cargar
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("contentLoader").style.display = "block";
 }
 
 

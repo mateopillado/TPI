@@ -2,7 +2,13 @@ import entrenamientoService from "../../services/entrenamientoService.js";
 
 let sesiones = [];
 
+
+
 async function init() {
+    // Mostrar el loader y ocultar el contenido principal
+    document.getElementById("loader").style.display = "flex";
+    document.querySelector("main").style.display = "none";
+
     try {
         sesiones = await entrenamientoService.getHistorial();
         mostrarSesiones();
@@ -15,6 +21,10 @@ async function init() {
     } catch (error) {
         console.error("Error al cargar sesiones:", error);
     }
+
+    // Ocultar el loader y mostrar el contenido después de cargar
+    document.getElementById("loader").style.display = "none";
+    document.querySelector("main").style.display = "block";
 }
 
 function mostrarSesiones() {
@@ -28,10 +38,10 @@ function mostrarSesiones() {
         
         tarjeta.onclick = function() {
             mostrarDetallesSesion(sesion.id); 
-        };  
-        
-        
-        
+        };
+
+        console.log(sesion)
+
         tarjeta.innerHTML = `
             <h3>${descripcionEntrenamiento}</h3>
             <p>${formatearFecha(sesion.fecha)}</p>
@@ -76,6 +86,7 @@ async function repetirEntrenamiento(idSesion) {
     // Buscar la sesión seleccionada
     const sesionSeleccionada = await entrenamientoService.getById(idSesion);
 
+    localStorage.removeItem("entrenamientoARepetir");
     // Guardar el objeto de la sesión completa en el localStorage para usarlo en la página de entrenamiento
     localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesionSeleccionada));
 

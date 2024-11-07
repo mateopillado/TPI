@@ -328,8 +328,8 @@ input[type="range"] {
 
 .radar {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 270px;
+    height: 270px;
     border: 3px solid #ffffff; /* Borde gris */
     border-radius: 50%;
     background-color: #343a40; /* Fondo del radar gris oscuro */
@@ -337,8 +337,8 @@ input[type="range"] {
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra para un efecto de profundidad */
-  }
-  
+}
+
   .center-point {
     z-index: 100;
     position: absolute;
@@ -414,4 +414,10 @@ input[type="range"] {
 
 .modal-header .btn-close {
     filter: invert(1);
+}
+
+.sinNadie{
+    font-size: 1.3rem;
+    font-weight: 600;
+
 }

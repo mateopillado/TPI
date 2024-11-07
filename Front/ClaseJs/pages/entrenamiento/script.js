@@ -5,6 +5,9 @@ import tipoSerieService from "../../services/tipoSerieService.js";
 let tiposSerie = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+  logIn();
+
   async function getEjercicios() {
     return await ejercicioService.getAll();
   }
@@ -17,7 +20,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   const ejercicios = await getEjercicios();
   let ejercicioCounter = 0;
 
-  window.addEventListener("load", cargarEntrenamientoGuardado());
+  // window.addEventListener("load", cargarEntrenamientoGuardado());
+  await cargarEntrenamientoGuardado();
+  loadData();
+  document.getElementById('sidebarMenu').addEventListener('hover', saveDataInLocalStorage)
 
   // Configuración de los tabs de navegación
   document.querySelectorAll('#nav-tab>[data-bs-toggle="tab"]').forEach(el => {
@@ -57,6 +63,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Añadir cada serie al ejercicio
     series.forEach(serie => addSerieToDOM(ejercicioId, serie.serieId, serie.kg, serie.reps, serie.tSerie, serie.checked));
+    saveDataInLocalStorage();
+    saveData();
   }
 
   // Función para agregar una serie al DOM
@@ -64,12 +72,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const table = document.getElementById(`series-table-${ejercicioId}`);
     const newRow = document.createElement("tr");
     newRow.id = `fila-serie-${ejercicioId}-${serieId}`;
-  
+
     // Generar opciones de `<select>` dinámicamente
     const opcionesTipoSerie = tiposSerie.map(tipo => `
       <option value="${tipo.id}" ${tSerie == tipo.id ? "selected" : ""}>${tipo.tipo}</option>
     `).join("");
-  
+
     // Estructura de la nueva fila
     newRow.innerHTML = `
       <td>${serieId}</td>
@@ -86,61 +94,96 @@ document.addEventListener("DOMContentLoaded", async () => {
       </td>
       <td><button class="btn-delete btn btn-danger" data-ejercicio-id="${ejercicioId}" data-serie-id="${serieId}">Eliminar</button></td>
     `;
-  
+
+    
     // Añadir la nueva fila a la tabla
     table.appendChild(newRow);
+    document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).addEventListener('change', saveDataInLocalStorage);
+    document.getElementById(`kg-${ejercicioId}-${serieId}`).addEventListener('change', saveDataInLocalStorage);
+    document.getElementById(`reps-${ejercicioId}-${serieId}`).addEventListener('change', saveDataInLocalStorage);
+    document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).addEventListener('change', saveDataInLocalStorage);
+    document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
+    document.getElementById(`kg-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
+    document.getElementById(`reps-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
+    document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
+    saveDataInLocalStorage();
   }
-  
 
-
-  // Nueva función para guardar el estado en localStorage
-  function saveData() {
+  function saveDataInLocalStorage() {
     const ejerciciosData = [];
     const ejercicios = document.getElementById('ejercicios').children;
-  
+
     Array.from(ejercicios).forEach(ejercicio => {
       const ejercicioId = ejercicio.id.split('-')[1];
       const nombreEjercicio = ejercicio.querySelector('h4').innerText;
-      const nota = document.getElementById(`nota-${ejercicioId}`).value;
+      const nota = document.getElementById(`nota-${ejercicioId}`).textContent;
       const series = [];
-  
+
       ejercicio.querySelectorAll('tbody tr').forEach((fila, index) => {
         const serieId = index + 1;
         const kg = parseFloat(fila.querySelector(`#kg-${ejercicioId}-${serieId}`).value) || 0;
         const reps = parseInt(fila.querySelector(`#reps-${ejercicioId}-${serieId}`).value, 10) || 0;
         const tSerie = fila.querySelector(`#tipoSerie-${ejercicioId}-${serieId}`).value || "1";
         const checked = fila.querySelector(`#btn-check-outlined-${ejercicioId}-${serieId}`).checked;
+
+        series.push({ serieId, kg, reps, tSerie, checked });
+      });
+      ejerciciosData.push({ ejercicioId, nombreEjercicio, nota, series });
+    });
+
+    localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
+  }
+
+  function loadData() {
+    if (!localStorage.getItem("entrenamientoARepetir")) {
+      const ejerciciosData = JSON.parse(localStorage.getItem('ejerciciosData'));
+      if (!ejerciciosData) return;
   
-        if(checked){
-            series.push({ serieId, kg, reps, tSerie, checked });
+      ejerciciosData.forEach(ejercicioData => {
+        addEjercicioToDOM(ejercicioData.ejercicioId, ejercicioData.nombreEjercicio, ejercicioData.series);
+      });
+    }
+  }
+
+
+  // Nueva función para guardar el estado en localStorage
+  function saveData() {
+    const ejerciciosData = [];
+    const ejercicios = document.getElementById('ejercicios').children;
+
+    Array.from(ejercicios).forEach(ejercicio => {
+      const ejercicioId = ejercicio.id.split('-')[1];
+      const nombreEjercicio = ejercicio.querySelector('h4').innerText;
+      const nota = document.getElementById(`nota-${ejercicioId}`).value;
+      const series = [];
+
+      ejercicio.querySelectorAll('tbody tr').forEach((fila, index) => {
+        const serieId = index + 1;
+        const kg = parseFloat(fila.querySelector(`#kg-${ejercicioId}-${serieId}`).value) || 0;
+        const reps = parseInt(fila.querySelector(`#reps-${ejercicioId}-${serieId}`).value, 10) || 0;
+        const tSerie = fila.querySelector(`#tipoSerie-${ejercicioId}-${serieId}`).value || "1";
+        const checked = fila.querySelector(`#btn-check-outlined-${ejercicioId}-${serieId}`).checked;
+
+        if (checked) {
+          series.push({ serieId, kg, reps, tSerie, checked });
         }
       });
       if (series.length > 0) {
-          ejerciciosData.push({ ejercicioId, nombreEjercicio, nota, series });
+        ejerciciosData.push({ ejercicioId, nombreEjercicio, nota, series });
       }
     });
-  
-    localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
-  }
-  
-  function loadData() {
-    const ejerciciosData = JSON.parse(localStorage.getItem('ejerciciosData'));
-    if (!ejerciciosData) return;
-  
-    ejerciciosData.forEach(ejercicioData => {
-      addEjercicioToDOM(ejercicioData.ejercicioId, ejercicioData.nombreEjercicio, ejercicioData.series);
-    });
-  }
-  
 
-  loadData();
+    localStorage.setItem('ejercicios', JSON.stringify(ejerciciosData));
+    localStorage.removeItem('ejerciciosData');
+  }
 
-  document.getElementById('guardarEntrenamiento').addEventListener('click', async function() {
+
+  document.getElementById('guardarEntrenamiento').addEventListener('click', async function () {
     const fechaActual = new Date().toISOString().split('T')[0];
     const nombreEntrenamiento = document.getElementById('nombreEntrenamiento').value;
     saveData();
 
-    const dataGuardar = JSON.parse(localStorage.getItem('ejerciciosData')) || [];
+    const dataGuardar = JSON.parse(localStorage.getItem('ejercicios')) || [];
     const data1 = {
       fecha: fechaActual,
       nombre: nombreEntrenamiento,
@@ -159,44 +202,44 @@ document.addEventListener("DOMContentLoaded", async () => {
       }))
     };
 
-    
-    
-    
-    if(dataGuardar.length > 0){
-        await entrenamientoService.postEntrenamiento(data1);
-        window.location.href = "../historial/historial.html";
-        localStorage.removeItem('ejerciciosData');
+
+
+
+    if (dataGuardar.length > 0) {
+      await entrenamientoService.postEntrenamiento(data1);
+      // window.location.href = "../historial/historial.html";
+      localStorage.removeItem('ejerciciosData');
     }
-    else{
-        showTemporaryMessage("No hay ejercicios para guardar");
+    else {
+      showTemporaryMessage("No hay ejercicios para guardar");
     }
 
     function showTemporaryMessage(message) {
-        // Crear un contenedor de mensaje si no existe
-        let messageContainer = document.getElementById("temp-message");
-        if (!messageContainer) {
-            messageContainer = document.createElement("div");
-            messageContainer.id = "temp-message";
-            messageContainer.style.position = "fixed";
-            messageContainer.style.bottom = "20px";
-            messageContainer.style.left = "50%";
-            messageContainer.style.transform = "translateX(-50%)";
-            messageContainer.style.padding = "10px 20px";
-            messageContainer.style.backgroundColor = "rgba(255, 0, 0, 0.8)";
-            messageContainer.style.color = "#fff";
-            messageContainer.style.borderRadius = "5px";
-            messageContainer.style.fontSize = "16px";
-            document.body.appendChild(messageContainer);
-        }
-    
-        // Mostrar el mensaje en el contenedor
-        messageContainer.textContent = message;
-        messageContainer.style.display = "block";
-    
-        // Ocultar el mensaje después de 3 segundos
-        setTimeout(() => {
-            messageContainer.style.display = "none";
-        }, 3000);
+      // Crear un contenedor de mensaje si no existe
+      let messageContainer = document.getElementById("temp-message");
+      if (!messageContainer) {
+        messageContainer = document.createElement("div");
+        messageContainer.id = "temp-message";
+        messageContainer.style.position = "fixed";
+        messageContainer.style.bottom = "20px";
+        messageContainer.style.left = "50%";
+        messageContainer.style.transform = "translateX(-50%)";
+        messageContainer.style.padding = "10px 20px";
+        messageContainer.style.backgroundColor = "rgba(255, 0, 0, 0.8)";
+        messageContainer.style.color = "#fff";
+        messageContainer.style.borderRadius = "5px";
+        messageContainer.style.fontSize = "16px";
+        document.body.appendChild(messageContainer);
+      }
+
+      // Mostrar el mensaje en el contenedor
+      messageContainer.textContent = message;
+      messageContainer.style.display = "block";
+
+      // Ocultar el mensaje después de 3 segundos
+      setTimeout(() => {
+        messageContainer.style.display = "none";
+      }, 3000);
     }
 
   });
@@ -207,7 +250,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const table = document.getElementById(`series-table-${ejercicioId}`);
       const rowCount = table.rows.length + 1;
       addSerieToDOM(ejercicioId, rowCount);
-      saveData();
+      saveDataInLocalStorage();
     }
 
     if (e.target.classList.contains('btn-delete')) {
@@ -216,7 +259,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const fila = document.getElementById(`fila-serie-${ejercicioId}-${serieId}`);
       if (fila) {
         fila.remove();
-        saveData();
+        saveDataInLocalStorage();
 
         const table = document.getElementById(`series-table-${ejercicioId}`);
         if (table.rows.length === 0) {
@@ -242,6 +285,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       ejercicioDiv.appendChild(descripcion);
       ejercicioDiv.addEventListener("click", () => {
         addEjercicioToDOM(e.id, e.nombre);
+        saveDataInLocalStorage();
         saveData();
         bootstrap.Modal.getOrCreateInstance(document.getElementById('staticBackdrop')).hide();
       });
@@ -253,50 +297,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   cargarModal();
 
   // Función para cargar entrenamiento guardado en localStorage al abrir la página de entrenamiento
-// Función para cargar entrenamiento guardado en localStorage al abrir la página de entrenamiento
-function cargarEntrenamientoGuardado() {
+  // Función para cargar entrenamiento guardado en localStorage al abrir la página de entrenamiento
+  function cargarEntrenamientoGuardado() {
     const entrenamientoGuardado = localStorage.getItem("entrenamientoARepetir");
-
+  
     if (entrenamientoGuardado) {
-        // Parsear los datos del entrenamiento
-        console.log("hola");
+      const sesion = JSON.parse(entrenamientoGuardado);
+      // Limpiar el item de localStorage después de cargarlo
+      localStorage.removeItem("entrenamientoARepetir");
+  
+      // Llenar la tabla con los ejercicios de la sesión, pero solo si no están ya en el DOM
+      sesion.ejerciciosEntrenamientos.forEach(ejercicio => {
+        const ejercicioId = ejercicio.idEjercicio;
         
-        const sesion = JSON.parse(entrenamientoGuardado);
-
-        // Limpiar los datos guardados en localStorage
-        localStorage.removeItem("entrenamientoARepetir");
-
-        // // Actualizar el título u otros datos de la sesión en la interfaz
-        // document.getElementById("tituloEntrenamiento").textContent = sesion.nombre || "Entrenamiento Sin Nombre";
-
-        // Llenar la tabla con los ejercicios de la sesión
-        sesion.ejerciciosEntrenamientos.forEach(ejercicio => {
-            // Extraer los datos del ejercicio
-            const ejercicioId = ejercicio.idEjercicio;
-            const ejercicioNombre = ejercicio.idEjercicioNavigation.nombre;
-            
-            // Formatear la serie del ejercicio según los parámetros esperados
-            const series = ejercicio.series.map(serie => ({
-                serieId: serie.orden,
-                kg: serie.kilo,
-                reps: serie.repeticion,
-                tSerie: '1', // Modificar si tienes un mapeo para idTipoSerie a un texto representativo
-                checked: false    // Suposición inicial; cambiar según lógica de aplicación si es necesario
-            }));
-            addEjercicioToDOM(ejercicioId, ejercicioNombre, series);
-
-            // series.forEach(serie => {
-            //     addSerieToDOM(ejercicioId, serie.serieId, serie.kg, serie.reps, serie.tSerie, serie.checked);
-            // });
-        });
-
-        saveData();       
-
+        // Verificar si el ejercicio ya existe en el DOM para evitar duplicados
+        if (!document.getElementById(`ejercicio-${ejercicioId}`)) {
+          const ejercicioNombre = ejercicio.idEjercicioNavigation.nombre;
+          const series = ejercicio.series.map(serie => ({
+            serieId: serie.orden,
+            kg: serie.kilo,
+            reps: serie.repeticion,
+            tSerie: '1', // Ajustar según sea necesario
+            checked: false
+          }));
+          
+          // Agregar el ejercicio al DOM
+          addEjercicioToDOM(ejercicioId, ejercicioNombre, series);
+        }
+      });
     }
-}
+  }
+  
 
 
-// Llamar a la función al cargar la página
+  // Llamar a la función al cargar la página
 
 
 
@@ -312,6 +346,5 @@ function cargarEntrenamientoGuardado() {
     window.location.href = "../login/login.html";
   }
 
-  logIn();
   document.getElementById("logout").addEventListener("click", logOut);
 });
