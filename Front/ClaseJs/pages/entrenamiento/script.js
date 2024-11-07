@@ -7,6 +7,7 @@ let tiposSerie = [];
 document.addEventListener("DOMContentLoaded", async () => {
 
   logIn();
+  window.addEventListener("beforeunload", saveDataInLocalStorage);
 
   async function getEjercicios() {
     return await ejercicioService.getAll();
@@ -21,7 +22,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   let ejercicioCounter = 0;
 
   // window.addEventListener("load", cargarEntrenamientoGuardado());
-  await cargarEntrenamientoGuardado();
+  if (localStorage.getItem("entrenamientoARepetir")) {
+    await cargarEntrenamientoGuardado();
+  }
+
+
   loadData();
   document.getElementById('sidebarMenu').addEventListener('hover', saveDataInLocalStorage)
 
@@ -64,7 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Añadir cada serie al ejercicio
     series.forEach(serie => addSerieToDOM(ejercicioId, serie.serieId, serie.kg, serie.reps, serie.tSerie, serie.checked));
     saveDataInLocalStorage();
-    saveData();
   }
 
   // Función para agregar una serie al DOM
@@ -102,16 +106,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById(`kg-${ejercicioId}-${serieId}`).addEventListener('change', saveDataInLocalStorage);
     document.getElementById(`reps-${ejercicioId}-${serieId}`).addEventListener('change', saveDataInLocalStorage);
     document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).addEventListener('change', saveDataInLocalStorage);
-    document.getElementById(`btn-check-outlined-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
-    document.getElementById(`kg-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
-    document.getElementById(`reps-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
-    document.getElementById(`tipoSerie-${ejercicioId}-${serieId}`).addEventListener('change', saveData);
     saveDataInLocalStorage();
   }
 
   function saveDataInLocalStorage() {
     const ejerciciosData = [];
     const ejercicios = document.getElementById('ejercicios').children;
+    const nombreEntrenamiento = document.getElementById('nombreEntrenamiento').value;
 
     Array.from(ejercicios).forEach(ejercicio => {
       const ejercicioId = ejercicio.id.split('-')[1];
@@ -128,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         series.push({ serieId, kg, reps, tSerie, checked });
       });
-      ejerciciosData.push({ ejercicioId, nombreEjercicio, nota, series });
+      ejerciciosData.push({ nombreEntrenamiento ,ejercicioId, nombreEjercicio, nota, series });
     });
 
     localStorage.setItem('ejerciciosData', JSON.stringify(ejerciciosData));
@@ -138,7 +139,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!localStorage.getItem("entrenamientoARepetir")) {
       const ejerciciosData = JSON.parse(localStorage.getItem('ejerciciosData'));
       if (!ejerciciosData) return;
-  
+      document.getElementById('nombreEntrenamiento').value = ejerciciosData[0].nombreEntrenamiento;
       ejerciciosData.forEach(ejercicioData => {
         addEjercicioToDOM(ejercicioData.ejercicioId, ejercicioData.nombreEjercicio, ejercicioData.series);
       });
@@ -207,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (dataGuardar.length > 0) {
       await entrenamientoService.postEntrenamiento(data1);
-      // window.location.href = "../historial/historial.html";
+      window.location.href = "../historial/historial.html";
       localStorage.removeItem('ejerciciosData');
     }
     else {
@@ -286,7 +287,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       ejercicioDiv.addEventListener("click", () => {
         addEjercicioToDOM(e.id, e.nombre);
         saveDataInLocalStorage();
-        saveData();
         bootstrap.Modal.getOrCreateInstance(document.getElementById('staticBackdrop')).hide();
       });
 
@@ -305,6 +305,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const sesion = JSON.parse(entrenamientoGuardado);
       // Limpiar el item de localStorage después de cargarlo
       localStorage.removeItem("entrenamientoARepetir");
+      
   
       // Llenar la tabla con los ejercicios de la sesión, pero solo si no están ya en el DOM
       sesion.ejerciciosEntrenamientos.forEach(ejercicio => {
@@ -320,12 +321,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             tSerie: '1', // Ajustar según sea necesario
             checked: false
           }));
+          document.getElementById('nombreEntrenamiento').value = sesion.nombre + ' ' + new Date().toISOString().split('T')[0];
           
           // Agregar el ejercicio al DOM
           addEjercicioToDOM(ejercicioId, ejercicioNombre, series);
         }
       });
     }
+    localStorage.removeItem("ejerciciosData");
   }
   
 
