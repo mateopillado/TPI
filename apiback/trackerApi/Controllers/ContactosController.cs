@@ -64,6 +64,8 @@ namespace trackerApi.Controllers
         {
             try
             {
+                contacto.IdPersona = GetUserId();
+
                 await _service.UpdateAsync(id, contacto);
                 return Ok();
             }

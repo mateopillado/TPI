@@ -25,6 +25,8 @@ namespace trackerApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
+
         public async  Task<IActionResult> GetById(int id)
         {
             try
@@ -42,6 +44,8 @@ namespace trackerApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+
         public async Task<IActionResult> Post([FromBody] Ejercicio ejercicio)
         {
             try
