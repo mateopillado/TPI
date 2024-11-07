@@ -26,7 +26,7 @@ public partial class Persona
 
     public int? Altura { get; set; }
 
-    public bool Buscando { get; set; }
+    public bool Buscando { get; set; } = true;
 
     public int IdRol { get; set; }
     [JsonIgnore]

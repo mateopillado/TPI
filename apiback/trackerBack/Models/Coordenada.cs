@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace trackerBack.Models;
 
@@ -14,6 +15,7 @@ public partial class Coordenada
     public DateTime Fecha { get; set; }
 
     public int? IdPersona { get; set; }
+    [JsonIgnore]
 
     public virtual Persona? IdPersonaNavigation { get; set; }
 }
