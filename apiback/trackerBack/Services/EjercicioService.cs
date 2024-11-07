@@ -14,6 +14,7 @@ namespace trackerBack.Services
     public interface IEjercicioService : IGenericService<Ejercicio>
     {
         Task<EjercicioDto> GetHistorialByEjercicio(int userId,int ejercicioId);
+        Task<List<EjercicioHistorialDto>> GetRecordByEjercicio(int userId, int ejercicioId);
 
     }
     public class EjercicioService : GenericService<Ejercicio>, IEjercicioService
@@ -27,6 +28,11 @@ namespace trackerBack.Services
         public async Task<EjercicioDto> GetHistorialByEjercicio(int userId, int ejercicioId)
         {
             return await _ejercicioRepository.GetHistorialByEjercicio(userId, ejercicioId);
+        }
+
+        public async Task<List<EjercicioHistorialDto>> GetRecordByEjercicio(int userId, int ejercicioId)
+        {
+            return await _ejercicioRepository.GetRecordByEjercicio(userId, ejercicioId);
         }
     }
 }

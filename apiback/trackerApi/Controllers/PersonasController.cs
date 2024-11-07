@@ -36,6 +36,7 @@ namespace trackerApi.Controllers
         {
             try
             {
+                
                 return Ok(await _service.Register(data));
             }
             catch (Exception e)

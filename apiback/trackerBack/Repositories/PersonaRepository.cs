@@ -140,7 +140,8 @@ namespace trackerBack.Repositories
                     Nombre = data.Nombre,
                     Contrasena = PasswordHelper.HashPassword(data.Contrasena),
                     IdGenero = data.IdGenero,
-                    IdRol = data.IdRol
+                    IdRol = data.IdRol,
+                    Buscando = true
 
                 };
                 _context.Add(newUser);

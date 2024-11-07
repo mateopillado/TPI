@@ -221,10 +221,14 @@ function setupTabNavigation() {
 }
 
 
+async function getRecors(id) {
+  return await ejercicioService.getByRecords(id)
+}
 
 
 
 
+let ejercicioActual = null
 
 
 // Función de historial
@@ -244,6 +248,7 @@ async function loadHistory(exerciseId) {
     // Llamada al endpoint para obtener el historial de entrenamientos
     const responseData = await ejercicioService.getById(exerciseId);
     console.log("Respuesta del backend:", responseData);
+    ejercicioActual = responseData.ejercicio.id
     // Validar si la estructura contiene el historial
     if (!responseData || !Array.isArray(responseData.historial) || responseData.historial.length === 0) {
       historyList.innerHTML = `<p class="text-warning">No se encontraron entrenamientos para este ejercicio.</p>`;
@@ -291,78 +296,87 @@ async function loadHistory(exerciseId) {
     historyList.innerHTML = `<p class="text-danger">Error al cargar el historial de entrenamientos.</p>`;
   }
 }
+let miGrafico; // Variable global para almacenar la instancia del gráfico
+
+async function displayRecords() {
+
+    const recordsContainer = document.getElementById("records-content");
+    
+    const ctx = document.getElementById('miGrafico').getContext('2d');
+
+    console.log(ejercicioActual);
+
+    const datos = await getRecors(ejercicioActual);
+
+    let cont = 0;
+    console.log(datos)
+
+    const puntos = datos.map((index) => {
+        cont++;
+        return { x: cont, y: index.kilos }; // 'x' es el número de serie y 'y' el peso
+    });
+
+    console.log(puntos);
 
 
 
+    // Verificar si el gráfico existe y destruirlo antes de crear uno nuevo
+    if (miGrafico instanceof Chart) {
+        miGrafico.destroy();
+    }
+
+    // Crear el gráfico con tipo 'line' para conectar los puntos
+    miGrafico = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                data: puntos,
+                backgroundColor: '#ffc107', // Color del punto
+                borderColor: '#ffc107', // Color de la línea y el borde del punto
+                pointRadius: 6, // Tamaño de los puntos
+                pointStyle: 'circle', // Estilo de los puntos (puedes cambiar a 'rect', 'triangle', etc.)
+                fill: false, // No rellenar el área bajo la línea
+                tension: 0.1 // Ajusta la curvatura de la línea (0 para línea recta, >0 para curvatura)
+            }]
+        },
+        options: {
+          showLine: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Número de Serie'
+                    },
+                    ticks: {
+                        stepSize: 1
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Peso (kg)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Peso: ${context.raw.y} kg`; // Tooltip para mostrar el peso
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
 
 
 
-
-
-
-
-// function displayRecords() {
-//   const recordsContainer = document.getElementById("records-content");
-
-  
-//   const recordsData = {
-//     estimated1RM: "9 kg",
-//     maxVolume: "163 kg",
-//     maxWeight: "6 kg",
-//     history: [
-//       { reps: 1, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "9 kg" },
-//       { reps: 2, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "9 kg" },
-//       { reps: 3, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
-//       { reps: 4, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
-//       { reps: 5, bestPerformance: "6 kg (x11)", date: "Jun 24, 2024", estimated: "8 kg" },
-      
-//     ],
-//     totalReps: 37,
-//     totalVolume: "423 kg"
-//   };
-
-  
-//   recordsContainer.innerHTML = `
-//     <div class="text-white">
-//       <h5 class="text-uppercase">Marcas Personales</h5>
-//       <div class="mb-3">
-//         <p>1RM Estimado: ${recordsData.estimated1RM}</p>
-//         <p>Volumen Max: ${recordsData.maxVolume}</p>
-//         <p>Peso Max: ${recordsData.maxWeight}</p>
-//       </div>
-      
-//       <div class="d-flex justify-content-between text-uppercase text-muted mb-2">
-//         <div>Mejor Rendimiento</div>
-//         <div>Estimado</div>
-//       </div>
-//       <hr class="bg-secondary">
-
-//       <!-- Contenedor con scroll para el historial de records -->
-//       <div class="records-history-container">
-//         ${recordsData.history
-//           .map(
-//             (record) => `
-//             <div class="d-flex justify-content-between">
-//               <div>
-//                 <span>${record.reps} reps - ${record.bestPerformance}</span><br>
-//                 <small>${record.date}</small>
-//               </div>
-//               <div><strong>${record.estimated}</strong></div>
-//             </div>
-//             <hr class="bg-secondary">
-//           `
-//           )
-//           .join("")}
-//       </div>
-      
-//       <h6 class="text-uppercase mt-4">Estadisticas</h6>
-//       <p>Total reps: ${recordsData.totalReps}</p>
-//       <p>Total volumen: ${recordsData.totalVolume}</p>
-//     </div>
-//   `;
-// }
-
-// document.querySelector('[data-tab="records"]').addEventListener("click", displayRecords);
+document.querySelector('[data-tab="records"]').addEventListener("click", displayRecords);
 
 
 function logIn(){

@@ -21,6 +21,7 @@ namespace trackerBack.Repositories
     public interface IEjercicioRepository : IGenericRepository<Ejercicio>
     {
         Task<EjercicioDto> GetHistorialByEjercicio(int userId,int ejercicioId);
+        Task<List<EjercicioHistorialDto>> GetRecordByEjercicio(int userId, int ejercicioId);
     }
     public class EjercicioRepository : GenericRepository<Ejercicio>, IEjercicioRepository
     {
@@ -32,8 +33,25 @@ namespace trackerBack.Repositories
             _configuration = configuration;
         }
 
-        
 
+        public async Task<List<EjercicioHistorialDto>> GetRecordByEjercicio(int userId, int ejercicioId)
+        {
+            var historial = await _context.Entrenamientos
+                .Where(e => e.IdPersona == userId)
+                .SelectMany(e => e.EjerciciosEntrenamientos
+                    .Where(ee => ee.IdEjercicio == ejercicioId) // Filtrar por ejercicioId
+                    .Select(ee => new EjercicioHistorialDto
+                    {
+                        CantidadSeries = ee.Series.Count(),
+                        Nombre = ee.IdEjercicioNavigation.Nombre,
+                        Kilos = ee.Series.OrderByDescending(s => s.Kilo).Select(s => s.Kilo).FirstOrDefault(),
+                        Repeticiones = ee.Series.OrderByDescending(s => s.Kilo).Select(s => s.Repeticion).FirstOrDefault()
+                    })
+                )
+                .ToListAsync();
+
+            return historial;
+        }
         public async Task<EjercicioDto> GetHistorialByEjercicio(int userId, int ejercicioId)
         {
             var historial = await _context.EjerciciosEntrenamientos

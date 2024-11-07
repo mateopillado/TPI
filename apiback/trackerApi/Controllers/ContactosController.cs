@@ -18,7 +18,6 @@ namespace trackerApi.Controllers
 
         [HttpGet]
         [Authorize]
-
         public async Task<IActionResult> Get()
         {
             return Ok(await _service.FindAsync(e => e.IdPersona == GetUserId()));
@@ -50,7 +49,7 @@ namespace trackerApi.Controllers
             {
                 contacto.IdPersona = GetUserId();
                 await _service.AddAsync(contacto);
-                return Ok();
+                return Ok(new { success = true });
             }
             catch (Exception e)
             {
@@ -64,8 +63,10 @@ namespace trackerApi.Controllers
         {
             try
             {
+                contacto.IdPersona = GetUserId();
+
                 await _service.UpdateAsync(id, contacto);
-                return Ok();
+                return Ok(new {success = true });
             }
             catch (Exception e)
             {

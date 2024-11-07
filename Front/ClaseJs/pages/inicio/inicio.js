@@ -1,5 +1,6 @@
 import usuarioService from "../../services/usuarioService.js";
 import ContactoService from "../../services/contactoService.js";
+import coorService from "../../services/coorService.js";
 
 let contacto = {};
 let contactoNull = true;
@@ -173,28 +174,16 @@ async function saveContactData() {
     console.log(newContacto)
 
     if (contactoNull) {
-        await postContacto(newContacto)
-        console.log('post');
-        contacto = await getContact();
-        console.log(contacto.email)
-        // window.location.href = '../inicio/inicio.html'
-        loadContactData()
-        
-        console.log('new', newContacto);
         
         await postContacto(newContacto)
         contacto = await getContact();
-        console.log('post');
         loadContactData();  
     }
     else{
         newContacto.id = contacto.id
         await putContacto(newContacto)
         contacto = await getContact();
-        console.log(contacto.email)
-
-        console.log('put');
-            //    window.location.href = '../inicio/inicio.html'
+       
         loadContactData()
     }
 
@@ -414,3 +403,45 @@ function logIn(){
 function logOut() {
     localStorage.removeItem("token");
 }
+function obtenerUbicacion() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(guardarPosicion, manejarError);
+    } else {
+        console.log("La geolocalización no es soportada por este navegador.");
+    }
+}
+
+async function guardarPosicion(posicion) {
+    const latitud = posicion.coords.latitude;
+    const longitud = posicion.coords.longitude;
+    console.log("Latitud: " + latitud);
+    console.log("Longitud: " + longitud);
+    let data = {
+        latitud: latitud,
+        longitud: longitud,
+        personaId:0,
+        fecha: new Date().toISOString()
+    }
+    await coorService.saveCoor(data)
+    
+}
+
+function manejarError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            console.log("El usuario denegó el permiso para la geolocalización.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            console.log("La información de ubicación no está disponible.");
+            break;
+        case error.TIMEOUT:
+            console.log("La solicitud para obtener la ubicación ha caducado.");
+            break;
+        case error.UNKNOWN_ERROR:
+            console.log("Ha ocurrido un error desconocido.");
+            break;
+    }
+}
+
+obtenerUbicacion();
+
