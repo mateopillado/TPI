@@ -76,6 +76,7 @@ async function repetirEntrenamiento(idSesion) {
     // Buscar la sesión seleccionada
     const sesionSeleccionada = await entrenamientoService.getById(idSesion);
 
+    localStorage.removeItem("entrenamientoARepetir");
     // Guardar el objeto de la sesión completa en el localStorage para usarlo en la página de entrenamiento
     localStorage.setItem("entrenamientoARepetir", JSON.stringify(sesionSeleccionada));
 

@@ -335,7 +335,7 @@ function initializeRadar(radarDatos, km) {
         radar.removeChild(radar.firstChild);
     }
 
-    const radarRadius = 180;
+    const radarRadius = 135; // Nuevo radio ajustado para el tamaño de 270x270
     const maxDistance = km;
 
     function getPositionByDistance(distance) {
@@ -348,15 +348,14 @@ function initializeRadar(radarDatos, km) {
 
     const container = document.getElementById('resultadosRadar');
     container.innerHTML = '';
-    
 
     radarDatos.forEach(point => {
         const pointElement = document.createElement("div");
         pointElement.classList.add("point");
         pointElement.setAttribute('data-label', point.nombreCompleto.substring(0, point.nombreCompleto.indexOf(' ')));
         const position = getPositionByDistance(point.distancia);
-        pointElement.style.left = 200 + position.x + "px";
-        pointElement.style.top = 200 + position.y + "px";
+        pointElement.style.left = 135 + position.x + "px"; // Centrado en el nuevo radar de 270x270
+        pointElement.style.top = 135 + position.y + "px"; // Centrado en el nuevo radar de 270x270
         radar.appendChild(pointElement);
     });
 

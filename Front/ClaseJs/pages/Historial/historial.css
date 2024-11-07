@@ -222,6 +222,11 @@ h1 {
     .modal-dialog {
         max-width: 90%; /* Ancho máximo del modal en pantallas pequeñas */
     }
+
+    .dashboard {
+        grid-column: 1 / span 1;
+        grid-template-columns:100%;
+    }
 }
 
 .btn-delete {
